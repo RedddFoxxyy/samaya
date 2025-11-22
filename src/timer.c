@@ -13,7 +13,9 @@
 
 Timer* init_timer(float duration_minutes,
                   void (*play_completion_sound)(void),
-                  void (*on_finished)(void))
+                  void (*on_finished)(void),
+                  void (*count_update_callback) (gpointer user_data),
+                  gpointer user_data)
 {
     Timer *timer = (Timer *) malloc(sizeof(Timer));
 
@@ -23,17 +25,17 @@ Timer* init_timer(float duration_minutes,
     timer->remainingTimeMS = timer->initialTimeMS;
 
     timer->timerProgress = 1.0f;
-    timer->isRunning = false;
+    timer->isRunning = FALSE;
     timer->formattedTime = g_string_new(NULL);
     format_time(timer->formattedTime, timer->initialTimeMS);
-    timer->completionAudioPlayed = false;
+    timer->completionAudioPlayed = FALSE;
 
+    timer->count_update_callback = count_update_callback;
     timer->play_completion_sound = play_completion_sound;
     timer->on_finished = on_finished;
     timer->timerThread = NULL;
-    timer->tickIntervalMS = 100;
-    timer->count_update_callback = NULL;
-    timer->user_data = NULL;
+    timer->tickIntervalMS = 200;
+    timer->user_data = user_data;
 
     return timer;
 }
@@ -125,7 +127,7 @@ void timer_start(Timer *timer)
     }
 
     timer->lastUpdatedTimeUS = g_get_monotonic_time();
-    timer->isRunning = true;
+    timer->isRunning = TRUE;
     timer->completionAudioPlayed = FALSE;
 
     unlock_timer(timer);

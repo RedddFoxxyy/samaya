@@ -38,7 +38,9 @@ typedef struct {
 
 Timer* init_timer(float duration_minutes,
                   void (*play_completion_sound)(void),
-                  void (*on_finished)(void));
+                  void (*on_finished)(void),
+                  void (*count_update_callback) (gpointer user_data),
+                  gpointer user_data);
 
 void timer_start(Timer *timer);
 void timer_pause(Timer *timer);

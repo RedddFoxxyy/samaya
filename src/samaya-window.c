@@ -125,9 +125,7 @@ samaya_window_init (SamayaWindow *self)
 {
     gtk_widget_init_template (GTK_WIDGET (self));
 
-    self->timer = init_timer(25.0f, NULL, NULL);
-    self->timer->count_update_callback = schedule_timer_label_update;
-    self->timer->user_data = self;
+    self->timer = init_timer(25.0f, NULL, NULL, schedule_timer_label_update, self);
 
     gtk_label_set_text(self->timer_label, self->timer->formattedTime->str);
 }
