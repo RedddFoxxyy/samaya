@@ -24,28 +24,18 @@ Timer* init_timer(float duration_minutes,
 
     timer->timerProgress = 1.0f;
     timer->isRunning = false;
+    timer->formattedTime = g_string_new(NULL);
     format_time(timer->formattedTime, timer->initialTimeMS);
     timer->completionAudioPlayed = false;
 
     timer->play_completion_sound = play_completion_sound;
     timer->on_finished = on_finished;
+    timer->timerThread = NULL;
+    timer->tickIntervalMS = 100;
+    timer->count_update_callback = NULL;
+    timer->user_data = NULL;
 
     return timer;
-}
-
-void lock_timer(Timer *timer)
-{
-    g_mutex_lock(&timer->timerMutex);
-}
-
-void unlock_timer(Timer *timer)
-{
-    g_mutex_unlock(&timer->timerMutex);
-}
-
-void decrement_remaining_time_ms(Timer *timer, gint64 elapsedTimeMS)
-{
-    timer->remainingTimeMS -= elapsedTimeMS;
 }
 
 gpointer running_timer_routine(gpointer timerInstance)
@@ -56,7 +46,7 @@ gpointer running_timer_routine(gpointer timerInstance)
     Timer *timer = (Timer*) timerInstance;
     if (!timer) return NULL;
 
-    // Initialize last update time (in us)
+    // Initialize last updated time (in us)
     lock_timer(timer);
     timer->lastUpdatedTimeUS = g_get_monotonic_time(); // get current system time
     timer->isRunning = TRUE;
@@ -104,7 +94,8 @@ gpointer running_timer_routine(gpointer timerInstance)
             break;
         }
 
-        format_time(timer->formattedTime, timer->initialTimeMS);
+        format_time(timer->formattedTime, timer->remainingTimeMS);
+        run_count_update_callback(timer, timer->user_data);
 
         unlock_timer(timer);
 
@@ -137,18 +128,23 @@ void timer_start(Timer *timer)
     timer->isRunning = true;
     timer->completionAudioPlayed = FALSE;
 
+    unlock_timer(timer);
+
     GThread *timerThread = g_thread_new("timer-thread", running_timer_routine, timer);
 
     if (!timerThread) {
+        lock_timer(timer);
         timer->isRunning = FALSE;
-        g_mutex_unlock(&timer->timerMutex);
+        unlock_timer(timer);
         g_warning("timer_start: failed to create thread");
         return;
     }
 
-    g_thread_unref(timerThread);
-
+    lock_timer(timer);
+    timer->timerThread = timerThread;
     unlock_timer(timer);
+
+    g_thread_unref(timerThread);
 }
 
 void timer_pause(Timer *timer)
@@ -169,16 +165,70 @@ void timer_reset(Timer *timer)
 {
     lock_timer(timer);
     timer->isRunning = FALSE;
+    // GThread *thread_to_join = timer->timerThread;
+    timer->timerThread = NULL;
+    unlock_timer(timer);
+
+    // if (thread_to_join) {
+    //     g_thread_join(thread_to_join);
+    // }
+
+    lock_timer(timer);
     timer->remainingTimeMS = timer->initialTimeMS;
     timer->lastUpdatedTimeUS = 0;
     timer->timerProgress = 1.0f;
     format_time(timer->formattedTime, timer->initialTimeMS);
     timer->completionAudioPlayed = FALSE;
 
-    g_thread_join(timer->timerThread);
+    run_count_update_callback(timer, timer->user_data);
 
+    unlock_timer(timer);
+}
+
+void deinit_timer(Timer *timer)
+{
+    lock_timer(timer);
+    timer->isRunning = FALSE;
+    GThread *thread_to_join = timer->timerThread;
     timer->timerThread = NULL;
     unlock_timer(timer);
+
+    // if (thread_to_join) {
+    //     g_thread_join(thread_to_join);
+    // }
+
+    g_string_free(timer->formattedTime, TRUE);
+    g_mutex_clear(&timer->timerMutex);
+
+    // if (thread_to_join) {
+    //     g_thread_join(thread_to_join);
+    // }
+
+    free(timer);
+}
+
+
+void lock_timer(Timer *timer)
+{
+    g_mutex_lock(&timer->timerMutex);
+}
+
+void unlock_timer(Timer *timer)
+{
+    g_mutex_unlock(&timer->timerMutex);
+}
+
+void decrement_remaining_time_ms(Timer *timer, gint64 elapsedTimeMS)
+{
+    timer->remainingTimeMS -= elapsedTimeMS;
+}
+
+gboolean get_is_timer_running(Timer *timer)
+{
+    lock_timer(timer);
+    gboolean is_running = timer->isRunning;
+    unlock_timer(timer);
+    return is_running;
 }
 
 gfloat get_timer_progress(Timer *timer)
@@ -190,29 +240,29 @@ gfloat get_timer_progress(Timer *timer)
     return timerProgress;
 }
 
+gchar* get_time_str(Timer *timer)
+{
+    lock_timer(timer);
+    gchar *time_str = timer->formattedTime->str;
+    unlock_timer(timer);
+    return time_str;
+}
+
+void run_count_update_callback(Timer *timer, gpointer user_data)
+{
+    if (timer->count_update_callback) {
+        timer->count_update_callback(timer->user_data);
+    }
+}
+
 void format_time (GString *inputString, gint64 timeMS)
 {
     gint64 total_seconds = timeMS / 1000;
     gint64 minutes       = total_seconds / 60;
     gint64 seconds       = total_seconds % 60;
 
-    // Overwrite the contents of the GString with the formatted value
     g_string_printf (inputString, "%02" G_GINT64_FORMAT ":%02" G_GINT64_FORMAT,
                      minutes, seconds);
 }
 
-// void update_time_string(gpointer timer, GString *timeString)
-// {
-//
-// }
 
-void deinit_timer(Timer *timer)
-{
-    lock_timer(timer);
-    timer->isRunning = FALSE;
-    timer->timerThread = NULL;
-    unlock_timer(timer);
-
-    free(timer);
-    timer = NULL;
-}

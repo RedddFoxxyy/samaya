@@ -22,8 +22,11 @@ typedef struct {
     GThread *timerThread;
     guint tickIntervalMS;
 
-    // gpointer should be typecasted to Timer.
-    void (*update_time_string) (gpointer timer, GString *timeString);
+    // Pointer to the
+    gpointer user_data;
+
+    // CallBack API to react when timer is updated.
+    void (*count_update_callback) (gpointer user_data);
 
     // Callback to function that plays completion sound.
     void (*play_completion_sound)(void);
@@ -44,16 +47,15 @@ void timer_reset(Timer *timer);
 
 void deinit_timer(Timer *timer);
 
-void set_initialTimeMS(gint64 initialTimeMS);
-void decrement_remaining_time_ms(Timer *timer, gint64 elapsedTimeMS);
-void set_remainingTimeMS(gint64 remainingTimeMS);
-void set_lastUpdateTimeUS(gint64 lastUpdateTimeUS);
-gfloat get_timerProgress(Timer *timer);
-void set_timerProgress(gfloat timerProgress);
-void set_completionAudioPlayed(bool completionAudioPlayed);
-
 void lock_timer(Timer *timer);
 void unlock_timer(Timer *timer);
+
+void decrement_remaining_time_ms(Timer *timer, gint64 elapsedTimeMS);
+gboolean get_is_timer_running(Timer *timer);
+gfloat get_timerProgress(Timer *timer);
+gchar* get_time_str(Timer *timer);
+
+void run_count_update_callback(Timer *timer, gpointer user_data);
 
 void format_time (GString *inputString, gint64 timeMS);
 
