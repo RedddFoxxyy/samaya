@@ -31,12 +31,12 @@
  * ============================================================================ */
 
 Timer *init_timer(float duration_minutes,
-                  void (*play_completion_sound)(void),
+                  void (*play_completion_sound)(gpointer user_data),
                   void (*on_finished)(void),
                   void (*count_update_callback)(gpointer user_data),
                   gpointer user_data)
 {
-	Timer *timer = (Timer *) malloc(sizeof(Timer));
+	Timer *timer = g_new0(Timer, 1);
 
 	g_mutex_init(&timer->timerMutex);
 
@@ -97,7 +97,7 @@ static gpointer running_timer_routine(gpointer timerInstance)
 			timer->timerProgress = 0.0f;
 
 		// Scheduled a callback to play the timer completion audio.
-		if (timer->remainingTimeMS <= 1800 && !timer->completionAudioPlayed) {
+		if (timer->remainingTimeMS <= 400 && !timer->completionAudioPlayed) {
 			timer->completionAudioPlayed = TRUE;
 			call_play_sound = TRUE;
 		}
@@ -120,13 +120,14 @@ static gpointer running_timer_routine(gpointer timerInstance)
 
 		if (call_play_sound) {
 			call_play_sound = FALSE;
-			if (timer->play_completion_sound) timer->play_completion_sound();
+			if (timer->play_completion_sound) timer->play_completion_sound(timer->gSoundCTX);
 		}
 
 		g_usleep((gulong) timer->tickIntervalMS * 1000UL);
 	}
 
 	if (call_on_finished) {
+		run_count_update_callback(timer, timer->user_data);
 		if (timer->on_finished) timer->on_finished();
 		call_on_finished = FALSE;
 	}
@@ -294,6 +295,11 @@ void set_timer_thread(Timer *timer, GThread *timerThread)
 	lock_timer(timer);
 	timer->timerThread = timerThread;
 	unlock_timer(timer);
+}
+
+void set_count_update_callback(Timer *timer, void (*count_update_callback)(gpointer user_data))
+{
+	timer->count_update_callback = count_update_callback;
 }
 
 void set_count_update_callback_with_data(Timer *timer, void (*count_update_callback)(gpointer user_data), gpointer user_data)

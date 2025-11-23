@@ -22,6 +22,8 @@
 
 #include <stdbool.h>
 #include <glib.h>
+#include <gsound-context.h>
+// #include "session.h"
 
 typedef struct
 {
@@ -40,21 +42,22 @@ typedef struct
 	GThread *timerThread;
 	guint tickIntervalMS;
 
-	// Pointer to the
+	// SessionManager sessionManager;
+	GSoundContext *gSoundCTX;
 	gpointer user_data;
 
 	// CallBack API to react when timer is updated.
 	void (*count_update_callback)(gpointer user_data);
 
 	// Callback to function that plays completion sound.
-	void (*play_completion_sound)(void);
+	void (*play_completion_sound)(gpointer gSoundCTX);
 
 	// Callback to function that will be executed on completion of the set timer.
 	void (*on_finished)(void);
 } Timer;
 
 Timer *init_timer(float duration_minutes,
-                  void (*play_completion_sound)(void),
+                  void (*play_completion_sound)(gpointer user_data),
                   void (*on_finished)(void),
                   void (*count_update_callback)(gpointer user_data),
                   gpointer user_data);
@@ -86,5 +89,7 @@ gfloat get_timer_progress(Timer *timer);
 gchar *get_time_str(Timer *timer);
 
 void set_timer_thread(Timer *timer, GThread *timerThread);
+
+void set_count_update_callback(Timer *timer, void (*count_update_callback)(gpointer user_data));
 
 void set_count_update_callback_with_data(Timer *timer, void (*count_update_callback)(gpointer user_data), gpointer user_data);

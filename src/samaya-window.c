@@ -67,7 +67,9 @@ get_timer(SamayaWindow *self)
 static gboolean
 update_timer_label(gpointer user_data)
 {
-	SamayaWindow *self = SAMAYA_WINDOW(user_data);
+	SamayaApplication *app = SAMAYA_APPLICATION(user_data);
+	GtkWindow *window = gtk_application_get_active_window(GTK_APPLICATION(app));
+	SamayaWindow *self = SAMAYA_WINDOW(window);
 
 	Timer *timer = get_timer(self);
 
@@ -169,7 +171,7 @@ samaya_window_realize(GtkWidget *widget)
 	GTK_WIDGET_CLASS(samaya_window_parent_class)->realize(widget);
 
 	Timer *timer = get_timer(self);
-	set_count_update_callback_with_data(timer, schedule_timer_label_update, self);
+	set_count_update_callback(timer, schedule_timer_label_update);
 	gtk_label_set_text(self->timer_label, timer->formattedTime->str);
 }
 

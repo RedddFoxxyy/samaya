@@ -22,21 +22,39 @@
 
 #include "timer.h"
 #include <glib.h>
+#include <gsound.h>
 
 typedef enum
 {
 	Working,
 	ShortBreak,
 	LongBreak,
-} workRoutine;
+} WorkRoutine;
 
 typedef struct
 {
-	Timer *timerInstance;
-	workRoutine currentRoutine;
-	workRoutine sessionList[3];
+	gfloat workDuration;
+	gfloat shortBreakDuration;
+	gfloat longBreakDuration;
 
-	guint sessionLength;
-	guint sessionsCompleted;
-} sessionManager;
+	WorkRoutine currentRoutine;
+	WorkRoutine routinesList[3];
+
+	guint16 sessionsToComplete;
+	guint16 sessionsCompleted;
+	guint64 totalSessionsCounted;
+
+	Timer *timerInstance;
+	GSoundContext *gsoundCTX;
+
+	gpointer userData;
+
+	void (*count_update_callback)(gpointer user_data);
+
+	void (*on_routine_completion)(gpointer sessionManager);
+} SessionManager;
+
+SessionManager *init_session_manager(guint16 sessionsToComplete, void (*count_update_callback)(gpointer user_data), gpointer user_data);
+
+void deinit_session_manager(SessionManager *sessionManager);
 

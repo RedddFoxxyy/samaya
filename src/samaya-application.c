@@ -24,13 +24,14 @@
 #include "samaya-application.h"
 #include "samaya-window.h"
 #include "timer.h"
+#include "session.h"
 
 struct _SamayaApplication
 {
 	AdwApplication parent_instance;
 
-	// Timer Instance:
-	Timer *samayaApplicationTimer;
+	// PomoDoro Session Manager Instance:
+	SessionManager *samayaSessionManager;
 };
 
 G_DEFINE_FINAL_TYPE(SamayaApplication, samaya_application, ADW_TYPE_APPLICATION)
@@ -74,9 +75,9 @@ samaya_application_dispose(GObject *object)
 {
 	SamayaApplication *self = SAMAYA_APPLICATION(object);
 
-	if (self->samayaApplicationTimer) {
-		deinit_timer(self->samayaApplicationTimer);
-		self->samayaApplicationTimer = NULL;
+	if (self->samayaSessionManager) {
+		deinit_session_manager(self->samayaSessionManager);
+		self->samayaSessionManager = NULL;
 	}
 
 	G_OBJECT_CLASS(samaya_application_parent_class)->dispose(object);
@@ -144,7 +145,7 @@ samaya_application_init(SamayaApplication *self)
 	                                      "app.quit",
 	                                      (const char *[]){"<control>q", NULL});
 
-	self->samayaApplicationTimer = init_timer(25.0f, NULL, NULL, NULL, NULL);
+	self->samayaSessionManager = init_session_manager(4, NULL, self);
 }
 
 /* ============================================================================
@@ -153,5 +154,6 @@ samaya_application_init(SamayaApplication *self)
 
 Timer *samaya_application_get_timer(SamayaApplication *self)
 {
-	return self->samayaApplicationTimer;
+	// return self->samayaApplicationTimer;
+	return self->samayaSessionManager->timerInstance;
 }
