@@ -2,7 +2,8 @@ samaya_sources = [
   'main.c',
   'samaya-application.c',
   'samaya-window.c',
-  'timer.c'
+  'timer.c',
+  'session.c'
 ]
 
 samaya_deps = [

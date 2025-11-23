@@ -1,5 +1,5 @@
-/* main.c
- *
+/* session.c
+*
  * Copyright 2025 Suyog Tandel
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,22 +18,4 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-#include "config.h"
-
-#include <glib/gi18n.h>
-
-#include "samaya-application.h"
-
-int main(int argc, char *argv[])
-{
-	g_autoptr(SamayaApplication) app = NULL;
-
-	bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
-	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-	textdomain(GETTEXT_PACKAGE);
-
-	app = samaya_application_new("io.github.redddfoxxyy.samaya", G_APPLICATION_DEFAULT_FLAGS);
-	int ret = g_application_run(G_APPLICATION(app), argc, argv);
-
-	return ret;
-}
+#include "timer.h"

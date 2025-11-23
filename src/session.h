@@ -1,4 +1,4 @@
-/* main.c
+/* session.h
  *
  * Copyright 2025 Suyog Tandel
  *
@@ -18,22 +18,25 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-#include "config.h"
+#pragma once
 
-#include <glib/gi18n.h>
+#include "timer.h"
+#include <glib.h>
 
-#include "samaya-application.h"
-
-int main(int argc, char *argv[])
+typedef enum
 {
-	g_autoptr(SamayaApplication) app = NULL;
+	Working,
+	ShortBreak,
+	LongBreak,
+} workRoutine;
 
-	bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
-	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-	textdomain(GETTEXT_PACKAGE);
+typedef struct
+{
+	Timer *timerInstance;
+	workRoutine currentRoutine;
+	workRoutine sessionList[3];
 
-	app = samaya_application_new("io.github.redddfoxxyy.samaya", G_APPLICATION_DEFAULT_FLAGS);
-	int ret = g_application_run(G_APPLICATION(app), argc, argv);
+	guint sessionLength;
+	guint sessionsCompleted;
+} sessionManager;
 
-	return ret;
-}
