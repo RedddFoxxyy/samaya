@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <stdbool.h>
 #include <unistd.h>      
 #include <pthread.h>
 #include <sys/time.h>
@@ -59,8 +58,6 @@ gpointer running_timer_routine(gpointer timerInstance)
     unlock_timer(timer);
 
     while (TRUE) {
-        g_usleep((gulong)timer->tickIntervalMS * 1000UL);
-
         lock_timer(timer);
 
         if (!timer->isRunning) {
@@ -109,6 +106,8 @@ gpointer running_timer_routine(gpointer timerInstance)
             call_play_sound = FALSE;
             if (timer->play_completion_sound) timer->play_completion_sound();
         }
+
+        g_usleep((gulong)timer->tickIntervalMS * 1000UL);
     }
 
     if (call_on_finished) {
@@ -146,11 +145,7 @@ void timer_start(Timer *timer)
         return;
     }
 
-    lock_timer(timer);
-    timer->timerThread = timerThread;
-    unlock_timer(timer);
-
-    g_thread_unref(timerThread);
+    set_timer_thread(timer, timerThread);
 }
 
 void timer_pause(Timer *timer)
@@ -170,20 +165,23 @@ void timer_resume(Timer *timer)
 void timer_reset(Timer *timer)
 {
     lock_timer(timer);
-    timer->isRunning = FALSE;
-    timer->timerThread = NULL;
-    unlock_timer(timer);
 
-    lock_timer(timer);
+    timer->isRunning = FALSE;
+    GThread *thread_to_join = timer->timerThread;
+    timer->timerThread = NULL;
     timer->remainingTimeMS = timer->initialTimeMS;
     timer->lastUpdatedTimeUS = 0;
     timer->timerProgress = 1.0f;
-    format_time(timer->formattedTime, timer->initialTimeMS);
     timer->completionAudioPlayed = FALSE;
 
+    format_time(timer->formattedTime, timer->initialTimeMS);
     run_count_update_callback(timer, timer->user_data);
 
     unlock_timer(timer);
+
+    if (thread_to_join) {
+        g_thread_join(thread_to_join);
+    }
 }
 
 void deinit_timer(Timer *timer)
@@ -192,26 +190,22 @@ void deinit_timer(Timer *timer)
     timer->isRunning = FALSE;
     timer->count_update_callback = NULL;
     timer->user_data = NULL;
-    // GThread *thread_to_join = timer->timerThread;
+    GThread *thread_to_join = timer->timerThread;
     timer->timerThread = NULL;
     unlock_timer(timer);
 
-    // if (thread_to_join) {
-    //     g_thread_join(thread_to_join);
-    // }
+    if (thread_to_join) {
+        g_thread_join(thread_to_join);
+    }
 
     g_string_free(timer->formattedTime, TRUE);
     g_mutex_clear(&timer->timerMutex);
-
-    // if (thread_to_join) {
-    //     g_thread_join(thread_to_join);
-    // }
 
     free(timer);
 }
 
 /* ============================================================================
- * Timer Helper Methods
+ * Timer Helpers
  * ============================================================================ */
 
 void lock_timer(Timer *timer)
@@ -224,16 +218,31 @@ void unlock_timer(Timer *timer)
     g_mutex_unlock(&timer->timerMutex);
 }
 
-void set_count_update_callback_with_data(Timer *timer, void (*count_update_callback)(gpointer user_data),gpointer user_data)
-{
-    timer->count_update_callback = count_update_callback;
-    timer->user_data = user_data;
-}
-
 void decrement_remaining_time_ms(Timer *timer, gint64 elapsedTimeMS)
 {
     timer->remainingTimeMS -= elapsedTimeMS;
 }
+
+void run_count_update_callback(Timer *timer, gpointer user_data)
+{
+    if (timer->count_update_callback) {
+        timer->count_update_callback(timer->user_data);
+    }
+}
+
+void format_time (GString *inputString, gint64 timeMS)
+{
+    gint64 total_seconds = timeMS / 1000;
+    gint64 minutes       = total_seconds / 60;
+    gint64 seconds       = total_seconds % 60;
+
+    g_string_printf (inputString, "%02" G_GINT64_FORMAT ":%02" G_GINT64_FORMAT,
+                     minutes, seconds);
+}
+
+/* ============================================================================
+ * Timer getters
+ * ============================================================================ */
 
 gboolean get_is_timer_running(Timer *timer)
 {
@@ -260,21 +269,23 @@ gchar* get_time_str(Timer *timer)
     return time_str;
 }
 
-void run_count_update_callback(Timer *timer, gpointer user_data)
+/* ============================================================================
+ * Timer setters
+ * ============================================================================ */
+
+void set_timer_thread(Timer *timer, GThread *timerThread)
 {
-    if (timer->count_update_callback) {
-        timer->count_update_callback(timer->user_data);
-    }
+    lock_timer(timer);
+    timer->timerThread = timerThread;
+    unlock_timer(timer);
 }
 
-void format_time (GString *inputString, gint64 timeMS)
+void set_count_update_callback_with_data(Timer *timer, void (*count_update_callback)(gpointer user_data),gpointer user_data)
 {
-    gint64 total_seconds = timeMS / 1000;
-    gint64 minutes       = total_seconds / 60;
-    gint64 seconds       = total_seconds % 60;
-
-    g_string_printf (inputString, "%02" G_GINT64_FORMAT ":%02" G_GINT64_FORMAT,
-                     minutes, seconds);
+    timer->count_update_callback = count_update_callback;
+    timer->user_data = user_data;
 }
+
+
 
 

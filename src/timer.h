@@ -48,14 +48,13 @@ void deinit_timer(Timer *timer);
 
 void lock_timer(Timer *timer);
 void unlock_timer(Timer *timer);
-
-void set_count_update_callback_with_data(Timer *timer, void (*count_update_callback)(gpointer user_data),gpointer user_data);
-
 void decrement_remaining_time_ms(Timer *timer, gint64 elapsedTimeMS);
+void run_count_update_callback(Timer *timer, gpointer user_data);
+void format_time (GString *inputString, gint64 timeMS);
+
 gboolean get_is_timer_running(Timer *timer);
 gfloat get_timer_progress(Timer *timer);
 gchar* get_time_str(Timer *timer);
 
-void run_count_update_callback(Timer *timer, gpointer user_data);
-
-void format_time (GString *inputString, gint64 timeMS);
+void set_timer_thread(Timer *timer, GThread *timerThread);
+void set_count_update_callback_with_data(Timer *timer, void (*count_update_callback)(gpointer user_data),gpointer user_data);

@@ -37,6 +37,16 @@ struct _SamayaWindow
 
 G_DEFINE_FINAL_TYPE (SamayaWindow, samaya_window, ADW_TYPE_APPLICATION_WINDOW)
 
+/* ============================================================================
+ * Function Definitions
+ * ============================================================================ */
+
+static void
+draw_progress_circle(GtkDrawingArea *area,
+                    cairo_t *cr,
+                    int width,
+                    int height,
+                    gpointer user_data);
 
 /* ============================================================================
  * Timer Helpers
@@ -184,9 +194,6 @@ static void
 samaya_window_init (SamayaWindow *self)
 {
     gtk_widget_init_template (GTK_WIDGET (self));
-
-    gtk_window_set_default_size (GTK_WINDOW (self), 340, 480);
-    gtk_widget_set_size_request (GTK_WIDGET (self), 340, 480);
 
     gtk_drawing_area_set_draw_func(self->progress_circle, draw_progress_circle, self, NULL);
 }
