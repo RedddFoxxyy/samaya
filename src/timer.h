@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef TIMER_H
-#define TIMER_H
-
 #include <stdbool.h>
 #include <glib.h>
 
@@ -39,7 +36,7 @@ typedef struct {
 Timer* init_timer(float duration_minutes,
                   void (*play_completion_sound)(void),
                   void (*on_finished)(void),
-                  void (*count_update_callback) (gpointer user_data),
+                  void (*count_update_callback)(gpointer user_data),
                   gpointer user_data);
 
 void timer_start(Timer *timer);
@@ -52,13 +49,13 @@ void deinit_timer(Timer *timer);
 void lock_timer(Timer *timer);
 void unlock_timer(Timer *timer);
 
+void set_count_update_callback_with_data(Timer *timer, void (*count_update_callback)(gpointer user_data),gpointer user_data);
+
 void decrement_remaining_time_ms(Timer *timer, gint64 elapsedTimeMS);
 gboolean get_is_timer_running(Timer *timer);
-gfloat get_timerProgress(Timer *timer);
+gfloat get_timer_progress(Timer *timer);
 gchar* get_time_str(Timer *timer);
 
 void run_count_update_callback(Timer *timer, gpointer user_data);
 
 void format_time (GString *inputString, gint64 timeMS);
-
-#endif

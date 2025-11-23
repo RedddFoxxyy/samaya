@@ -30,15 +30,27 @@
 
                         <!-- Timer Label -->
                         <child>
-                            <object class="GtkLabel" id="timer_label">
-                                <property name="label">25:00</property>
-                                <style>
-                                    <class name="title-1"/>
-                                    <class name="numeric"/>
-                                </style>
-                                <attributes>
-                                    <attribute name="scale" value="4.0"></attribute>
-                                </attributes>
+                            <object class="GtkOverlay">
+                                <child>
+                                    <object class="GtkDrawingArea" id="progress_circle">
+                                        <property name="width-request">280</property>
+                                        <property name="height-request">280</property>
+                                    </object>
+                                </child>
+                                <child type="overlay">
+                                    <object class="GtkLabel" id="timer_label">
+                                        <property name="label">25:00</property>
+                                        <property name="halign">center</property>
+                                        <property name="valign">center</property>
+                                        <style>
+                                            <class name="title-1"/>
+                                            <class name="numeric"/>
+                                        </style>
+                                        <attributes>
+                                            <attribute name="scale" value="3.0"></attribute>
+                                        </attributes>
+                                    </object>
+                                </child>
                             </object>
                         </child>
 

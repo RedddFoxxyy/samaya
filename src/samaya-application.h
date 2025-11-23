@@ -21,6 +21,7 @@
 #pragma once
 
 #include <adwaita.h>
+#include "timer.h"
 
 G_BEGIN_DECLS
 
@@ -30,5 +31,7 @@ G_DECLARE_FINAL_TYPE (SamayaApplication, samaya_application, SAMAYA, APPLICATION
 
 SamayaApplication *samaya_application_new (const char        *application_id,
                                            GApplicationFlags  flags);
+
+Timer* samaya_application_get_timer(SamayaApplication *self);
 
 G_END_DECLS

@@ -23,13 +23,21 @@
 
 #include "samaya-application.h"
 #include "samaya-window.h"
+#include "timer.h"
 
 struct _SamayaApplication
 {
 	AdwApplication parent_instance;
+
+    // Timer Instance:
+    Timer *samayaApplicationTimer;
 };
 
 G_DEFINE_FINAL_TYPE (SamayaApplication, samaya_application, ADW_TYPE_APPLICATION)
+
+/* ============================================================================
+ * Samaya Application GObject Methods
+ * ============================================================================ */
 
 SamayaApplication *
 samaya_application_new (const char        *application_id,
@@ -62,11 +70,26 @@ samaya_application_activate (GApplication *app)
 }
 
 static void
+samaya_application_dispose(GObject *object)
+{
+    SamayaApplication *self = SAMAYA_APPLICATION(object);
+
+    if (self->samayaApplicationTimer) {
+        deinit_timer(self->samayaApplicationTimer);
+        self->samayaApplicationTimer = NULL;
+    }
+
+    G_OBJECT_CLASS(samaya_application_parent_class)->dispose(object);
+}
+
+static void
 samaya_application_class_init (SamayaApplicationClass *klass)
 {
 	GApplicationClass *app_class = G_APPLICATION_CLASS (klass);
+    GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
 	app_class->activate = samaya_application_activate;
+    object_class->dispose = samaya_application_dispose;
 }
 
 static void
@@ -120,4 +143,15 @@ samaya_application_init (SamayaApplication *self)
 	gtk_application_set_accels_for_action (GTK_APPLICATION (self),
 	                                       "app.quit",
 	                                       (const char *[]) { "<control>q", NULL });
+
+    self->samayaApplicationTimer = init_timer(25.0f, NULL, NULL, NULL, NULL);
+}
+
+/* ============================================================================
+ * Timer Helpers for Samaya Application
+ * ============================================================================ */
+
+Timer* samaya_application_get_timer(SamayaApplication *self)
+{
+    return self->samayaApplicationTimer;
 }

@@ -11,6 +11,10 @@
 #include <sys/time.h>
 #include "timer.h"
 
+/* ============================================================================
+ * Timer Methods
+ * ============================================================================ */
+
 Timer* init_timer(float duration_minutes,
                   void (*play_completion_sound)(void),
                   void (*on_finished)(void),
@@ -167,13 +171,8 @@ void timer_reset(Timer *timer)
 {
     lock_timer(timer);
     timer->isRunning = FALSE;
-    // GThread *thread_to_join = timer->timerThread;
     timer->timerThread = NULL;
     unlock_timer(timer);
-
-    // if (thread_to_join) {
-    //     g_thread_join(thread_to_join);
-    // }
 
     lock_timer(timer);
     timer->remainingTimeMS = timer->initialTimeMS;
@@ -191,7 +190,9 @@ void deinit_timer(Timer *timer)
 {
     lock_timer(timer);
     timer->isRunning = FALSE;
-    GThread *thread_to_join = timer->timerThread;
+    timer->count_update_callback = NULL;
+    timer->user_data = NULL;
+    // GThread *thread_to_join = timer->timerThread;
     timer->timerThread = NULL;
     unlock_timer(timer);
 
@@ -209,6 +210,9 @@ void deinit_timer(Timer *timer)
     free(timer);
 }
 
+/* ============================================================================
+ * Timer Helper Methods
+ * ============================================================================ */
 
 void lock_timer(Timer *timer)
 {
@@ -218,6 +222,12 @@ void lock_timer(Timer *timer)
 void unlock_timer(Timer *timer)
 {
     g_mutex_unlock(&timer->timerMutex);
+}
+
+void set_count_update_callback_with_data(Timer *timer, void (*count_update_callback)(gpointer user_data),gpointer user_data)
+{
+    timer->count_update_callback = count_update_callback;
+    timer->user_data = user_data;
 }
 
 void decrement_remaining_time_ms(Timer *timer, gint64 elapsedTimeMS)
