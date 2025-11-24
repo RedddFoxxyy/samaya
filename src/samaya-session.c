@@ -70,7 +70,7 @@ SessionManager *init_session_manager(guint16 sessions_to_complete,
 
 	*sessionManager = (SessionManager)
 	{
-		.work_duration = 0.1f,
+		.work_duration = 25.0f,
 		.short_break_duration = 5.0f,
 		.long_break_duration = 20.0f,
 		.current_routine = Working,
@@ -145,6 +145,8 @@ static void on_session_completion(void)
 			break;
 	}
 	set_routine(session_manager->current_routine, session_manager);
+
+	session_manager->timer_instance_tick_callback(session_manager->user_data);
 }
 
 static void play_completion_sound(GSoundContext *gSoundCTX)
@@ -181,10 +183,13 @@ void set_routine(WorkRoutine routine, SessionManager *session_manager)
 	switch (routine) {
 		case Working:
 			duration = session_manager->work_duration;
+			break;
 		case ShortBreak:
 			duration = session_manager->short_break_duration;
+			break;
 		case LongBreak:
 			duration = session_manager->long_break_duration;
+			break;
 	}
 
 	set_timer_initial_time_minutes(timer, duration);

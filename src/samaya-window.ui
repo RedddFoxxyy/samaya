@@ -4,9 +4,9 @@
     <requires lib="Adw" version="1.0"/>
     <template class="SamayaWindow" parent="AdwApplicationWindow">
         <property name="title" translatable="yes">Samaya</property>
-        <property name="default-width">340</property>
+        <property name="default-width">350</property>
         <property name="default-height">480</property>
-        <property name="width-request">340</property>
+        <property name="width-request">350</property>
         <property name="height-request">480</property>
         <property name="content">
             <object class="AdwToolbarView">
@@ -22,48 +22,80 @@
                         </child>
                     </object>
                 </child>
+
                 <property name="content">
-                    <!-- Main Content Box -->
                     <object class="GtkBox">
                         <property name="orientation">vertical</property>
-                        <property name="spacing">24</property>
-                        <property name="valign">center</property>
-                        <property name="halign">center</property>
-
-                        <!-- Timer Label -->
                         <child>
-                            <object class="GtkOverlay">
+                            <object class="GtkBox" id="routine_switch_box">
+                                <property name="halign">center</property>
+                                <property name="margin-top">8</property>
+                                <!--                                <property name="margin-bottom">12</property>-->
                                 <child>
-                                    <object class="GtkDrawingArea" id="progress_circle">
-                                        <property name="width-request">280</property>
-                                        <property name="height-request">280</property>
-                                    </object>
-                                </child>
-                                <child type="overlay">
-                                    <object class="GtkLabel" id="timer_label">
-                                        <property name="label">25:00</property>
-                                        <property name="halign">center</property>
-                                        <property name="valign">center</property>
+                                    <object class="AdwToggleGroup" id="routine_toggle_group">
+                                        <property name="active-name">pomodoro</property>
                                         <style>
-                                            <class name="title-1"/>
-                                            <class name="numeric"/>
+                                            <class name="round"/>
                                         </style>
-                                        <attributes>
-                                            <attribute name="scale" value="2.5"></attribute>
-                                        </attributes>
+                                        <child>
+                                            <object class="AdwToggle">
+                                                <property name="label" translatable="yes">Pomodoro</property>
+                                                <property name="name">pomodoro</property>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="AdwToggle">
+                                                <property name="label" translatable="yes">Short Break</property>
+                                                <property name="name">short-break</property>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="AdwToggle">
+                                                <property name="label" translatable="yes">Long Break</property>
+                                                <property name="name">long-break</property>
+                                            </object>
+                                        </child>
                                     </object>
                                 </child>
                             </object>
                         </child>
-
-                        <!-- Controls Box -->
+                        <child>
+                            <object class="GtkBox">
+                                <property name="valign">center</property>
+                                <property name="halign">center</property>
+                                <property name="vexpand">true</property>
+                                <child>
+                                    <object class="GtkOverlay">
+                                        <child>
+                                            <object class="GtkDrawingArea" id="progress_circle">
+                                                <property name="width-request">280</property>
+                                                <property name="height-request">280</property>
+                                            </object>
+                                        </child>
+                                        <child type="overlay">
+                                            <object class="GtkLabel" id="timer_label">
+                                                <property name="label">25:00</property>
+                                                <property name="halign">center</property>
+                                                <property name="valign">center</property>
+                                                <style>
+                                                    <class name="title-1"/>
+                                                    <class name="numeric"/>
+                                                </style>
+                                                <attributes>
+                                                    <attribute name="scale" value="2.5"></attribute>
+                                                </attributes>
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
                         <child>
                             <object class="GtkBox">
                                 <property name="orientation">horizontal</property>
                                 <property name="spacing">12</property>
                                 <property name="halign">center</property>
-
-                                <!-- Start/Pause Button -->
+                                <property name="margin-bottom">24</property>
                                 <child>
                                     <object class="GtkButton" id="start_button">
                                         <property name="label" translatable="yes">Start</property>
@@ -74,8 +106,6 @@
                                         </style>
                                     </object>
                                 </child>
-
-                                <!-- Reset Button -->
                                 <child>
                                     <object class="GtkButton" id="reset_button">
                                         <property name="label" translatable="yes">Reset</property>
@@ -86,13 +116,13 @@
                                         </style>
                                     </object>
                                 </child>
-
                             </object>
                         </child>
-
                     </object>
                 </property>
             </object>
+
+
         </property>
     </template>
     <menu id="primary_menu">
