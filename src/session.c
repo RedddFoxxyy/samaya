@@ -23,83 +23,121 @@
 
 #include <stdio.h>
 
-void on_routine_completion(gpointer sessionManager);
+/* ============================================================================
+ * Static Variables
+ * ============================================================================ */
 
-void play_completion_sound(gpointer gSoundCTX);
+// Will return NULL if timer is not initialised!
+static SessionManager *GLOBAL_SESSION_MANAGER_PTR = NULL;
 
-SessionManager *init_session_manager(guint16 sessionsToComplete, void (*count_update_callback)(gpointer user_data), gpointer user_data)
+
+/* ============================================================================
+ * Methods for Static Variables
+ * ============================================================================ */
+
+SessionManager *get_active_session_manager(void)
+{
+	if (GLOBAL_SESSION_MANAGER_PTR) {
+		return GLOBAL_SESSION_MANAGER_PTR;
+	}
+	g_warning("Session Manager was accessed but is uninitialised!");
+	return GLOBAL_SESSION_MANAGER_PTR;
+}
+
+
+/* ============================================================================
+ * Function Definitions
+ * ============================================================================ */
+
+static void on_routine_completion(void);
+
+static void play_completion_sound(void);
+
+void set_routine(WorkRoutine routine, SessionManager *session_manager);
+
+
+/* ============================================================================
+ * SessionManager Methods
+ * ============================================================================ */
+
+SessionManager *init_session_manager(guint16 sessions_to_complete, void (*count_update_callback)(gpointer user_data), gpointer user_data)
 {
 	SessionManager *sessionManager = g_new0(SessionManager, 1);
 
 	*sessionManager = (SessionManager){
-		.workDuration = 0.1f,
-		.shortBreakDuration = 5.0f,
-		.longBreakDuration = 20.0f,
-		.currentRoutine = Working,
-		.routinesList = {Working, ShortBreak, LongBreak},
+		.work_duration = 0.1f,
+		.short_break_duration = 5.0f,
+		.long_break_duration = 20.0f,
+		.current_routine = Working,
+		.routines_list = {Working, ShortBreak, LongBreak},
 
-		.sessionsToComplete = sessionsToComplete,
-		.sessionsCompleted = 0,
-		.totalSessionsCounted = 0,
+		.sessions_to_complete = sessions_to_complete,
+		.sessions_completed = 0,
+		.total_sessions_counted = 0,
 
-		.timerInstance = NULL,
-		.gsoundCTX = gsound_context_new(NULL, NULL),
+		.timer_instance = NULL,
+		.gsound_ctx = gsound_context_new(NULL, NULL),
 
-		.userData = NULL,
+		.user_data = user_data,
 	};
 
-	sessionManager->timerInstance = init_timer(sessionManager->workDuration, play_completion_sound, NULL,
-	                                           count_update_callback, user_data);
-	sessionManager->on_routine_completion = on_routine_completion;
+	sessionManager->timer_instance = init_timer(sessionManager->work_duration, play_completion_sound, on_routine_completion,
+	                                            count_update_callback, user_data);
 
-	sessionManager->timerInstance->gSoundCTX = sessionManager->gsoundCTX;
-
+	GLOBAL_SESSION_MANAGER_PTR = sessionManager;
 	return sessionManager;
 }
 
-void deinit_session_manager(SessionManager *sessionManager)
+void deinit_session_manager(SessionManager *session_manager)
 {
-	Timer *timer = sessionManager->timerInstance;
+	Timer *timer = session_manager->timer_instance;
 
 	if (timer) {
-		deinit_timer(sessionManager->timerInstance);
+		deinit_timer(session_manager->timer_instance);
 	}
 
-	free(sessionManager);
+	GLOBAL_SESSION_MANAGER_PTR = NULL;
+
+	free(session_manager);
 }
 
-void on_routine_completion(gpointer sessionManager)
+static void on_routine_completion(void)
 {
-	SessionManager *sManager = sessionManager;
+	SessionManager *session_manager = get_active_session_manager();
 
-	switch (sManager->currentRoutine) {
+	switch (session_manager->current_routine) {
 		case Working:
-			sManager->sessionsCompleted++;
-			sManager->totalSessionsCounted++;
+			session_manager->sessions_completed++;
+			session_manager->total_sessions_counted++;
 
 			// If this was the last Work session → LongBreak
-			if (sManager->sessionsCompleted == sManager->sessionsToComplete) {
-				sManager->currentRoutine = LongBreak;
-				sManager->sessionsCompleted = 0;
+			if (session_manager->sessions_completed == session_manager->sessions_to_complete) {
+				session_manager->current_routine = LongBreak;
+				session_manager->sessions_completed = 0;
 			} else {
-				sManager->currentRoutine = ShortBreak;
+				session_manager->current_routine = ShortBreak;
 			}
 			break;
 
 		case ShortBreak:
-			sManager->currentRoutine = Working;
+			session_manager->current_routine = Working;
 			break;
 
 		case LongBreak:
-			sManager->currentRoutine = Working;
+			session_manager->current_routine = Working;
 			break;
 	}
+	set_routine(session_manager->current_routine, session_manager);
 }
 
-void play_completion_sound(gpointer gSoundCTX)
+static void play_completion_sound(void)
 {
-	// GSoundContext *ctx = GSOUND_CONTEXT(gSoundCTX);
-	if (!gSoundCTX) {
+	GSoundContext *gSoundCTX = NULL;
+	SessionManager *session_manager = get_active_session_manager();
+
+	if (session_manager && session_manager->gsound_ctx) {
+		gSoundCTX = GLOBAL_SESSION_MANAGER_PTR->gsound_ctx;
+	} else {
 		g_warning("Failed to play completion sound, gSound Context is not set.");
 		return;
 	}
@@ -108,7 +146,7 @@ void play_completion_sound(gpointer gSoundCTX)
 	gboolean ok = gsound_context_play_simple(
 		gSoundCTX,
 		NULL, // no cancellable
-		&error, // error pointer
+		&error,
 		GSOUND_ATTR_EVENT_ID, "bell-terminal",
 		NULL
 	);
@@ -120,23 +158,25 @@ void play_completion_sound(gpointer gSoundCTX)
 }
 
 
-void set_routine(WorkRoutine routine, SessionManager *sm)
+void set_routine(WorkRoutine routine, SessionManager *session_manager)
 {
-	sm->currentRoutine = routine;
+	session_manager->current_routine = routine;
 
-	Timer *timer = sm->timerInstance;
-	deinit_timer(timer);
+	Timer *timer = session_manager->timer_instance;
+	timer_reset(timer);
 
 	gfloat duration = 25.0f;
 
 	switch (routine) {
 		case Working:
-			duration = sm->workDuration;
+			duration = session_manager->work_duration;
 		case ShortBreak:
-			duration = sm->shortBreakDuration;
+			duration = session_manager->short_break_duration;
 		case LongBreak:
-			duration = sm->longBreakDuration;
+			duration = session_manager->long_break_duration;
 	}
 
-	sm->timerInstance = init_timer(duration, play_completion_sound, NULL, sm->count_update_callback, sm->userData);
+	set_timer_initial_time_minutes(timer, duration);
+
+	update_timer_string_and_run_callback(timer);
 }

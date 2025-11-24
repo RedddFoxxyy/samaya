@@ -23,41 +23,41 @@
 #include <stdbool.h>
 #include <glib.h>
 #include <gsound-context.h>
-// #include "session.h"
 
 typedef struct
 {
-	GMutex timerMutex;
+	GMutex timer_mutex;
 
-	bool isRunning;
+	bool is_running;
 
-	// MS suffix means Milli Seconds and US means micro Seconds.
-	gint64 initialTimeMS;
-	gint64 remainingTimeMS;
-	gint64 lastUpdatedTimeUS;
-	gfloat timerProgress;
-	GString *formattedTime;
-	gboolean completionAudioPlayed;
+	// ms suffix means Milli Seconds and us means micro Seconds.
+	gint64 initial_time_ms;
+	gint64 remaining_time_ms;
+	gint64 last_updated_time_us;
+	gfloat timer_progress;
+	GString *remaining_time_minutes_string;
+	gboolean is_timer_completion_audio_played;
 
-	GThread *timerThread;
-	guint tickIntervalMS;
+	GThread *worker_thread;
+	guint tick_interval_ms;
 
-	// SessionManager sessionManager;
-	GSoundContext *gSoundCTX;
 	gpointer user_data;
 
 	// CallBack API to react when timer is updated.
 	void (*count_update_callback)(gpointer user_data);
 
 	// Callback to function that plays completion sound.
-	void (*play_completion_sound)(gpointer gSoundCTX);
+	void (*play_completion_sound)(void);
 
 	// Callback to function that will be executed on completion of the set timer.
-	void (*on_finished)(void);
+	void (*on_timer_completion)(void);
 } Timer;
 
+
+Timer *get_active_timer(void);
+
 Timer *init_timer(float duration_minutes,
-                  void (*play_completion_sound)(gpointer user_data),
+                  void (*play_completion_sound)(void),
                   void (*on_finished)(void),
                   void (*count_update_callback)(gpointer user_data),
                   gpointer user_data);
@@ -76,17 +76,17 @@ void lock_timer(Timer *timer);
 
 void unlock_timer(Timer *timer);
 
-void decrement_remaining_time_ms(Timer *timer, gint64 elapsedTimeMS);
+void decrement_remaining_time_ms(Timer *timer, gint64 elapsed_time_ms);
 
-void run_count_update_callback(Timer *timer, gpointer user_data);
-
-void format_time(GString *inputString, gint64 timeMS);
+void update_timer_string_and_run_callback(Timer *timer);
 
 gboolean get_is_timer_running(Timer *timer);
 
 gfloat get_timer_progress(Timer *timer);
 
 gchar *get_time_str(Timer *timer);
+
+void set_timer_initial_time_minutes(Timer *timer, gfloat initial_time_minutes);
 
 void set_timer_thread(Timer *timer, GThread *timerThread);
 

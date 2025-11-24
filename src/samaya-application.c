@@ -155,5 +155,5 @@ samaya_application_init(SamayaApplication *self)
 Timer *samaya_application_get_timer(SamayaApplication *self)
 {
 	// return self->samayaApplicationTimer;
-	return self->samayaSessionManager->timerInstance;
+	return self->samayaSessionManager->timer_instance;
 }

@@ -33,28 +33,26 @@ typedef enum
 
 typedef struct
 {
-	gfloat workDuration;
-	gfloat shortBreakDuration;
-	gfloat longBreakDuration;
+	gfloat work_duration;
+	gfloat short_break_duration;
+	gfloat long_break_duration;
 
-	WorkRoutine currentRoutine;
-	WorkRoutine routinesList[3];
+	WorkRoutine current_routine;
+	WorkRoutine routines_list[3];
 
-	guint16 sessionsToComplete;
-	guint16 sessionsCompleted;
-	guint64 totalSessionsCounted;
+	guint16 sessions_to_complete;
+	guint16 sessions_completed;
+	guint64 total_sessions_counted;
 
-	Timer *timerInstance;
-	GSoundContext *gsoundCTX;
+	Timer *timer_instance;
+	GSoundContext *gsound_ctx;
 
-	gpointer userData;
+	gpointer user_data;
 
 	void (*count_update_callback)(gpointer user_data);
-
-	void (*on_routine_completion)(gpointer sessionManager);
 } SessionManager;
 
-SessionManager *init_session_manager(guint16 sessionsToComplete, void (*count_update_callback)(gpointer user_data), gpointer user_data);
+SessionManager *init_session_manager(guint16 sessions_to_complete, void (*count_update_callback)(gpointer user_data), gpointer user_data);
 
-void deinit_session_manager(SessionManager *sessionManager);
+void deinit_session_manager(SessionManager *session_manager);
 

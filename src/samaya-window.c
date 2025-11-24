@@ -141,7 +141,7 @@ draw_progress_circle(GtkDrawingArea *area,
 
 	double center_x = width / 2.0;
 	double center_y = height / 2.0;
-	double radius = MIN(width, height) / 2.0 - 5;
+	double radius = MIN(width, height) / 2.0 - 10;
 
 	gfloat progress = get_timer_progress(get_timer(self));
 
@@ -172,7 +172,7 @@ samaya_window_realize(GtkWidget *widget)
 
 	Timer *timer = get_timer(self);
 	set_count_update_callback(timer, schedule_timer_label_update);
-	gtk_label_set_text(self->timer_label, timer->formattedTime->str);
+	gtk_label_set_text(self->timer_label, get_time_str(timer));
 }
 
 static void
