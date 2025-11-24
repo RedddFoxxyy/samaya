@@ -150,17 +150,24 @@ static gboolean update_routine_toggle_switch(gpointer user_data)
 static void update_secondary_button_mode(SamayaWindow *self, gboolean is_running)
 {
 	if (is_running) {
-		gtk_button_set_label(self->reset_button, NULL);
 		gtk_button_set_icon_name(self->reset_button, "media-skip-forward-symbolic");
 
-		gtk_widget_set_tooltip_text(GTK_WIDGET(self->reset_button), "Skip Session");
+		gtk_widget_set_size_request(GTK_WIDGET(self->reset_button), 44, 44);
 
+		gtk_widget_add_css_class(GTK_WIDGET(self->reset_button), "circular");
+		gtk_widget_remove_css_class(GTK_WIDGET(self->reset_button), "pill");
+		gtk_widget_set_tooltip_text(GTK_WIDGET(self->reset_button), "Skip Session");
 		gtk_actionable_set_action_name(GTK_ACTIONABLE(self->reset_button), "win.skip-session");
 		gtk_widget_remove_css_class(GTK_WIDGET(self->reset_button), "destructive-action");
 	} else {
 		gtk_button_set_label(self->reset_button, "Reset");
-		gtk_widget_set_tooltip_text(GTK_WIDGET(self->reset_button), "Reset Timer");
 
+		gtk_widget_set_size_request(GTK_WIDGET(self->reset_button), -1, -1);
+
+		gtk_widget_remove_css_class(GTK_WIDGET(self->reset_button), "circular");
+		gtk_widget_add_css_class(GTK_WIDGET(self->reset_button), "pill");
+
+		gtk_widget_set_tooltip_text(GTK_WIDGET(self->reset_button), "Reset Timer");
 		gtk_actionable_set_action_name(GTK_ACTIONABLE(self->reset_button), "win.reset-timer");
 		gtk_widget_add_css_class(GTK_WIDGET(self->reset_button), "destructive-action");
 	}
