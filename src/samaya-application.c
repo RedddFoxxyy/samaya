@@ -23,6 +23,7 @@
 
 #include "samaya-application.h"
 #include "samaya-window.h"
+#include "samaya-preferences-dialog.h"
 #include "samaya-timer.h"
 #include "samaya-session.h"
 
@@ -51,6 +52,21 @@ samaya_application_new(const char *application_id,
 	                    "flags", flags,
 	                    "resource-base-path", "/io/github/redddfoxxyy/samaya",
 	                    NULL);
+}
+
+static void
+samaya_application_startup(GApplication *app)
+{
+	G_APPLICATION_CLASS(samaya_application_parent_class)->startup(app);
+
+	GtkCssProvider *provider = gtk_css_provider_new();
+	gtk_css_provider_load_from_resource(provider, "/io/github/redddfoxxyy/samaya/samaya-style.css");
+
+	gtk_style_context_add_provider_for_display(gdk_display_get_default(),
+	                                           GTK_STYLE_PROVIDER(provider),
+	                                           GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+	g_object_unref(provider);
 }
 
 static void
@@ -89,8 +105,22 @@ samaya_application_class_init(SamayaApplicationClass *klass)
 	GApplicationClass *app_class = G_APPLICATION_CLASS(klass);
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
+	app_class->startup = samaya_application_startup;
 	app_class->activate = samaya_application_activate;
 	object_class->dispose = samaya_application_dispose;
+}
+
+static void
+samaya_application_preferences_action(GSimpleAction *action,
+                                      GVariant *parameter,
+                                      gpointer user_data)
+{
+	SamayaApplication *self = SAMAYA_APPLICATION(user_data);
+	GtkWindow *window = gtk_application_get_active_window(GTK_APPLICATION(self));
+
+	SamayaPreferencesDialog *dialog = samaya_preferences_dialog_new();
+
+	adw_dialog_present(ADW_DIALOG(dialog), GTK_WIDGET(window));
 }
 
 static void
@@ -132,6 +162,7 @@ samaya_application_quit_action(GSimpleAction *action,
 static const GActionEntry app_actions[] = {
 	{"quit", samaya_application_quit_action},
 	{"about", samaya_application_about_action},
+	{"preferences", samaya_application_preferences_action},
 };
 
 static void
@@ -154,7 +185,6 @@ samaya_application_init(SamayaApplication *self)
 
 Timer *samaya_application_get_timer(SamayaApplication *self)
 {
-	// return self->samayaApplicationTimer;
 	return self->samayaSessionManager->timer_instance;
 }
 

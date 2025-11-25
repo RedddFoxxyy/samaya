@@ -1,3 +1,4 @@
 .idea/
+.vscode/
 .buildconfig
-/io.github.redddfoxxyy.samaya.json
+io.github.redddfoxxyy.samaya.json

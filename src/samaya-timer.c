@@ -190,7 +190,6 @@ void timer_reset(Timer *timer)
 	g_info("Session Reset");
 }
 
-// This function should not be called by the thread running the timer!
 void deinit_timer(Timer *timer)
 {
 	lock_timer(timer);

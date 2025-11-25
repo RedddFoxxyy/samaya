@@ -2,6 +2,7 @@ samaya_sources = [
     'main.c',
     'samaya-application.c',
     'samaya-window.c',
+    'samaya-preferences-dialog.c',
     'samaya-timer.c',
     'samaya-session.c'
 ]

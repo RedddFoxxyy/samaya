@@ -55,7 +55,7 @@ static void play_completion_sound(GSoundContext *gSoundCTX);
 
 static void timer_tick_callback(void);
 
-void set_routine(WorkRoutine routine, SessionManager *session_manager);
+void session_manager_set_routine(WorkRoutine routine, SessionManager *session_manager);
 
 
 /* ============================================================================
@@ -147,10 +147,10 @@ static void on_session_completion(gboolean play_sound)
 			break;
 	}
 
-	set_routine(session_manager->current_routine, session_manager);
+	session_manager_set_routine(session_manager->current_routine, session_manager);
 }
 
-void skip_current_session(void)
+void session_manager_skip_current_session(void)
 {
 	on_session_completion(FALSE);
 }
@@ -177,7 +177,58 @@ static void play_completion_sound(GSoundContext *gSoundCTX)
 	}
 }
 
-void set_routine(WorkRoutine routine, SessionManager *session_manager)
+void session_manager_set_work_duration(SessionManager *session_manager, gdouble value)
+{
+	session_manager->work_duration = (gfloat) value;
+	Timer *timer = session_manager->timer_instance;
+
+	gboolean is_running = get_is_timer_running(timer);
+	gboolean has_started = (timer->remaining_time_ms != timer->initial_time_ms);
+
+	if (!is_running && !has_started) {
+		set_timer_initial_time_minutes(timer, session_manager->work_duration);
+		update_timer_string_and_run_tick_callback(timer);
+	}
+}
+
+void session_manager_set_short_break_duration(SessionManager *session_manager, gdouble value)
+{
+	session_manager->short_break_duration = (gfloat) value;
+	Timer *timer = session_manager->timer_instance;
+
+	gboolean is_running = get_is_timer_running(timer);
+	gboolean has_started = (timer->remaining_time_ms != timer->initial_time_ms);
+
+	if (!is_running && !has_started) {
+		set_timer_initial_time_minutes(timer, session_manager->short_break_duration);
+		update_timer_string_and_run_tick_callback(timer);
+	}
+}
+
+void session_manager_set_long_break_duration(SessionManager *session_manager, gdouble value)
+{
+	session_manager->long_break_duration = (gfloat) value;
+	Timer *timer = session_manager->timer_instance;
+
+	gboolean is_running = get_is_timer_running(timer);
+	gboolean has_started = (timer->remaining_time_ms != timer->initial_time_ms);
+
+	if (!is_running && !has_started) {
+		set_timer_initial_time_minutes(timer, session_manager->long_break_duration);
+		update_timer_string_and_run_tick_callback(timer);
+	}
+}
+
+void session_manager_set_sessions_to_complete(SessionManager *session_manager, gint value)
+{
+	session_manager->sessions_to_complete = (guint16) value;
+
+	if (!session_manager->timer_instance->is_running) {
+		g_idle_add(session_manager->timer_instance_tick_callback, session_manager->user_data);
+	}
+}
+
+void session_manager_set_routine(WorkRoutine routine, SessionManager *session_manager)
 {
 	session_manager->current_routine = routine;
 

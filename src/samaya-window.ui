@@ -61,7 +61,7 @@
                             </object>
                         </child>
 
-                        <!-- Timer Label and Progress Circle -->
+                        <!-- Timer and Sessions Label and, Progress Circle -->
                         <child>
                             <object class="GtkBox">
                                 <property name="valign">center</property>
@@ -69,26 +69,65 @@
                                 <property name="vexpand">true</property>
                                 <child>
                                     <object class="GtkOverlay">
+
+                                        <!-- Progress Circle -->
                                         <child>
                                             <object class="GtkDrawingArea" id="progress_circle">
                                                 <property name="width-request">280</property>
                                                 <property name="height-request">280</property>
                                             </object>
                                         </child>
+
                                         <child type="overlay">
-                                            <object class="GtkLabel" id="timer_label">
-                                                <property name="label">25:00</property>
-                                                <property name="halign">center</property>
+                                            <object class="GtkBox">
+                                                <property name="orientation">vertical</property>
                                                 <property name="valign">center</property>
-                                                <style>
-                                                    <class name="title-1"/>
-                                                    <class name="numeric"/>
-                                                </style>
-                                                <attributes>
-                                                    <attribute name="scale" value="2.5"></attribute>
-                                                </attributes>
+                                                <property name="halign">center</property>
+                                                <property name="spacing">0</property>
+
+                                                <!-- Dummy Label so that the timer label is centered (Hacky will fix later) -->
+                                                <child>
+                                                    <object class="GtkLabel">
+                                                        <property name="label">#0</property>
+                                                        <property name="opacity">0</property>
+                                                        <property name="margin-bottom">4</property>
+                                                        <style>
+                                                            <class name="title-4"/>
+                                                        </style>
+                                                    </object>
+                                                </child>
+
+                                                <!-- Timer Label -->
+                                                <child>
+                                                    <object class="GtkLabel" id="timer_label">
+                                                        <property name="label">25:00</property>
+                                                        <property name="halign">center</property>
+                                                        <style>
+                                                            <class name="title-1"/>
+                                                            <class name="numeric"/>
+                                                        </style>
+                                                        <attributes>
+                                                            <attribute name="scale" value="2.5"></attribute>
+                                                        </attributes>
+                                                    </object>
+                                                </child>
+
+                                                <!-- Total Sessions Label -->
+                                                <child>
+                                                    <object class="GtkLabel" id="sessions_label">
+                                                        <property name="label">#0</property>
+                                                        <property name="halign">center</property>
+                                                        <property name="margin-top">4</property>
+                                                        <style>
+                                                            <class name="title-4"/>
+                                                            <class name="dim-label"/>
+                                                        </style>
+                                                    </object>
+                                                </child>
+
                                             </object>
                                         </child>
+
                                     </object>
                                 </child>
                             </object>
@@ -115,8 +154,10 @@
                                     <object class="GtkButton" id="reset_button">
                                         <property name="label" translatable="yes">Reset</property>
                                         <property name="action-name">win.reset-timer</property>
+                                        <property name="width-request">44</property>
+                                        <property name="height-request">44</property>
                                         <style>
-                                            <class name="pill"/>
+                                            <class name="circular"/>
                                             <class name="destructive-action"/>
                                         </style>
                                     </object>

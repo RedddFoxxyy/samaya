@@ -33,8 +33,9 @@ struct _SamayaWindow
 	GtkBox *routine_switch_box;
 	AdwToggleGroup *routine_toggle_group;
 
-	GtkLabel *timer_label;
 	GtkDrawingArea *progress_circle;
+	GtkLabel *timer_label;
+	GtkLabel *sessions_label;
 
 	GtkButton *start_button;
 	GtkButton *reset_button;
@@ -46,13 +47,17 @@ G_DEFINE_FINAL_TYPE(SamayaWindow, samaya_window, ADW_TYPE_APPLICATION_WINDOW)
  * Function Definitions
  * ============================================================================ */
 
+static void on_routine_changed(AdwToggleGroup *toggle_group,
+                               GParamSpec *pspec,
+                               gpointer user_data);
+
 static void draw_progress_circle(GtkDrawingArea *area,
                                  cairo_t *cr,
                                  int width,
                                  int height,
                                  gpointer user_data);
 
-static void update_secondary_button_mode(SamayaWindow *self, gboolean is_running);
+static void update_secondary_control_button(SamayaWindow *self);
 
 /* ============================================================================
  * Timer Helpers
@@ -69,30 +74,29 @@ static Timer *get_timer(SamayaWindow *self)
  * UI Actions
  * ============================================================================ */
 
-static void on_routine_changed(AdwToggleGroup *toggle_group,
-                               GParamSpec *pspec,
-                               gpointer user_data)
-{
-	SamayaWindow *self = SAMAYA_WINDOW(user_data);
-	const char *active_name = adw_toggle_group_get_active_name(toggle_group);
 
-	SessionManager *session_manager = get_active_session_manager();
-	WorkRoutine routine;
-	if (g_strcmp0(active_name, "pomodoro") == 0) {
-		routine = Working;
-	} else if (g_strcmp0(active_name, "short-break") == 0) {
-		routine = ShortBreak;
-	} else if (g_strcmp0(active_name, "long-break") == 0) {
-		routine = LongBreak;
-	} else {
-		return;
+static void update_progress_circle_color(SamayaWindow *self)
+{
+	SessionManager *sm = get_active_session_manager();
+	GtkWidget *widget = GTK_WIDGET(self->progress_circle);
+
+	gtk_widget_remove_css_class(widget, "routine-working");
+	gtk_widget_remove_css_class(widget, "routine-short-break");
+	gtk_widget_remove_css_class(widget, "routine-long-break");
+
+	switch (sm->current_routine) {
+		case Working:
+			gtk_widget_add_css_class(widget, "routine-working");
+			break;
+		case ShortBreak:
+			gtk_widget_add_css_class(widget, "routine-short-break");
+			break;
+		case LongBreak:
+			gtk_widget_add_css_class(widget, "routine-long-break");
+			break;
 	}
 
-	set_routine(routine, session_manager);
-
-	gtk_button_set_label(self->start_button, "Start");
-	gtk_widget_remove_css_class(GTK_WIDGET(self->start_button), "warning");
-	gtk_widget_add_css_class(GTK_WIDGET(self->start_button), "suggested-action");
+	gtk_widget_queue_draw(widget);
 }
 
 static gboolean update_timer_label(gpointer user_data)
@@ -108,12 +112,20 @@ static gboolean update_timer_label(gpointer user_data)
 		gtk_widget_queue_draw(GTK_WIDGET(self->progress_circle));
 	}
 
+	SessionManager *session_manager = samaya_application_get_session_manager(app);
+	if (session_manager) {
+		char *session_text = g_strdup_printf("#%" G_GUINT64_FORMAT, session_manager->total_sessions_counted);
+
+		gtk_label_set_text(self->sessions_label, session_text);
+		g_free(session_text);
+	}
+
 	if (!get_is_timer_running(timer)) {
 		gtk_button_set_label(self->start_button, "Start");
 		gtk_widget_remove_css_class(GTK_WIDGET(self->start_button), "warning");
 		gtk_widget_add_css_class(GTK_WIDGET(self->start_button), "suggested-action");
 
-		update_secondary_button_mode(self, FALSE);
+		update_secondary_control_button(self);
 	}
 
 	return G_SOURCE_REMOVE;
@@ -142,35 +154,84 @@ static gboolean update_routine_toggle_switch(gpointer user_data)
 		g_signal_handlers_block_by_func(self->routine_toggle_group, on_routine_changed, self);
 		adw_toggle_group_set_active_name(self->routine_toggle_group, target_name);
 		g_signal_handlers_unblock_by_func(self->routine_toggle_group, on_routine_changed, self);
+
+		update_progress_circle_color(self);
 	}
 
 	return G_SOURCE_REMOVE;
 }
 
-static void update_secondary_button_mode(SamayaWindow *self, gboolean is_running)
+static void update_primary_control_button(SamayaWindow *self)
 {
+	Timer *timer = get_timer(self);
+	gboolean is_running = get_is_timer_running(timer);
+	gboolean has_started = (timer->remaining_time_ms != timer->initial_time_ms);
+
 	if (is_running) {
+		gtk_button_set_label(self->start_button, "Stop");
+		gtk_widget_remove_css_class(GTK_WIDGET(self->start_button), "suggested-action");
+		gtk_widget_add_css_class(GTK_WIDGET(self->start_button), "warning");
+	} else {
+		if (!has_started) {
+			gtk_button_set_label(self->start_button, "Start");
+		} else {
+			gtk_button_set_label(self->start_button, "Resume");
+		}
+		gtk_widget_remove_css_class(GTK_WIDGET(self->start_button), "warning");
+		gtk_widget_add_css_class(GTK_WIDGET(self->start_button), "suggested-action");
+	}
+}
+
+static void update_secondary_control_button(SamayaWindow *self)
+{
+	Timer *timer = get_timer(self);
+	gboolean is_running = get_is_timer_running(timer);
+	gboolean has_started = (timer->remaining_time_ms != timer->initial_time_ms);
+
+	if (is_running) {
+		gtk_widget_set_visible(GTK_WIDGET(self->reset_button), TRUE);
+
 		gtk_button_set_icon_name(self->reset_button, "media-skip-forward-symbolic");
-
-		gtk_widget_set_size_request(GTK_WIDGET(self->reset_button), 44, 44);
-
-		gtk_widget_add_css_class(GTK_WIDGET(self->reset_button), "circular");
-		gtk_widget_remove_css_class(GTK_WIDGET(self->reset_button), "pill");
 		gtk_widget_set_tooltip_text(GTK_WIDGET(self->reset_button), "Skip Session");
 		gtk_actionable_set_action_name(GTK_ACTIONABLE(self->reset_button), "win.skip-session");
 		gtk_widget_remove_css_class(GTK_WIDGET(self->reset_button), "destructive-action");
-	} else {
-		gtk_button_set_label(self->reset_button, "Reset");
+	} else if (has_started) {
+		gtk_widget_set_visible(GTK_WIDGET(self->reset_button), TRUE);
 
-		gtk_widget_set_size_request(GTK_WIDGET(self->reset_button), -1, -1);
-
-		gtk_widget_remove_css_class(GTK_WIDGET(self->reset_button), "circular");
-		gtk_widget_add_css_class(GTK_WIDGET(self->reset_button), "pill");
-
+		gtk_button_set_icon_name(self->reset_button, "view-refresh-symbolic");
 		gtk_widget_set_tooltip_text(GTK_WIDGET(self->reset_button), "Reset Timer");
 		gtk_actionable_set_action_name(GTK_ACTIONABLE(self->reset_button), "win.reset-timer");
 		gtk_widget_add_css_class(GTK_WIDGET(self->reset_button), "destructive-action");
+	} else {
+		gtk_widget_set_visible(GTK_WIDGET(self->reset_button), FALSE);
 	}
+}
+
+static void on_routine_changed(AdwToggleGroup *toggle_group,
+                               GParamSpec *pspec,
+                               gpointer user_data)
+{
+	SamayaWindow *self = SAMAYA_WINDOW(user_data);
+	const char *active_name = adw_toggle_group_get_active_name(toggle_group);
+
+	SessionManager *session_manager = get_active_session_manager();
+	Timer *timer = get_timer(self);
+
+	WorkRoutine routine;
+	if (g_strcmp0(active_name, "pomodoro") == 0) {
+		routine = Working;
+	} else if (g_strcmp0(active_name, "short-break") == 0) {
+		routine = ShortBreak;
+	} else if (g_strcmp0(active_name, "long-break") == 0) {
+		routine = LongBreak;
+	} else {
+		return;
+	}
+
+	session_manager_set_routine(routine, session_manager);
+
+	update_progress_circle_color(self);
+	update_secondary_control_button(self);
 }
 
 static void on_press_start(GtkWidget *widget,
@@ -178,26 +239,17 @@ static void on_press_start(GtkWidget *widget,
                            GVariant *param)
 {
 	SamayaWindow *self = SAMAYA_WINDOW(widget);
-
 	Timer *timer = get_timer(self);
-
 	gboolean is_running = get_is_timer_running(timer);
 
 	if (is_running) {
 		timer_pause(timer);
-		gtk_button_set_label(self->start_button, "Resume");
-		gtk_widget_remove_css_class(GTK_WIDGET(self->start_button), "warning");
-		gtk_widget_add_css_class(GTK_WIDGET(self->start_button), "suggested-action");
-
-		update_secondary_button_mode(self, FALSE);
 	} else {
 		timer_start(timer);
-		gtk_button_set_label(self->start_button, "Pause");
-		gtk_widget_remove_css_class(GTK_WIDGET(self->start_button), "suggested-action");
-		gtk_widget_remove_css_class(GTK_WIDGET(self->start_button), "warning");
-
-		update_secondary_button_mode(self, TRUE);
 	}
+
+	update_primary_control_button(self);
+	update_secondary_control_button(self);
 }
 
 static void on_press_reset(GtkWidget *widget,
@@ -208,9 +260,7 @@ static void on_press_reset(GtkWidget *widget,
 
 	timer_reset(get_timer(self));
 
-	gtk_button_set_label(self->start_button, "Start");
-	gtk_widget_remove_css_class(GTK_WIDGET(self->start_button), "warning");
-	gtk_widget_add_css_class(GTK_WIDGET(self->start_button), "suggested-action");
+	update_primary_control_button(self);
 }
 
 static void on_press_skip(GtkWidget *widget,
@@ -219,25 +269,19 @@ static void on_press_skip(GtkWidget *widget,
 {
 	SamayaWindow *self = SAMAYA_WINDOW(widget);
 
-	// This will increment the count (if working) and switch to the next routine
-	skip_current_session();
-
-	// Ensure button state is correct (Start/Pause button reset)
-	gtk_button_set_label(self->start_button, "Start");
-	gtk_widget_remove_css_class(GTK_WIDGET(self->start_button), "warning");
-	gtk_widget_add_css_class(GTK_WIDGET(self->start_button), "suggested-action");
+	session_manager_skip_current_session();
+	update_primary_control_button(self);
 }
 
 /* ============================================================================
  * Rendering Functions
  * ============================================================================ */
 
-static void
-draw_progress_circle(GtkDrawingArea *area,
-                     cairo_t *cr,
-                     int width,
-                     int height,
-                     gpointer user_data)
+static void draw_progress_circle(GtkDrawingArea *area,
+                                 cairo_t *cr,
+                                 int width,
+                                 int height,
+                                 gpointer user_data)
 {
 	SamayaWindow *self = SAMAYA_WINDOW(user_data);
 
@@ -256,7 +300,10 @@ draw_progress_circle(GtkDrawingArea *area,
 	cairo_arc(cr, center_x, center_y, radius, 0, 2 * M_PI);
 	cairo_stroke(cr);
 
-	cairo_set_source_rgb(cr, 0.2, 0.6, 1.0);
+	GdkRGBA color;
+	gtk_widget_get_color(GTK_WIDGET(area), &color);
+	gdk_cairo_set_source_rgba(cr, &color);
+
 	double start_angle = -M_PI / 2;
 	double end_angle = start_angle + (2 * M_PI * progress);
 	cairo_arc(cr, center_x, center_y, radius, start_angle, end_angle);
@@ -279,6 +326,10 @@ samaya_window_realize(GtkWidget *widget)
 
 	Timer *timer = get_timer(self);
 	gtk_label_set_text(self->timer_label, get_time_str(timer));
+
+	update_progress_circle_color(self);
+	update_primary_control_button(self);
+	update_secondary_control_button(self);
 }
 
 static void
@@ -295,6 +346,7 @@ samaya_window_class_init(SamayaWindowClass *klass)
 
 	gtk_widget_class_bind_template_child(widget_class, SamayaWindow, progress_circle);
 	gtk_widget_class_bind_template_child(widget_class, SamayaWindow, timer_label);
+	gtk_widget_class_bind_template_child(widget_class, SamayaWindow, sessions_label);
 
 	gtk_widget_class_bind_template_child(widget_class, SamayaWindow, start_button);
 	gtk_widget_class_bind_template_child(widget_class, SamayaWindow, reset_button);
