@@ -1,3 +1,23 @@
+/* samaya-preferences-dialog.c
+ *
+ * Copyright 2025 Suyog Tandel
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
 #include "samaya-preferences-dialog.h"
 #include "samaya-session.h"
 
@@ -8,10 +28,9 @@ struct _SamayaPreferencesDialog
 
 G_DEFINE_FINAL_TYPE(SamayaPreferencesDialog, samaya_preferences_dialog, ADW_TYPE_PREFERENCES_DIALOG)
 
-static void
-on_work_duration_changed(GtkAdjustment *adjustment,
-                         GValue *value,
-                         gpointer user_data)
+static void on_work_duration_changed(GtkAdjustment *adjustment,
+                                     GValue *value,
+                                     gpointer user_data)
 {
 	SessionManager *sm = sm_get_global_ptr();
 	if (sm) {
@@ -19,10 +38,9 @@ on_work_duration_changed(GtkAdjustment *adjustment,
 	}
 }
 
-static void
-on_short_break_changed(GtkAdjustment *adjustment,
-                       GValue *value,
-                       gpointer user_data)
+static void on_short_break_changed(GtkAdjustment *adjustment,
+                                   GValue *value,
+                                   gpointer user_data)
 {
 	SessionManager *sm = sm_get_global_ptr();
 	if (sm) {
@@ -30,10 +48,9 @@ on_short_break_changed(GtkAdjustment *adjustment,
 	}
 }
 
-static void
-on_long_break_changed(GtkAdjustment *adjustment,
-                      GValue *value,
-                      gpointer user_data)
+static void on_long_break_changed(GtkAdjustment *adjustment,
+                                  GValue *value,
+                                  gpointer user_data)
 {
 	SessionManager *sm = sm_get_global_ptr();
 	if (sm) {
@@ -41,10 +58,9 @@ on_long_break_changed(GtkAdjustment *adjustment,
 	}
 }
 
-static void
-on_sessions_count_changed(GtkAdjustment *adjustment,
-                          GValue *value,
-                          gpointer user_data)
+static void on_sessions_count_changed(GtkAdjustment *adjustment,
+                                      GValue *value,
+                                      gpointer user_data)
 {
 	SessionManager *sm = sm_get_global_ptr();
 	if (sm) {
@@ -52,13 +68,11 @@ on_sessions_count_changed(GtkAdjustment *adjustment,
 	}
 }
 
-static void
-samaya_preferences_dialog_class_init(SamayaPreferencesDialogClass *klass)
+static void samaya_preferences_dialog_class_init(SamayaPreferencesDialogClass *klass)
 {
 }
 
-static void
-samaya_preferences_dialog_init(SamayaPreferencesDialog *self)
+static void samaya_preferences_dialog_init(SamayaPreferencesDialog *self)
 {
 	SessionManager *sm = sm_get_global_ptr();
 
@@ -108,8 +122,7 @@ samaya_preferences_dialog_init(SamayaPreferencesDialog *self)
 	adw_preferences_group_add(session_group, count_row);
 }
 
-SamayaPreferencesDialog *
-samaya_preferences_dialog_new(void)
+SamayaPreferencesDialog *samaya_preferences_dialog_new(void)
 {
 	return g_object_new(SAMAYA_TYPE_PREFERENCES_DIALOG, NULL);
 }

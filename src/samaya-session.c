@@ -27,7 +27,7 @@
  * Static Variables
  * ============================================================================ */
 
-// Will return NULL if timer is not initialised!
+// Will return NULL if the timer is not initialised!
 static SessionManager *GLOBAL_SESSION_MANAGER_PTR = NULL;
 
 
