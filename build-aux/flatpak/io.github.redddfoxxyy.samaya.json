@@ -68,16 +68,10 @@
 				{
 					"type": "git",
 					"url": "https://github.com/RedddFoxxyy/samaya.git",
-					"branch": "main"
+					"tag": "0.1.1"
 				}
 			],
-			"config-opts": [
-				"--buildtype=release",
-				"-Ddevelopment=false",
-				"-Dgeneric=samaya",
-				"-Dapp-id=io.github.redddfoxxyy.samaya",
-				"--libdir=lib"
-			]
+			"config-opts": ["--buildtype=release", "--libdir=lib"]
 		}
 	],
 	"build-options": {
