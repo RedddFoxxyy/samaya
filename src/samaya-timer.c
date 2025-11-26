@@ -41,7 +41,7 @@ static Timer *GLOBAL_TIMER_PTR = NULL;
  * ============================================================================ */
 
 // Will return NULL if timer is not initialised!
-Timer *get_active_timer(void)
+Timer *tm_get_global_ptr(void)
 {
 	if (GLOBAL_TIMER_PTR) {
 		return GLOBAL_TIMER_PTR;
@@ -55,11 +55,9 @@ Timer *get_active_timer(void)
  * Function Definitions
  * ============================================================================ */
 
-static gpointer timer_thread_worker(gpointer timerInstance);
+static gpointer tm_run_thread_worker(gpointer timerInstance);
 
-static void format_time(GString *inputString, gint64 timeMS);
-
-static gboolean timer_cleanup_worker(gpointer thread_data);
+static void tm_update_time_string(GString *inputString, gint64 timeMS);
 
 static void timer_hold_worker(Timer *timer);
 
@@ -68,9 +66,9 @@ static void timer_hold_worker(Timer *timer);
  * Timer Methods
  * ============================================================================ */
 
-Timer *init_timer(float duration_minutes,
-                  void (*on_finished)(gboolean play_sound),
-                  void (*timer_tick_callback)(void))
+Timer *tm_init(float duration_minutes,
+               void (*on_finished)(gboolean play_sound),
+               void (*timer_tick_callback)(void))
 {
 	Timer *timer = g_new0(Timer, 1);
 
@@ -85,26 +83,26 @@ Timer *init_timer(float duration_minutes,
 	timer->end_worker = FALSE;
 
 	timer->remaining_time_minutes_string = g_string_new(NULL);
-	format_time(timer->remaining_time_minutes_string, timer->initial_time_ms);
+	tm_update_time_string(timer->remaining_time_minutes_string, timer->initial_time_ms);
 
-	timer->timer_tick_callback = timer_tick_callback;
-	timer->timer_completion_callback = on_finished;
+	timer->tm_tick_callback = timer_tick_callback;
+	timer->tm_completion_callback = on_finished;
 	timer->worker_thread = NULL;
 	timer->tick_interval_ms = 200;
 
-	timer->worker_thread = g_thread_new("timer-thread", timer_thread_worker, timer);
+	timer->worker_thread = g_thread_new("timer-thread", tm_run_thread_worker, timer);
 
 	GLOBAL_TIMER_PTR = timer;
 
 	return timer;
 }
 
-static gpointer timer_thread_worker(gpointer timerInstance)
+static gpointer tm_run_thread_worker(gpointer timerInstance)
 {
 	Timer *timer = timerInstance;
 	if (!timer) return NULL;
 
-	lock_timer(timer);
+	tm_get_lock(timer);
 
 	while (TRUE) {
 		timer_hold_worker(timer);
@@ -119,7 +117,7 @@ static gpointer timer_thread_worker(gpointer timerInstance)
 		timer->last_updated_time_us = currentTimeUS;
 
 		gint64 elapsedTimeMS = elapsedTimeUS / 1000;
-		decrement_remaining_time_ms(timer, elapsedTimeMS);
+		tm_decrement_remaining_time(timer, elapsedTimeMS);
 
 		if (timer->remaining_time_ms < 0) timer->remaining_time_ms = 0;
 
@@ -128,32 +126,32 @@ static gpointer timer_thread_worker(gpointer timerInstance)
 		else
 			timer->timer_progress = 0.0f;
 
-		update_timer_string_and_run_tick_callback(timer);
+		tm_process_timer_tick(timer);
 
 		if (timer->remaining_time_ms == 0) {
 			timer->is_running = FALSE;
-			unlock_timer(timer);
+			tm_unlock(timer);
 
-			if (timer->timer_completion_callback) {
-				timer->timer_completion_callback(TRUE);
+			if (timer->tm_completion_callback) {
+				timer->tm_completion_callback(TRUE);
 			}
 
-			lock_timer(timer);
+			tm_get_lock(timer);
 			continue;
 		}
 
-		unlock_timer(timer);
+		tm_unlock(timer);
 		g_usleep((gulong) timer->tick_interval_ms * 1000UL);
-		lock_timer(timer);
+		tm_get_lock(timer);
 	}
 
-	unlock_timer(timer);
+	tm_unlock(timer);
 	return NULL;
 }
 
-void timer_start(Timer *timer)
+void tm_start(Timer *timer)
 {
-	lock_timer(timer);
+	tm_get_lock(timer);
 
 	if (!timer->is_running) {
 		timer->is_running = TRUE;
@@ -161,21 +159,21 @@ void timer_start(Timer *timer)
 		g_info("Session Started/Resumed");
 	}
 
-	unlock_timer(timer);
+	tm_unlock(timer);
 }
 
-void timer_pause(Timer *timer)
+void tm_pause(Timer *timer)
 {
-	lock_timer(timer);
+	tm_get_lock(timer);
 	timer->is_running = FALSE;
-	unlock_timer(timer);
+	tm_unlock(timer);
 
 	g_info("Session Paused");
 }
 
-void timer_reset(Timer *timer)
+void tm_reset(Timer *timer)
 {
-	lock_timer(timer);
+	tm_get_lock(timer);
 
 	timer->is_running = FALSE;
 
@@ -183,26 +181,26 @@ void timer_reset(Timer *timer)
 	timer->last_updated_time_us = 0;
 	timer->timer_progress = 1.0f;
 
-	update_timer_string_and_run_tick_callback(timer);
+	tm_process_timer_tick(timer);
 
-	unlock_timer(timer);
+	tm_unlock(timer);
 
 	g_info("Session Reset");
 }
 
-void deinit_timer(Timer *timer)
+void tm_deinit(Timer *timer)
 {
-	lock_timer(timer);
+	tm_get_lock(timer);
 
 	timer->is_running = FALSE;
 	timer->end_worker = TRUE;
 	g_cond_signal(&timer->timer_cond);
 
-	timer->timer_tick_callback = NULL;
+	timer->tm_tick_callback = NULL;
 	GThread *thread_to_join = timer->worker_thread;
 	timer->worker_thread = NULL;
 
-	unlock_timer(timer);
+	tm_unlock(timer);
 
 	if (thread_to_join) {
 		g_thread_join(thread_to_join);
@@ -221,29 +219,29 @@ void deinit_timer(Timer *timer)
  * Timer Helpers
  * ============================================================================ */
 
-void lock_timer(Timer *timer)
+void tm_get_lock(Timer *timer)
 {
 	g_mutex_lock(&timer->timer_mutex);
 }
 
-void unlock_timer(Timer *timer)
+void tm_unlock(Timer *timer)
 {
 	g_mutex_unlock(&timer->timer_mutex);
 }
 
-void decrement_remaining_time_ms(Timer *timer, gint64 elapsed_time_ms)
+void tm_decrement_remaining_time(Timer *timer, gint64 elapsed_time_ms)
 {
 	timer->remaining_time_ms -= elapsed_time_ms;
 }
 
 static void run_timer_tick_callback(Timer *timer)
 {
-	if (timer->timer_tick_callback) {
-		timer->timer_tick_callback();
+	if (timer->tm_tick_callback) {
+		timer->tm_tick_callback();
 	}
 }
 
-static void format_time(GString *inputString, gint64 timeMS)
+static void tm_update_time_string(GString *inputString, gint64 timeMS)
 {
 	gint64 total_seconds = timeMS / 1000;
 	gint64 minutes = total_seconds / 60;
@@ -253,10 +251,10 @@ static void format_time(GString *inputString, gint64 timeMS)
 	                minutes, seconds);
 }
 
-void update_timer_string_and_run_tick_callback(Timer *timer)
+void tm_process_timer_tick(Timer *timer)
 {
 	run_timer_tick_callback(timer);
-	format_time(timer->remaining_time_minutes_string, timer->remaining_time_ms);
+	tm_update_time_string(timer->remaining_time_minutes_string, timer->remaining_time_ms);
 }
 
 static void timer_hold_worker(Timer *timer)
@@ -276,28 +274,28 @@ static void timer_hold_worker(Timer *timer)
  * Timer getters
  * ============================================================================ */
 
-gboolean get_is_timer_running(Timer *timer)
+gboolean tm_get_is_running(Timer *timer)
 {
-	lock_timer(timer);
+	tm_get_lock(timer);
 	gboolean is_running = timer->is_running;
-	unlock_timer(timer);
+	tm_unlock(timer);
 	return is_running;
 }
 
-gfloat get_timer_progress(Timer *timer)
+gfloat tm_get_progress(Timer *timer)
 {
-	lock_timer(timer);
+	tm_get_lock(timer);
 	gfloat timerProgress = timer->timer_progress;
-	unlock_timer(timer);
+	tm_unlock(timer);
 
 	return timerProgress;
 }
 
-gchar *get_time_str(Timer *timer)
+gchar *tm_get_time_str(Timer *timer)
 {
-	lock_timer(timer);
+	tm_get_lock(timer);
 	gchar *time_str = timer->remaining_time_minutes_string->str;
-	unlock_timer(timer);
+	tm_unlock(timer);
 	return time_str;
 }
 
@@ -306,19 +304,19 @@ gchar *get_time_str(Timer *timer)
  * Timer setters
  * ============================================================================ */
 
-void set_timer_initial_time_minutes(Timer *timer, gfloat initial_time_minutes)
+void tm_set_initial_time(Timer *timer, gfloat initial_time_minutes)
 {
-	lock_timer(timer);
+	tm_get_lock(timer);
 	timer->initial_time_ms = (int64_t) (initial_time_minutes * 60 * 1000);
 	timer->remaining_time_ms = timer->initial_time_ms;
-	unlock_timer(timer);
+	tm_unlock(timer);
 }
 
-void set_timer_thread(Timer *timer, GThread *timer_thread)
+void tm_set_worker_thread(Timer *timer, GThread *timer_thread)
 {
-	lock_timer(timer);
+	tm_get_lock(timer);
 	timer->worker_thread = timer_thread;
-	unlock_timer(timer);
+	tm_unlock(timer);
 }
 
 

@@ -13,9 +13,9 @@ on_work_duration_changed(GtkAdjustment *adjustment,
                          GValue *value,
                          gpointer user_data)
 {
-	SessionManager *sm = get_active_session_manager();
+	SessionManager *sm = sm_get_global_ptr();
 	if (sm) {
-		session_manager_set_work_duration(sm, gtk_adjustment_get_value(adjustment));
+		sm_set_work_duration(sm, gtk_adjustment_get_value(adjustment));
 	}
 }
 
@@ -24,9 +24,9 @@ on_short_break_changed(GtkAdjustment *adjustment,
                        GValue *value,
                        gpointer user_data)
 {
-	SessionManager *sm = get_active_session_manager();
+	SessionManager *sm = sm_get_global_ptr();
 	if (sm) {
-		session_manager_set_short_break_duration(sm, gtk_adjustment_get_value(adjustment));
+		sm_set_short_break_duration(sm, gtk_adjustment_get_value(adjustment));
 	}
 }
 
@@ -35,9 +35,9 @@ on_long_break_changed(GtkAdjustment *adjustment,
                       GValue *value,
                       gpointer user_data)
 {
-	SessionManager *sm = get_active_session_manager();
+	SessionManager *sm = sm_get_global_ptr();
 	if (sm) {
-		session_manager_set_long_break_duration(sm, gtk_adjustment_get_value(adjustment));
+		sm_set_long_break_duration(sm, gtk_adjustment_get_value(adjustment));
 	}
 }
 
@@ -46,9 +46,9 @@ on_sessions_count_changed(GtkAdjustment *adjustment,
                           GValue *value,
                           gpointer user_data)
 {
-	SessionManager *sm = get_active_session_manager();
+	SessionManager *sm = sm_get_global_ptr();
 	if (sm) {
-		session_manager_set_sessions_to_complete(sm, (gint) gtk_adjustment_get_value(adjustment));
+		sm_set_sessions_to_complete(sm, (gint) gtk_adjustment_get_value(adjustment));
 	}
 }
 
@@ -60,7 +60,7 @@ samaya_preferences_dialog_class_init(SamayaPreferencesDialogClass *klass)
 static void
 samaya_preferences_dialog_init(SamayaPreferencesDialog *self)
 {
-	SessionManager *sm = get_active_session_manager();
+	SessionManager *sm = sm_get_global_ptr();
 
 	AdwPreferencesPage *page = ADW_PREFERENCES_PAGE(adw_preferences_page_new());
 

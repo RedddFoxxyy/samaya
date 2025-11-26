@@ -92,7 +92,7 @@ samaya_application_dispose(GObject *object)
 	SamayaApplication *self = SAMAYA_APPLICATION(object);
 
 	if (self->samayaSessionManager) {
-		deinit_session_manager(self->samayaSessionManager);
+		sm_deinit(self->samayaSessionManager);
 		self->samayaSessionManager = NULL;
 	}
 
@@ -176,7 +176,7 @@ samaya_application_init(SamayaApplication *self)
 	                                      "app.quit",
 	                                      (const char *[]){"<control>q", NULL});
 
-	self->samayaSessionManager = init_session_manager(4, NULL, self);
+	self->samayaSessionManager = sm_init(4, NULL, self);
 }
 
 /* ============================================================================

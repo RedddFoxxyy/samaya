@@ -43,45 +43,45 @@ typedef struct
 	guint tick_interval_ms;
 
 	// CallBack API to react on every second tick.
-	void (*timer_tick_callback)(void);
+	void (*tm_tick_callback)(void);
 
-	// Callback to function that will be executed on completion of the set timer.
-	void (*timer_completion_callback)(gboolean play_sound);
+	// Callback to a function that will be executed on completion of the set timer.
+	void (*tm_completion_callback)(gboolean play_sound);
 } Timer;
 
 
-Timer *get_active_timer(void);
+Timer *tm_get_global_ptr(void);
 
-Timer *init_timer(float duration_minutes,
-                  void (*on_finished)(gboolean play_sound),
-                  void (*timer_tick_callback)(void));
+Timer *tm_init(float duration_minutes,
+               void (*on_finished)(gboolean play_sound),
+               void (*timer_tick_callback)(void));
 
-void timer_start(Timer *timer);
+void tm_start(Timer *timer);
 
-void timer_pause(Timer *timer);
+void tm_pause(Timer *timer);
 
-void timer_resume(Timer *timer);
+void tm_resume(Timer *timer);
 
-void timer_reset(Timer *timer);
+void tm_reset(Timer *timer);
 
-void deinit_timer(Timer *timer);
+void tm_deinit(Timer *timer);
 
-void lock_timer(Timer *timer);
+void tm_get_lock(Timer *timer);
 
-void unlock_timer(Timer *timer);
+void tm_unlock(Timer *timer);
 
-void decrement_remaining_time_ms(Timer *timer, gint64 elapsed_time_ms);
+void tm_decrement_remaining_time(Timer *timer, gint64 elapsed_time_ms);
 
-void update_timer_string_and_run_tick_callback(Timer *timer);
+void tm_process_timer_tick(Timer *timer);
 
-gboolean get_is_timer_running(Timer *timer);
+gboolean tm_get_is_running(Timer *timer);
 
-gfloat get_timer_progress(Timer *timer);
+gfloat tm_get_progress(Timer *timer);
 
-gchar *get_time_str(Timer *timer);
+gchar *tm_get_time_str(Timer *timer);
 
-void set_timer_initial_time_minutes(Timer *timer, gfloat initial_time_minutes);
+void tm_set_initial_time(Timer *timer, gfloat initial_time_minutes);
 
-void set_timer_thread(Timer *timer, GThread *timer_thread);
+void tm_set_worker_thread(Timer *timer, GThread *timer_thread);
 
 

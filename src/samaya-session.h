@@ -29,7 +29,7 @@ typedef enum
 	Working,
 	ShortBreak,
 	LongBreak,
-} WorkRoutine;
+} RoutineType;
 
 typedef struct
 {
@@ -37,8 +37,8 @@ typedef struct
 	gfloat short_break_duration;
 	gfloat long_break_duration;
 
-	WorkRoutine current_routine;
-	WorkRoutine routines_list[3];
+	RoutineType current_routine;
+	RoutineType routines_list[3];
 
 	guint16 sessions_to_complete;
 	guint16 sessions_completed;
@@ -49,32 +49,32 @@ typedef struct
 
 	gpointer user_data;
 
-	gboolean (*timer_instance_tick_callback)(gpointer user_data);
+	gboolean (*sm_timer_tick_callback)(gpointer user_data);
 
-	gboolean (*routine_update_callback)(gpointer user_data);
+	gboolean (*sm_routine_update_callback)(gpointer user_data);
 } SessionManager;
 
-SessionManager *get_active_session_manager(void);
+SessionManager *sm_get_global_ptr(void);
 
-SessionManager *init_session_manager(guint16 sessions_to_complete, gboolean (*timer_instance_tick_callback)(gpointer), gpointer user_data);
+SessionManager *sm_init(guint16 sessions_to_complete, gboolean (*timer_instance_tick_callback)(gpointer), gpointer user_data);
 
-void deinit_session_manager(SessionManager *session_manager);
+void sm_deinit(SessionManager *session_manager);
 
-void session_manager_set_work_duration(SessionManager *session_manager, gdouble value);
+void sm_set_work_duration(SessionManager *session_manager, gdouble value);
 
-void session_manager_set_short_break_duration(SessionManager *session_manager, gdouble value);
+void sm_set_short_break_duration(SessionManager *session_manager, gdouble value);
 
-void session_manager_set_long_break_duration(SessionManager *session_manager, gdouble value);
+void sm_set_long_break_duration(SessionManager *session_manager, gdouble value);
 
-void session_manager_set_sessions_to_complete(SessionManager *session_manager, gint value);
+void sm_set_sessions_to_complete(SessionManager *session_manager, gint value);
 
-void session_manager_set_routine(WorkRoutine routine, SessionManager *session_manager);
+void sm_set_routine(RoutineType routine, SessionManager *session_manager);
 
-void session_manager_skip_current_session(void);
+void sm_skip_current_session(void);
 
-void set_timer_instance_tick_callback(gboolean (*timer_instance_tick_callback)(gpointer));
+void sm_set_timer_tick_callback(gboolean (*timer_instance_tick_callback)(gpointer));
 
-void set_timer_instance_tick_callback_with_data(gboolean (*timer_instance_tick_callback)(gpointer), gpointer user_data);
+void sm_set_timer_tick_callback_with_data(gboolean (*timer_instance_tick_callback)(gpointer), gpointer user_data);
 
-void set_routine_update_callback(gboolean (*routine_update_callback)(gpointer));
+void sm_set_routine_update_callback(gboolean (*routine_update_callback)(gpointer));
 

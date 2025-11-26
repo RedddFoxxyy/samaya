@@ -35,7 +35,7 @@ static SessionManager *GLOBAL_SESSION_MANAGER_PTR = NULL;
  * Methods for Static Variables
  * ============================================================================ */
 
-SessionManager *get_active_session_manager(void)
+SessionManager *sm_get_global_ptr(void)
 {
 	if (GLOBAL_SESSION_MANAGER_PTR) {
 		return GLOBAL_SESSION_MANAGER_PTR;
@@ -55,16 +55,16 @@ static void play_completion_sound(GSoundContext *gSoundCTX);
 
 static void timer_tick_callback(void);
 
-void session_manager_set_routine(WorkRoutine routine, SessionManager *session_manager);
+void sm_set_routine(RoutineType routine, SessionManager *session_manager);
 
 
 /* ============================================================================
  * SessionManager Methods
  * ============================================================================ */
 
-SessionManager *init_session_manager(guint16 sessions_to_complete,
-                                     gboolean (*timer_instance_tick_callback)(gpointer user_data),
-                                     gpointer user_data)
+SessionManager *sm_init(guint16 sessions_to_complete,
+                        gboolean (*timer_instance_tick_callback)(gpointer user_data),
+                        gpointer user_data)
 {
 	SessionManager *sessionManager = g_new0(SessionManager, 1);
 
@@ -86,19 +86,19 @@ SessionManager *init_session_manager(guint16 sessions_to_complete,
 		.user_data = user_data,
 	};
 
-	sessionManager->timer_instance = init_timer(sessionManager->work_duration, on_session_completion, timer_tick_callback);
-	sessionManager->timer_instance_tick_callback = timer_instance_tick_callback;
+	sessionManager->timer_instance = tm_init(sessionManager->work_duration, on_session_completion, timer_tick_callback);
+	sessionManager->sm_timer_tick_callback = timer_instance_tick_callback;
 
 	GLOBAL_SESSION_MANAGER_PTR = sessionManager;
 	return sessionManager;
 }
 
-void deinit_session_manager(SessionManager *session_manager)
+void sm_deinit(SessionManager *session_manager)
 {
 	Timer *timer = session_manager->timer_instance;
 
 	if (timer) {
-		deinit_timer(session_manager->timer_instance);
+		tm_deinit(session_manager->timer_instance);
 	}
 
 	GLOBAL_SESSION_MANAGER_PTR = NULL;
@@ -108,18 +108,18 @@ void deinit_session_manager(SessionManager *session_manager)
 
 static void timer_tick_callback(void)
 {
-	SessionManager *session_manager = get_active_session_manager();
+	SessionManager *session_manager = sm_get_global_ptr();
 	if (!session_manager) {
 		g_critical("Session Manager has not been Initialised yet! Failed to update timer tick!");
 		return;
 	}
 
-	g_idle_add(session_manager->timer_instance_tick_callback, session_manager->user_data);
+	g_idle_add(session_manager->sm_timer_tick_callback, session_manager->user_data);
 }
 
 static void on_session_completion(gboolean play_sound)
 {
-	SessionManager *session_manager = get_active_session_manager();
+	SessionManager *session_manager = sm_get_global_ptr();
 	if (play_sound) {
 		play_completion_sound(session_manager->gsound_ctx);
 	}
@@ -147,10 +147,10 @@ static void on_session_completion(gboolean play_sound)
 			break;
 	}
 
-	session_manager_set_routine(session_manager->current_routine, session_manager);
+	sm_set_routine(session_manager->current_routine, session_manager);
 }
 
-void session_manager_skip_current_session(void)
+void sm_skip_current_session(void)
 {
 	on_session_completion(FALSE);
 }
@@ -177,58 +177,57 @@ static void play_completion_sound(GSoundContext *gSoundCTX)
 	}
 }
 
-void session_manager_set_work_duration(SessionManager *session_manager, gdouble value)
+void sm_set_work_duration(SessionManager *session_manager, gdouble value)
 {
 	session_manager->work_duration = (gfloat) value;
 	Timer *timer = session_manager->timer_instance;
 
-	gboolean is_running = get_is_timer_running(timer);
+	gboolean is_running = tm_get_is_running(timer);
 	gboolean has_started = (timer->remaining_time_ms != timer->initial_time_ms);
+	gboolean is_work_session = (session_manager->current_routine == Working);
 
-	if (!is_running && !has_started) {
-		set_timer_initial_time_minutes(timer, session_manager->work_duration);
-		update_timer_string_and_run_tick_callback(timer);
+	if (is_work_session && !is_running && !has_started) {
+		tm_set_initial_time(timer, session_manager->work_duration);
+		tm_process_timer_tick(timer);
 	}
 }
 
-void session_manager_set_short_break_duration(SessionManager *session_manager, gdouble value)
+void sm_set_short_break_duration(SessionManager *session_manager, gdouble value)
 {
 	session_manager->short_break_duration = (gfloat) value;
 	Timer *timer = session_manager->timer_instance;
 
-	gboolean is_running = get_is_timer_running(timer);
+	gboolean is_running = tm_get_is_running(timer);
 	gboolean has_started = (timer->remaining_time_ms != timer->initial_time_ms);
+	gboolean is_short_break_session = (session_manager->current_routine == ShortBreak);
 
-	if (!is_running && !has_started) {
-		set_timer_initial_time_minutes(timer, session_manager->short_break_duration);
-		update_timer_string_and_run_tick_callback(timer);
+	if (is_short_break_session && !is_running && !has_started) {
+		tm_set_initial_time(timer, session_manager->short_break_duration);
+		tm_process_timer_tick(timer);
 	}
 }
 
-void session_manager_set_long_break_duration(SessionManager *session_manager, gdouble value)
+void sm_set_long_break_duration(SessionManager *session_manager, gdouble value)
 {
 	session_manager->long_break_duration = (gfloat) value;
 	Timer *timer = session_manager->timer_instance;
 
-	gboolean is_running = get_is_timer_running(timer);
+	gboolean is_running = tm_get_is_running(timer);
 	gboolean has_started = (timer->remaining_time_ms != timer->initial_time_ms);
+	gboolean is_long_break_session = (session_manager->current_routine == LongBreak);
 
-	if (!is_running && !has_started) {
-		set_timer_initial_time_minutes(timer, session_manager->long_break_duration);
-		update_timer_string_and_run_tick_callback(timer);
+	if (is_long_break_session && !is_running && !has_started) {
+		tm_set_initial_time(timer, session_manager->long_break_duration);
+		tm_process_timer_tick(timer);
 	}
 }
 
-void session_manager_set_sessions_to_complete(SessionManager *session_manager, gint value)
+void sm_set_sessions_to_complete(SessionManager *session_manager, gint value)
 {
 	session_manager->sessions_to_complete = (guint16) value;
-
-	if (!session_manager->timer_instance->is_running) {
-		g_idle_add(session_manager->timer_instance_tick_callback, session_manager->user_data);
-	}
 }
 
-void session_manager_set_routine(WorkRoutine routine, SessionManager *session_manager)
+void sm_set_routine(RoutineType routine, SessionManager *session_manager)
 {
 	session_manager->current_routine = routine;
 
@@ -248,44 +247,44 @@ void session_manager_set_routine(WorkRoutine routine, SessionManager *session_ma
 			break;
 	}
 
-	set_timer_initial_time_minutes(timer, duration);
+	tm_set_initial_time(timer, duration);
 
-	timer_reset(timer);
+	tm_reset(timer);
 
-	if (session_manager->routine_update_callback) {
-		g_idle_add(session_manager->routine_update_callback, session_manager->user_data);
+	if (session_manager->sm_routine_update_callback) {
+		g_idle_add(session_manager->sm_routine_update_callback, session_manager->user_data);
 	}
 }
 
-void set_timer_instance_tick_callback(gboolean (*timer_instance_tick_callback)(gpointer user_data))
+void sm_set_timer_tick_callback(gboolean (*timer_instance_tick_callback)(gpointer user_data))
 {
-	SessionManager *session_manager = get_active_session_manager();
+	SessionManager *session_manager = sm_get_global_ptr();
 	if (!session_manager) {
 		g_critical("Session Manager has not been Initialised yet! Failed to set tick update callback.");
 		return;
 	}
 
-	session_manager->timer_instance_tick_callback = timer_instance_tick_callback;
+	session_manager->sm_timer_tick_callback = timer_instance_tick_callback;
 }
 
 
-void set_timer_instance_tick_callback_with_data(gboolean (*timer_instance_tick_callback)(gpointer user_data), gpointer user_data)
+void sm_set_timer_tick_callback_with_data(gboolean (*timer_instance_tick_callback)(gpointer user_data), gpointer user_data)
 {
-	SessionManager *session_manager = get_active_session_manager();
+	SessionManager *session_manager = sm_get_global_ptr();
 	if (!session_manager) {
 		g_critical("Session Manager has not been Initialised yet! Failed to set tick update callback and user data.");
 		return;
 	}
 
-	session_manager->timer_instance_tick_callback = timer_instance_tick_callback;
+	session_manager->sm_timer_tick_callback = timer_instance_tick_callback;
 	session_manager->user_data = user_data;
 }
 
-void set_routine_update_callback(gboolean (*routine_update_callback)(gpointer))
+void sm_set_routine_update_callback(gboolean (*routine_update_callback)(gpointer))
 {
-	SessionManager *session_manager = get_active_session_manager();
+	SessionManager *session_manager = sm_get_global_ptr();
 	if (session_manager) {
-		session_manager->routine_update_callback = routine_update_callback;
+		session_manager->sm_routine_update_callback = routine_update_callback;
 	}
 }
 
