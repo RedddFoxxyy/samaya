@@ -27,7 +27,7 @@
  * Static Variables
  * ============================================================================ */
 
-// Will return NULL if the timer is not initialised!
+// Will return NULL if the timer is not initialized!
 static SessionManager *GLOBAL_SESSION_MANAGER_PTR = NULL;
 
 
@@ -51,7 +51,7 @@ SessionManager *sm_get_global_ptr(void)
 
 static void on_session_completion(gboolean play_sound);
 
-static void play_completion_sound(GSoundContext *gSoundCTX);
+static void play_completion_sound(GSoundContext *g_sound_ctx);
 
 static void timer_tick_callback(void);
 
@@ -64,12 +64,12 @@ SessionManager *sm_init(guint16 sessions_to_complete,
                         gboolean (*timer_instance_tick_callback)(gpointer user_data),
                         gpointer user_data)
 {
-    SessionManager *sessionManager = g_new0(SessionManager, 1);
+    SessionManager *session_manager = g_new0(SessionManager, 1);
 
-    *sessionManager = (SessionManager) {
-        .work_duration = 25.0f,
-        .short_break_duration = 5.0f,
-        .long_break_duration = 20.0f,
+    *session_manager = (SessionManager) {
+        .work_duration = 25.0F,
+        .short_break_duration = 5.0F,
+        .long_break_duration = 20.0F,
         .current_routine = Working,
         .routines_list = {Working, ShortBreak, LongBreak},
 
@@ -83,12 +83,12 @@ SessionManager *sm_init(guint16 sessions_to_complete,
         .user_data = user_data,
     };
 
-    sessionManager->timer_instance =
-        tm_init(sessionManager->work_duration, on_session_completion, timer_tick_callback);
-    sessionManager->sm_timer_tick_callback = timer_instance_tick_callback;
+    session_manager->timer_instance =
+        tm_init(session_manager->work_duration, on_session_completion, timer_tick_callback);
+    session_manager->sm_timer_tick_callback = timer_instance_tick_callback;
 
-    GLOBAL_SESSION_MANAGER_PTR = sessionManager;
-    return sessionManager;
+    GLOBAL_SESSION_MANAGER_PTR = session_manager;
+    return session_manager;
 }
 
 void sm_deinit(SessionManager *session_manager)
@@ -137,10 +137,11 @@ static void on_session_completion(gboolean play_sound)
             break;
 
         case ShortBreak:
+        case LongBreak:
             session_manager->current_routine = Working;
             break;
-
-        case LongBreak:
+        default:
+            g_critical("Invalid Routine Type! Switching to Working.");
             session_manager->current_routine = Working;
             break;
     }
@@ -153,15 +154,15 @@ void sm_skip_current_session(void)
     on_session_completion(FALSE);
 }
 
-static void play_completion_sound(GSoundContext *gSoundCTX)
+static void play_completion_sound(GSoundContext *g_sound_ctx)
 {
-    if (!gSoundCTX) {
+    if (!g_sound_ctx) {
         g_warning("Failed to play completion sound, gSound Context is not set.");
         return;
     }
 
     GError *error = NULL;
-    gboolean ok = gsound_context_play_simple(gSoundCTX,
+    gboolean ok = gsound_context_play_simple(g_sound_ctx,
                                              NULL, // no cancellable
                                              &error, GSOUND_ATTR_EVENT_ID, "bell-terminal", NULL);
 
@@ -227,7 +228,7 @@ void sm_set_routine(RoutineType routine, SessionManager *session_manager)
 
     Timer *timer = session_manager->timer_instance;
 
-    gfloat duration = 25.0f;
+    gfloat duration;
 
     switch (routine) {
         case Working:
@@ -238,6 +239,10 @@ void sm_set_routine(RoutineType routine, SessionManager *session_manager)
             break;
         case LongBreak:
             duration = session_manager->long_break_duration;
+            break;
+        default:
+            g_critical("Invalid Routine Type! Work duration is being used as default value.");
+            duration = session_manager->work_duration;
             break;
     }
 

@@ -19,7 +19,6 @@
  */
 
 #include <glib/gi18n.h>
-#include "config.h"
 
 #include "samaya-application.h"
 #include "samaya-preferences-dialog.h"
@@ -71,8 +70,9 @@ static void samaya_application_activate(GApplication *app)
 
     window = gtk_application_get_active_window(GTK_APPLICATION(app));
 
-    if (window == NULL)
+    if (window == NULL) {
         window = g_object_new(SAMAYA_TYPE_WINDOW, "application", app, NULL);
+    }
 
     gtk_window_present(window);
 }
