@@ -26,6 +26,6 @@ G_BEGIN_DECLS
 
 #define SAMAYA_TYPE_WINDOW (samaya_window_get_type())
 
-G_DECLARE_FINAL_TYPE (SamayaWindow, samaya_window, SAMAYA, WINDOW, AdwApplicationWindow)
+G_DECLARE_FINAL_TYPE(SamayaWindow, samaya_window, SAMAYA, WINDOW, AdwApplicationWindow)
 
 G_END_DECLS

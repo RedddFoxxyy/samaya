@@ -20,43 +20,44 @@
 
 #pragma once
 
-#include "samaya-timer.h"
 #include <glib.h>
 #include <gsound.h>
+#include "samaya-timer.h"
 
 typedef enum
 {
-	Working,
-	ShortBreak,
-	LongBreak,
+    Working,
+    ShortBreak,
+    LongBreak,
 } RoutineType;
 
 typedef struct
 {
-	gfloat work_duration;
-	gfloat short_break_duration;
-	gfloat long_break_duration;
+    gfloat work_duration;
+    gfloat short_break_duration;
+    gfloat long_break_duration;
 
-	RoutineType current_routine;
-	RoutineType routines_list[3];
+    RoutineType current_routine;
+    RoutineType routines_list[3];
 
-	guint16 sessions_to_complete;
-	guint16 sessions_completed;
-	guint64 total_sessions_counted;
+    guint16 sessions_to_complete;
+    guint16 sessions_completed;
+    guint64 total_sessions_counted;
 
-	Timer *timer_instance;
-	GSoundContext *gsound_ctx;
+    Timer *timer_instance;
+    GSoundContext *gsound_ctx;
 
-	gpointer user_data;
+    gpointer user_data;
 
-	gboolean (*sm_timer_tick_callback)(gpointer user_data);
+    gboolean (*sm_timer_tick_callback)(gpointer user_data);
 
-	gboolean (*sm_routine_update_callback)(gpointer user_data);
+    gboolean (*sm_routine_update_callback)(gpointer user_data);
 } SessionManager;
 
 SessionManager *sm_get_global_ptr(void);
 
-SessionManager *sm_init(guint16 sessions_to_complete, gboolean (*timer_instance_tick_callback)(gpointer), gpointer user_data);
+SessionManager *sm_init(guint16 sessions_to_complete,
+                        gboolean (*timer_instance_tick_callback)(gpointer), gpointer user_data);
 
 void sm_deinit(SessionManager *session_manager);
 
@@ -74,7 +75,7 @@ void sm_skip_current_session(void);
 
 void sm_set_timer_tick_callback(gboolean (*timer_instance_tick_callback)(gpointer));
 
-void sm_set_timer_tick_callback_with_data(gboolean (*timer_instance_tick_callback)(gpointer), gpointer user_data);
+void sm_set_timer_tick_callback_with_data(gboolean (*timer_instance_tick_callback)(gpointer),
+                                          gpointer user_data);
 
 void sm_set_routine_update_callback(gboolean (*routine_update_callback)(gpointer));
-

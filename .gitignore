@@ -13,4 +13,5 @@ build-aux/flatpak/samaya.flatpak
 
 # Meson Build Output Cache:
 buildDir
+builddir
 _build

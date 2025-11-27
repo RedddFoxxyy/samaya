@@ -26,14 +26,14 @@
 
 int main(int argc, char *argv[])
 {
-	g_autoptr(SamayaApplication) app = NULL;
+    g_autoptr(SamayaApplication) app = NULL;
 
-	bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
-	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-	textdomain(GETTEXT_PACKAGE);
+    bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
+    bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
+    textdomain(GETTEXT_PACKAGE);
 
-	app = samaya_application_new("io.github.redddfoxxyy.samaya", G_APPLICATION_DEFAULT_FLAGS);
-	int ret = g_application_run(G_APPLICATION(app), argc, argv);
+    app = samaya_application_new("io.github.redddfoxxyy.samaya", G_APPLICATION_DEFAULT_FLAGS);
+    int ret = g_application_run(G_APPLICATION(app), argc, argv);
 
-	return ret;
+    return ret;
 }
