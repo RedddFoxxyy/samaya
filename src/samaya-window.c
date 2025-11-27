@@ -18,7 +18,6 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-#include "config.h"
 
 #include <math.h>
 #include "samaya-application.h"
@@ -91,6 +90,10 @@ static void update_progress_circle_color(SamayaWindow *self)
         case LongBreak:
             gtk_widget_add_css_class(widget, "routine-long-break");
             break;
+        default:
+            g_critical("Invalid Routine Type! Defaulting widget class to routine-working.");
+            gtk_widget_add_css_class(widget, "routine-working");
+            break;
     }
 
     gtk_widget_queue_draw(widget);
@@ -136,11 +139,11 @@ static gboolean update_routine_toggle_switch(gpointer user_data)
     GtkWindow *window = gtk_application_get_active_window(GTK_APPLICATION(app));
     SamayaWindow *self = SAMAYA_WINDOW(window);
 
-    RoutineType new_routine = samaya_application_get_session_manager(app)->current_routine;
+    RoutineType current_routine = samaya_application_get_session_manager(app)->current_routine;
 
     const char *target_name = NULL;
 
-    switch (new_routine) {
+    switch (current_routine) {
         case Working:
             target_name = "pomodoro";
             break;
@@ -149,6 +152,10 @@ static gboolean update_routine_toggle_switch(gpointer user_data)
             break;
         case LongBreak:
             target_name = "long-break";
+            break;
+        default:
+            g_critical("Invalid Routine Type! Defaulting current routine to pomodoro.");
+            target_name = "pomodoro";
             break;
     }
 

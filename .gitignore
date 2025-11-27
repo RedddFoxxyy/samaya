@@ -1,6 +1,7 @@
 # IDE related dirs:
 .idea/
 .vscode/
+.zed/
 .buildconfig
 /io.github.redddfoxxyy.samaya.json
 /io.github.redddfoxxyy.samaya.json~

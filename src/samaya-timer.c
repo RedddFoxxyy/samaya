@@ -21,10 +21,7 @@
 #include "samaya-timer.h"
 #include <pthread.h>
 #include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <sys/time.h>
-#include <unistd.h>
 
 /* ============================================================================
  * Static Variables
@@ -265,7 +262,7 @@ static void timer_hold_worker(Timer *timer)
         g_cond_wait(&timer->timer_cond, &timer->timer_mutex);
 
         if (timer->is_running) {
-            // Reset the monotonic time so we don't jump ahead.
+            // NOTE: Reset the monotonic time so we don't jump ahead.
             timer->last_updated_time_us = g_get_monotonic_time();
         }
     }
@@ -287,10 +284,10 @@ gboolean tm_get_is_running(Timer *timer)
 gfloat tm_get_progress(Timer *timer)
 {
     tm_get_lock(timer);
-    gfloat timerProgress = timer->timer_progress;
+    gfloat timer_progress = timer->timer_progress;
     tm_unlock(timer);
 
-    return timerProgress;
+    return timer_progress;
 }
 
 gchar *tm_get_time_str(Timer *timer)
