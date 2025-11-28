@@ -45,7 +45,7 @@ jobs:
       - name: Install Flatpak dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y flatpak git
+          sudo apt-get install -y flatpak flatpak-builder git
 
           sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
           sudo flatpak install --noninteractive flathub org.flatpak.Builder
@@ -55,7 +55,7 @@ jobs:
         run: |
           echo "Building Flatpak for ${{ matrix.flatpak_arch }}"
           git clone https://github.com/flathub/shared-modules.git build-aux/flatpak/shared-modules
-          flatpak run org.flatpak.Builder --force-clean --repo=repo build-dir build-aux/flatpak/io.github.redddfoxxyy.samaya.json
+          flatpak-builder --force-clean --repo=repo build-dir build-aux/flatpak/io.github.redddfoxxyy.samaya.json
           OUT=samaya-v${{ needs.get-version.outputs.version }}-${{ matrix.flatpak_arch }}.flatpak
           flatpak build-bundle repo "$OUT" io.github.redddfoxxyy.samaya
           echo "Built $OUT"
