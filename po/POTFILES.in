@@ -6,3 +6,6 @@ data/io.github.redddfoxxyy.samaya.gschema.xml
 src/main.c
 src/samaya-window.c
 src/samaya-window.ui
+src/samaya-preferences-dialog.c
+src/shortcuts-dialog.ui
+src/samaya-application.c

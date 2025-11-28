@@ -22,7 +22,6 @@
 
 #include <glib.h>
 #include <gsound-context.h>
-#include <stdbool.h>
 
 typedef struct
 {

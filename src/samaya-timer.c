@@ -18,9 +18,6 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-#include <pthread.h>
-#include <stdint.h>
-#include <sys/time.h>
 #include "samaya-timer.h"
 
 /* ============================================================================

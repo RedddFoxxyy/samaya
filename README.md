@@ -11,6 +11,8 @@
 
 #### A simple, elegant, minimalist Pomodoro timer for your desktop. Designed to help you stay focused and productive, it offers a clean, distraction-free interface to manage work and break intervals with ease.
 
+#### Samaya means time in Hindi, written as `समय`.
+
 ## Features
 
 * **Light Weight:** The size of the app is only around 55KB and around 111KB including all the data and assets!
@@ -69,6 +71,7 @@
 
   - The project follows a mix of C naming conventions from LLVM and GNOME/GNU style C code.
   - People using Zed Editor can directly run tasks to build and run the code (assuming all the required dependencies are installed).
+  - Need help with translating the app.
 	
 ## Code of Conduct
 
