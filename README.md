@@ -33,7 +33,7 @@
 	
 ## Building from Source
 
-## Software Dependencies Required:
+### Software Dependencies Required:
 
   - GCC14 or later / Clang 19 or later
   - Meson (install using pip for latest version)
@@ -55,7 +55,7 @@
 1. **Clone the repository:**
    ```bash
    git clone [https://github.com/RedddFoxxyy/samaya.git](https://github.com/RedddFoxxyy/samaya.git)
-   cd pomolin
+   cd samaya
    ```
    
 2. **Build the application using Meson:**
