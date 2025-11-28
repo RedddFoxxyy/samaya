@@ -138,7 +138,7 @@ static void samaya_application_quit_action(GSimpleAction *action, GVariant *para
     g_application_quit(G_APPLICATION(self));
 }
 
-static const GActionEntry app_actions[] = {
+static const GActionEntry appActions[] = {
     {"quit", samaya_application_quit_action},
     {"about", samaya_application_about_action},
     {"preferences", samaya_application_preferences_action},
@@ -146,8 +146,7 @@ static const GActionEntry app_actions[] = {
 
 static void samaya_application_init(SamayaApplication *self)
 {
-    g_action_map_add_action_entries(G_ACTION_MAP(self), app_actions, G_N_ELEMENTS(app_actions),
-                                    self);
+    g_action_map_add_action_entries(G_ACTION_MAP(self), appActions, G_N_ELEMENTS(appActions), self);
     gtk_application_set_accels_for_action(GTK_APPLICATION(self), "app.quit",
                                           (const char *[]) {"<control>q", NULL});
 

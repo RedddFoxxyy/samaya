@@ -18,10 +18,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-#include "config.h"
-
 #include <glib/gi18n.h>
-
+#include "config.h"
 #include "samaya-application.h"
 
 int main(int argc, char *argv[])

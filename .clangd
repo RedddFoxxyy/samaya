@@ -1,2 +1,2 @@
 CompileFlags:
-  CompilationDatabase: buildDir
+  CompilationDatabase: build_release

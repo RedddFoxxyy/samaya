@@ -60,10 +60,19 @@
    
 2. **Build the application using Meson:**
 	```bash
-		meson setup buildDir --buildtype=release
-		meson compile -C buildDir
-		./buildDir/src/samaya
+	meson setup build_release --buildtype=release
+	meson compile -C build_release
+	./build_release/src/samaya
 	```
+	
+## For Contributors:
+
+  - The project follows a mix of C naming conventions from LLVM and GNOME/GNU style C code.
+  - People using Zed Editor can directly run tasks to build and run the code (assuming all the required dependencies are installed).
+	
+## Code of Conduct
+
+This project adheres to the [GNOME Code of Conduct](https://conduct.gnome.org/). By participating through any means, including PRs, Issues or Discussions, you are expected to uphold this code.
 
 ## License
 

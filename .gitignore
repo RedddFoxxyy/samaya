@@ -1,10 +1,13 @@
 # IDE related dirs:
 .idea/
 .vscode/
-.zed/
+.zed/*
+!.zed/tasks.json
+!.zed/settings.json
 .buildconfig
 /io.github.redddfoxxyy.samaya.json
 /io.github.redddfoxxyy.samaya.json~
+/.clangd
 
 # Flatpak Build cache:
 build-aux/flatpak/.flatpak-builder
@@ -23,3 +26,5 @@ buildDir
 builddir
 _build
 build
+build_debug
+build_release

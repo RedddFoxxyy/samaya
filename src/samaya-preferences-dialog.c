@@ -56,7 +56,7 @@ static void on_sessions_count_changed(GtkAdjustment *adjustment, GValue *value, 
 {
     SessionManager *sm = sm_get_global_ptr();
     if (sm) {
-        sm_set_sessions_to_complete(sm, (gint) gtk_adjustment_get_value(adjustment));
+        sm_set_sessions_to_complete(sm, (guint16) gtk_adjustment_get_value(adjustment));
     }
 }
 
@@ -81,7 +81,7 @@ static void samaya_preferences_dialog_init(SamayaPreferencesDialog *self)
     adw_preferences_page_add(page, timer_group);
 
     // Work Duration
-    GtkWidget *work_row = adw_spin_row_new_with_range(1.0, 120.0, 1.0);
+    GtkWidget *work_row = adw_spin_row_new_with_range(0.5, 999.0, 0.5);
     adw_preferences_row_set_title(ADW_PREFERENCES_ROW(work_row), "Work");
     adw_spin_row_set_value(ADW_SPIN_ROW(work_row), sm ? sm->work_duration : 25.0);
     g_signal_connect(adw_spin_row_get_adjustment(ADW_SPIN_ROW(work_row)), "value-changed",
@@ -89,7 +89,7 @@ static void samaya_preferences_dialog_init(SamayaPreferencesDialog *self)
     adw_preferences_group_add(timer_group, work_row);
 
     // Short Break Duration
-    GtkWidget *short_row = adw_spin_row_new_with_range(1.0, 60.0, 1.0);
+    GtkWidget *short_row = adw_spin_row_new_with_range(0.5, 999.0, 0.5);
     adw_preferences_row_set_title(ADW_PREFERENCES_ROW(short_row), "Short Break");
     adw_spin_row_set_value(ADW_SPIN_ROW(short_row), sm ? sm->short_break_duration : 5.0);
     g_signal_connect(adw_spin_row_get_adjustment(ADW_SPIN_ROW(short_row)), "value-changed",
@@ -97,7 +97,7 @@ static void samaya_preferences_dialog_init(SamayaPreferencesDialog *self)
     adw_preferences_group_add(timer_group, short_row);
 
     // Long Break Duration
-    GtkWidget *long_row = adw_spin_row_new_with_range(1.0, 120.0, 1.0);
+    GtkWidget *long_row = adw_spin_row_new_with_range(0.5, 999.0, 0.5);
     adw_preferences_row_set_title(ADW_PREFERENCES_ROW(long_row), "Long Break");
     adw_spin_row_set_value(ADW_SPIN_ROW(long_row), sm ? sm->long_break_duration : 20.0);
     g_signal_connect(adw_spin_row_get_adjustment(ADW_SPIN_ROW(long_row)), "value-changed",
@@ -111,7 +111,7 @@ static void samaya_preferences_dialog_init(SamayaPreferencesDialog *self)
     adw_preferences_page_add(page, session_group);
 
     // Session Count
-    GtkWidget *count_row = adw_spin_row_new_with_range(1.0, 10.0, 1.0);
+    GtkWidget *count_row = adw_spin_row_new_with_range(1.0, 100.0, 1.0);
     adw_preferences_row_set_title(ADW_PREFERENCES_ROW(count_row), "Sessions before Long Break");
     adw_spin_row_set_value(ADW_SPIN_ROW(count_row), sm ? sm->sessions_to_complete : 4.0);
     g_signal_connect(adw_spin_row_get_adjustment(ADW_SPIN_ROW(count_row)), "value-changed",

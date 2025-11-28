@@ -19,7 +19,6 @@
  */
 
 #include "samaya-session.h"
-#include <stdio.h>
 #include "samaya-timer.h"
 
 
@@ -28,7 +27,7 @@
  * ============================================================================ */
 
 // Will return NULL if the timer is not initialized!
-static SessionManager *GLOBAL_SESSION_MANAGER_PTR = NULL;
+static SessionManager *globalSessionManagerPtr = NULL;
 
 
 /* ============================================================================
@@ -37,11 +36,11 @@ static SessionManager *GLOBAL_SESSION_MANAGER_PTR = NULL;
 
 SessionManager *sm_get_global_ptr(void)
 {
-    if (GLOBAL_SESSION_MANAGER_PTR) {
-        return GLOBAL_SESSION_MANAGER_PTR;
+    if (globalSessionManagerPtr) {
+        return globalSessionManagerPtr;
     }
     g_critical("Session Manager was accessed but is uninitialised!");
-    return GLOBAL_SESSION_MANAGER_PTR;
+    return globalSessionManagerPtr;
 }
 
 
@@ -87,7 +86,7 @@ SessionManager *sm_init(guint16 sessions_to_complete,
         tm_init(session_manager->work_duration, on_session_completion, timer_tick_callback);
     session_manager->sm_timer_tick_callback = timer_instance_tick_callback;
 
-    GLOBAL_SESSION_MANAGER_PTR = session_manager;
+    globalSessionManagerPtr = session_manager;
     return session_manager;
 }
 
@@ -99,7 +98,7 @@ void sm_deinit(SessionManager *session_manager)
         tm_deinit(session_manager->timer_instance);
     }
 
-    GLOBAL_SESSION_MANAGER_PTR = NULL;
+    globalSessionManagerPtr = NULL;
 
     g_free(session_manager);
 }
@@ -217,9 +216,9 @@ void sm_set_long_break_duration(SessionManager *session_manager, gdouble value)
     }
 }
 
-void sm_set_sessions_to_complete(SessionManager *session_manager, gint value)
+void sm_set_sessions_to_complete(SessionManager *session_manager, guint16 value)
 {
-    session_manager->sessions_to_complete = (guint16) value;
+    session_manager->sessions_to_complete = value;
 }
 
 void sm_set_routine(RoutineType routine, SessionManager *session_manager)

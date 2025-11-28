@@ -1,0 +1,40 @@
+[
+	{
+		"label": "Build Debug",
+		"command": "([ -f build_debug/build.ninja ] || meson setup build_debug --buildtype=debug) && meson compile -C build_debug",
+		"allow_concurrent_runs": false,
+		"tags": ["meson-build-debug"]
+	},
+	{
+		"label": "Run Debug",
+		"command": "meson compile -C build_debug && ./build_debug/src/samaya",
+		"allow_concurrent_runs": false,
+		"tags": ["meson-run-debug"],
+		"hide": "on_success"
+	},
+	{
+		"label": "Build Release",
+		"command": "([ -f build_release/build.ninja ] || meson setup build_release --buildtype=release --strip) && meson compile -C build_release",
+		"allow_concurrent_runs": false,
+		"tags": ["meson-build-release"]
+	},
+	{
+		"label": "Run Release",
+		"command": "meson compile -C build_release && ./build_release/src/samaya",
+		"allow_concurrent_runs": false,
+		"tags": ["meson-run-release"],
+		"hide": "on_success"
+	},
+	{
+		"label": "Run Tests",
+		"command": "meson test -C build_debug --print-errorlogs",
+		"allow_concurrent_runs": false,
+		"tags": ["meson-test"]
+	},
+	{
+		"label": "Clean All",
+		"command": "rm -rf build_debug build_release",
+		"allow_concurrent_runs": false,
+		"tags": ["meson-clean"]
+	}
+]

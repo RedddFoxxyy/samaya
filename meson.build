@@ -5,7 +5,7 @@ project(
 	meson_version: '>= 1.0.0',
 	default_options: [
 		'warning_level=2',
-		'werror=false',
+		'werror=true',
 		'c_std=gnu11',
 	],
 )
@@ -40,7 +40,7 @@ test_c_args = [
 	'-Werror=missing-include-dirs',
 	'-Werror=nonnull',
 	'-Werror=overflow',
-	'-Werror=parenthesis',
+	'-Werror=parentheses',
 	'-Werror=pointer-arith',
 	'-Werror=pointer-to-int-cast',
 	'-Werror=redundant-decls',

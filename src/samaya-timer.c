@@ -18,10 +18,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-#include "samaya-timer.h"
 #include <pthread.h>
 #include <stdint.h>
 #include <sys/time.h>
+#include "samaya-timer.h"
 
 /* ============================================================================
  * Static Variables
@@ -30,7 +30,7 @@
 // Yeah, I know this is unsafe, anyway....
 // Also, maybe I should use a mutex to make this thread safe? or maybe not
 // because the timer struct itself has a mutex?
-static Timer *GLOBAL_TIMER_PTR = NULL;
+static Timer *globalTimerPtr = NULL;
 
 
 /* ============================================================================
@@ -40,8 +40,8 @@ static Timer *GLOBAL_TIMER_PTR = NULL;
 // Will return NULL if timer is not initialised!
 Timer *tm_get_global_ptr(void)
 {
-    if (GLOBAL_TIMER_PTR) {
-        return GLOBAL_TIMER_PTR;
+    if (globalTimerPtr) {
+        return globalTimerPtr;
     }
     g_critical("Timer was accessed but is uninitialised!");
     return NULL;
@@ -88,7 +88,7 @@ Timer *tm_init(float duration_minutes, void (*on_finished)(gboolean play_sound),
 
     timer->worker_thread = g_thread_new("timer-thread", tm_run_thread_worker, timer);
 
-    GLOBAL_TIMER_PTR = timer;
+    globalTimerPtr = timer;
 
     return timer;
 }
@@ -108,14 +108,14 @@ static gpointer tm_run_thread_worker(gpointer timerInstance)
             break;
         }
 
-        gint64 currentTimeUS = g_get_monotonic_time();
-        gint64 elapsedTimeUS = currentTimeUS - timer->last_updated_time_us;
-        if (elapsedTimeUS < 0)
-            elapsedTimeUS = 0;
-        timer->last_updated_time_us = currentTimeUS;
+        gint64 current_time_us = g_get_monotonic_time();
+        gint64 elapsed_time_us = current_time_us - timer->last_updated_time_us;
+        if (elapsed_time_us < 0)
+            elapsed_time_us = 0;
+        timer->last_updated_time_us = current_time_us;
 
-        gint64 elapsedTimeMS = elapsedTimeUS / 1000;
-        tm_decrement_remaining_time(timer, elapsedTimeMS);
+        gint64 elapsed_time_ms = elapsed_time_us / 1000;
+        tm_decrement_remaining_time(timer, elapsed_time_ms);
 
         if (timer->remaining_time_ms < 0)
             timer->remaining_time_ms = 0;
@@ -209,7 +209,7 @@ void tm_deinit(Timer *timer)
     g_string_free(timer->remaining_time_minutes_string, TRUE);
     g_cond_clear(&timer->timer_cond);
     g_mutex_clear(&timer->timer_mutex);
-    GLOBAL_TIMER_PTR = NULL;
+    globalTimerPtr = NULL;
 
     g_free(timer);
 }

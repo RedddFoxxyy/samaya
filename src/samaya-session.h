@@ -67,7 +67,7 @@ void sm_set_short_break_duration(SessionManager *session_manager, gdouble value)
 
 void sm_set_long_break_duration(SessionManager *session_manager, gdouble value);
 
-void sm_set_sessions_to_complete(SessionManager *session_manager, gint value);
+void sm_set_sessions_to_complete(SessionManager *session_manager, guint16 value);
 
 void sm_set_routine(RoutineType routine, SessionManager *session_manager);
 
@@ -76,6 +76,6 @@ void sm_skip_current_session(void);
 void sm_set_timer_tick_callback(gboolean (*timer_instance_tick_callback)(gpointer));
 
 void sm_set_timer_tick_callback_with_data(gboolean (*timer_instance_tick_callback)(gpointer),
-                                          gpointer user_data);
+                                          gpointer samaya_application_ref);
 
 void sm_set_routine_update_callback(gboolean (*routine_update_callback)(gpointer));
