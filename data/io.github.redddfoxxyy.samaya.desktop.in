@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Samaya
-Exec=Samaya
+Exec=samaya
 Icon=io.github.redddfoxxyy.samaya
 Terminal=false
 Type=Application

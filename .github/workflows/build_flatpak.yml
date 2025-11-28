@@ -67,7 +67,7 @@ jobs:
 
   release-upload:
     name: Create Release & Upload Flatpaks (arm64 runner)
-    needs: build-flatpak
+    needs: [get-version, build-flatpak]
     runs-on: ubuntu-24.04-arm
     steps:
       - name: Checkout (for action compatibility)
