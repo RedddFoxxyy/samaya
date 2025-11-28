@@ -3,6 +3,9 @@ name: Build Flatpaks
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   get-version:
     name: Get Version
