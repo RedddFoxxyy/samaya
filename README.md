@@ -47,7 +47,7 @@
 | Dep Name                                                         | `pkg-config` Name | Min Version            | Justification                                       |
 |------------------------------------------------------------------|-------------------|------------------------|-----------------------------------------------------|
 | [gtk4](https://gitlab.gnome.org/GNOME/gtk/)                      | `gtk4`            | enforced by libadwaita | GUI                                                 |
-| [libadwaita](https://gitlab.gnome.org/GNOME/libadwaita)          | `libadwaita-1`    | `1.4`                  | GNOME styling                                       |
+| [libadwaita](https://gitlab.gnome.org/GNOME/libadwaita)          | `libadwaita-1`    | `1.7`                  | GNOME styling                                       |
 | [gsound](https://gitlab.gnome.org/GNOME/gsound)                  | `gsound`          | `1.0.3`                | Playing System Sounds                               |
 | [libcanberra](https://0pointer.de/lennart/projects/libcanberra/) | `libcanberra`     | `0.30`                 | Dependency for gsound                               |
 | [glib](https://gitlab.gnome.org/GNOME/glib)                      | `glib-2.0`        | `2.74.6`               | Dependency for gtk4 and libadwaita                  |

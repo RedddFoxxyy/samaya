@@ -28,3 +28,5 @@ _build
 build
 build_debug
 build_release
+build_install
+build_appimage
