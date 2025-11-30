@@ -20,6 +20,7 @@
 
 #include <glib/gi18n.h>
 #include <math.h>
+#include "cairo.h"
 #include "samaya-application.h"
 #include "samaya-session.h"
 #include "samaya-timer.h"
@@ -282,20 +283,21 @@ static void draw_progress_circle(GtkDrawingArea *area, cairo_t *cr, int width, i
 
     gfloat progress = tm_get_progress(get_timer_instance(self));
 
-    cairo_set_line_width(cr, line_width);
-    cairo_set_line_cap(cr, CAIRO_LINE_CAP_ROUND);
-
-    cairo_set_source_rgba(cr, 0.3, 0.3, 0.3, 0.3);
-    cairo_arc(cr, center_x, center_y, radius, 0, 2 * M_PI);
-    cairo_stroke(cr);
+    double curve_start_angle = -M_PI / 2;
+    double curve_end_angle = curve_start_angle + (2 * M_PI * progress);
 
     GdkRGBA color;
     gtk_widget_get_color(GTK_WIDGET(area), &color);
-    gdk_cairo_set_source_rgba(cr, &color);
 
-    double start_angle = -M_PI / 2;
-    double end_angle = start_angle + (2 * M_PI * progress);
-    cairo_arc(cr, center_x, center_y, radius, start_angle, end_angle);
+    cairo_set_line_width(cr, line_width);
+    cairo_set_line_cap(cr, CAIRO_LINE_CAP_ROUND);
+
+    cairo_set_source_rgba(cr, color.red, color.green, color.blue, 0.2);
+    cairo_arc_negative(cr, center_x, center_y, radius, curve_start_angle, curve_end_angle);
+    cairo_stroke(cr);
+
+    gdk_cairo_set_source_rgba(cr, &color);
+    cairo_arc(cr, center_x, center_y, radius, curve_start_angle, curve_end_angle);
     cairo_stroke(cr);
 }
 
