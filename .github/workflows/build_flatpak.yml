@@ -3,6 +3,10 @@ name: Build Flatpaks
 on:
   workflow_dispatch:
 
+  push:
+    branches:
+      - release
+
 permissions:
   contents: write
 

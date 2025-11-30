@@ -149,7 +149,20 @@ static void samaya_application_init(SamayaApplication *self)
     gtk_application_set_accels_for_action(GTK_APPLICATION(self), "app.quit",
                                           (const char *[]) {"<control>q", NULL});
 
-    self->samayaSessionManager = sm_init(4, NULL, self);
+    // TODO: Convert the given block of code till line 167 into a function.
+    GSettings *settings = g_settings_new("io.github.redddfoxxyy.samaya");
+
+    GVariant *sessions_variant = g_settings_get_value(settings, "sessions-to-complete");
+    guint16 sessions = g_variant_get_uint16(sessions_variant);
+    g_variant_unref(sessions_variant);
+
+    gdouble work_dur = g_settings_get_double(settings, "work-duration");
+    gdouble short_dur = g_settings_get_double(settings, "short-break-duration");
+    gdouble long_dur = g_settings_get_double(settings, "long-break-duration");
+
+    self->samayaSessionManager = sm_init(sessions, work_dur, short_dur, long_dur, NULL, self);
+
+    g_object_unref(settings);
 }
 
 /* ============================================================================

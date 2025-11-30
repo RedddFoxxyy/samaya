@@ -34,35 +34,56 @@ G_DEFINE_FINAL_TYPE(SamayaPreferencesDialog, samaya_preferences_dialog, ADW_TYPE
  * UI Actions
  * ============================================================================ */
 
-static void on_work_duration_changed(GtkAdjustment *adjustment, GValue *value, gpointer user_data)
+static void on_work_duration_changed(GtkAdjustment *adjustment)
 {
     SessionManager *sm = sm_get_global_ptr();
     if (sm) {
-        sm_set_work_duration(sm, gtk_adjustment_get_value(adjustment));
+        gdouble val = gtk_adjustment_get_value(adjustment);
+        sm_set_work_duration(sm, val);
+
+        GSettings *settings = g_settings_new("io.github.redddfoxxyy.samaya");
+        g_settings_set_double(settings, "work-duration", val);
+        g_object_unref(settings);
     }
 }
 
-static void on_short_break_changed(GtkAdjustment *adjustment, GValue *value, gpointer user_data)
+static void on_short_break_changed(GtkAdjustment *adjustment)
 {
     SessionManager *sm = sm_get_global_ptr();
     if (sm) {
-        sm_set_short_break_duration(sm, gtk_adjustment_get_value(adjustment));
+        gdouble val = gtk_adjustment_get_value(adjustment);
+        sm_set_short_break_duration(sm, val);
+
+        GSettings *settings = g_settings_new("io.github.redddfoxxyy.samaya");
+        g_settings_set_double(settings, "short-break-duration", val);
+        g_object_unref(settings);
     }
 }
 
-static void on_long_break_changed(GtkAdjustment *adjustment, GValue *value, gpointer user_data)
+static void on_long_break_changed(GtkAdjustment *adjustment)
 {
     SessionManager *sm = sm_get_global_ptr();
     if (sm) {
-        sm_set_long_break_duration(sm, gtk_adjustment_get_value(adjustment));
+        gdouble val = gtk_adjustment_get_value(adjustment);
+        sm_set_long_break_duration(sm, val);
+
+        GSettings *settings = g_settings_new("io.github.redddfoxxyy.samaya");
+        g_settings_set_double(settings, "long-break-duration", val);
+        g_object_unref(settings);
     }
 }
 
-static void on_sessions_count_changed(GtkAdjustment *adjustment, GValue *value, gpointer user_data)
+static void on_sessions_count_changed(GtkAdjustment *adjustment)
 {
     SessionManager *sm = sm_get_global_ptr();
     if (sm) {
-        sm_set_sessions_to_complete(sm, (guint16) gtk_adjustment_get_value(adjustment));
+        guint16 val = (guint16) gtk_adjustment_get_value(adjustment);
+        sm_set_sessions_to_complete(sm, val);
+
+        GSettings *settings = g_settings_new("io.github.redddfoxxyy.samaya");
+        GVariant *variant = g_variant_new_uint16(val);
+        g_settings_set_value(settings, "sessions-to-complete", variant);
+        g_object_unref(settings);
     }
 }
 
