@@ -35,12 +35,12 @@
 
   ```bash
   git clone -b release --single-branch https://github.com/RedddFoxxyy/samaya.git
-	cd samaya
-	meson setup build_release --buildtype=release -Dprefix=$HOME/.local
-	meson compile -C build_release
-	meson install -C build_release
-	cd ..
-	rm -rf samaya
+  cd samaya
+  meson setup build_release --buildtype=release -Dprefix=$HOME/.local
+  meson compile -C build_release
+  meson install -C build_release
+  cd ..
+  rm -rf samaya
 	```
 
 - For other operating systems, the app can only be compiled and installed manually from source 
@@ -74,9 +74,9 @@
    
 2. **Build the application using Meson:**
 	```bash
-	meson setup build_release --buildtype=release
-	meson compile -C build_release
-	./build_release/src/samaya
+  meson setup build_release --buildtype=release
+  meson compile -C build_release
+  ./build_release/src/samaya
 	```
 	
 3. **Install the application:**
