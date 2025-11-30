@@ -30,3 +30,7 @@ build_debug
 build_release
 build_install
 build_appimage
+build_local
+
+# misc:
+po/README.md

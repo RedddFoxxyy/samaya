@@ -1,0 +1,157 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the samaya package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: samaya\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-30 13:12+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/io.github.redddfoxxyy.samaya.desktop.in:2
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:7 src/samaya-window.ui:6
+msgid "Samaya"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.desktop.in:8
+msgid "GTK;"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:8
+msgid "Timekeeper for your tasks"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:10
+msgid ""
+"A simple, elegant, minimalist Pomodoro timer for your desktop. Designed to "
+"help you stay focused and productive, it offers a clean, distraction-free "
+"interface to manage work and break intervals with ease."
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:16
+#: src/samaya-application.c:115 src/samaya-application.c:124
+msgid "Suyog Tandel"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:63
+msgid "Productivity"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:64 src/samaya-window.ui:43
+msgid "Pomodoro"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:65
+msgid "Timer"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:66
+msgid "Time"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:67
+msgid "Tracker"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:79
+msgid "Samaya Work Session"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:83
+msgid "Samaya Short Break"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:87
+msgid "Samaya Long Break"
+msgstr ""
+
+#: src/samaya-window.c:182
+msgid "Stop"
+msgstr ""
+
+#: src/samaya-window.c:196
+msgid "Resume"
+msgstr ""
+
+#: src/samaya-window.c:204 src/samaya-window.ui:145
+msgid "Start"
+msgstr ""
+
+#: src/samaya-window.ui:19
+msgid "Main Menu"
+msgstr ""
+
+#: src/samaya-window.ui:49 src/samaya-preferences-dialog.c:104
+msgid "Short Break"
+msgstr ""
+
+#: src/samaya-window.ui:55 src/samaya-preferences-dialog.c:112
+msgid "Long Break"
+msgstr ""
+
+#: src/samaya-window.ui:155
+msgid "Reset"
+msgstr ""
+
+#: src/samaya-window.ui:177
+msgid "_Preferences"
+msgstr ""
+
+#: src/samaya-window.ui:181
+msgid "_Keyboard Shortcuts"
+msgstr ""
+
+#: src/samaya-window.ui:185
+msgid "_About Samaya"
+msgstr ""
+
+#: src/samaya-preferences-dialog.c:89
+msgid "Timer Durations"
+msgstr ""
+
+#: src/samaya-preferences-dialog.c:91
+msgid "Set the duration (in minutes) for each routine."
+msgstr ""
+
+#: src/samaya-preferences-dialog.c:96
+msgid "Work"
+msgstr ""
+
+#: src/samaya-preferences-dialog.c:121
+msgid "Session Cycle"
+msgstr ""
+
+#: src/samaya-preferences-dialog.c:126
+msgid "Sessions before Long Break"
+msgstr ""
+
+#: src/shortcuts-dialog.ui:6
+msgid "Shortcuts"
+msgstr ""
+
+#: src/shortcuts-dialog.ui:9
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr ""
+
+#: src/shortcuts-dialog.ui:15
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr ""
+
+#: src/samaya-application.c:123
+msgid "samaya"
+msgstr ""
+
+#: src/samaya-application.c:125
+msgid "translator-credits"
+msgstr ""

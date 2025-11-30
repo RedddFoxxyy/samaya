@@ -89,6 +89,18 @@
   </screenshots>
 
   <releases>
+    <release version="0.1.3" date="2025-11-30">
+      <url type="details">https://github.com/RedddFoxxyy/samaya/releases/tag/0.1.3</url>
+      <description translate="no">
+        <p>Release Changelog:</p>
+        <ul>
+          <li>Preferences now persists between application restart.</li>
+          <li>Increased limit of minimum and maximum duration for all routines.</li>
+          <li>Increased limit of maximum number of sessions before long break.</li>
+          <li>Add translations for Hindi.</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.1.1" date="2025-11-27">
       <url type="details">https://github.com/RedddFoxxyy/samaya/releases/tag/0.1.1</url>
       <description translate="no">

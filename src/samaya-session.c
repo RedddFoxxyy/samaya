@@ -59,16 +59,17 @@ static void timer_tick_callback(void);
  * SessionManager Methods
  * ============================================================================ */
 
-SessionManager *sm_init(guint16 sessions_to_complete,
+SessionManager *sm_init(guint16 sessions_to_complete, gdouble work_duration,
+                        gdouble short_break_duration, gdouble long_break_duration,
                         gboolean (*timer_instance_tick_callback)(gpointer user_data),
                         gpointer user_data)
 {
     SessionManager *session_manager = g_new0(SessionManager, 1);
 
     *session_manager = (SessionManager) {
-        .work_duration = 25.0F,
-        .short_break_duration = 5.0F,
-        .long_break_duration = 20.0F,
+        .work_duration = work_duration,
+        .short_break_duration = short_break_duration,
+        .long_break_duration = long_break_duration,
         .current_routine = Working,
         .routines_list = {Working, ShortBreak, LongBreak},
 

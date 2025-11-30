@@ -56,8 +56,10 @@ typedef struct
 
 SessionManager *sm_get_global_ptr(void);
 
-SessionManager *sm_init(guint16 sessions_to_complete,
-                        gboolean (*timer_instance_tick_callback)(gpointer), gpointer user_data);
+SessionManager *sm_init(guint16 sessions_to_complete, gdouble work_duration,
+                        gdouble short_break_duration, gdouble long_break_duration,
+                        gboolean (*timer_instance_tick_callback)(gpointer user_data),
+                        gpointer user_data);
 
 void sm_deinit(SessionManager *session_manager);
 

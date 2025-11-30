@@ -1,0 +1,160 @@
+# Samaya — a simple Pomodoro timer for desktop
+# Copyright (C) 2025 Suyog Tandel
+# This file is distributed under the same license as the samaya package.
+# Suyog Tandel <suyogtandel@proton.me>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: samaya\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-30 13:12+0530\n"
+"PO-Revision-Date: 2025-11-30 10:41+0530\n"
+"Last-Translator: Suyog Tandel <suyogtandel@proton.me>\n"
+"Language-Team: Hindi\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/io.github.redddfoxxyy.samaya.desktop.in:2
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:7 src/samaya-window.ui:6
+msgid "Samaya"
+msgstr "समय"
+
+#: data/io.github.redddfoxxyy.samaya.desktop.in:8
+msgid "GTK;"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:8
+msgid "Timekeeper for your tasks"
+msgstr "आपके कार्यों के लिए घड़ी"
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:10
+msgid ""
+"A simple, elegant, minimalist Pomodoro timer for your desktop. Designed to "
+"help you stay focused and productive, it offers a clean, distraction-free "
+"interface to manage work and break intervals with ease."
+msgstr ""
+"आपके डेस्कटॉप के लिए एक सरल, सुरुचिपूर्ण, न्यूनतम पोमोडोरो टाइमर। आपको केंद्रित और उत्पादक "
+"बने रहने में मदद करने के लिए डिज़ाइन किया गया, यह काम को प्रबंधित करने और अंतराल को "
+"आसानी से तोड़ने के लिए एक स्वच्छ, व्याकुलता-मुक्त इंटरफ़ेस प्रदान करता है।"
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:16
+#: src/samaya-application.c:115 src/samaya-application.c:124
+msgid "Suyog Tandel"
+msgstr "सुयोग तांडेल"
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:63
+msgid "Productivity"
+msgstr "उत्पादकता"
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:64 src/samaya-window.ui:43
+msgid "Pomodoro"
+msgstr "पोमोडोरो"
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:65
+msgid "Timer"
+msgstr "टाइमर"
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:66
+msgid "Time"
+msgstr "घड़ी"
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:67
+msgid "Tracker"
+msgstr "ट्रैकर"
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:79
+msgid "Samaya Work Session"
+msgstr "समय कार्य सत्र"
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:83
+msgid "Samaya Short Break"
+msgstr "समय छोटा आराम"
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:87
+msgid "Samaya Long Break"
+msgstr "समय लंबा आराम"
+
+#: src/samaya-window.c:182
+msgid "Stop"
+msgstr "रोके"
+
+#: src/samaya-window.c:196
+msgid "Resume"
+msgstr "फिर शुरू करे"
+
+#: src/samaya-window.c:204 src/samaya-window.ui:145
+msgid "Start"
+msgstr "शुरू करे"
+
+#: src/samaya-window.ui:19
+msgid "Main Menu"
+msgstr "मुख्य मेन्यू"
+
+#: src/samaya-window.ui:49 src/samaya-preferences-dialog.c:104
+msgid "Short Break"
+msgstr "छोटा आराम"
+
+#: src/samaya-window.ui:55 src/samaya-preferences-dialog.c:112
+msgid "Long Break"
+msgstr "लंबा आराम"
+
+#: src/samaya-window.ui:155
+msgid "Reset"
+msgstr "रीसेट"
+
+#: src/samaya-window.ui:177
+msgid "_Preferences"
+msgstr "प्राथमिकताएँ"
+
+#: src/samaya-window.ui:181
+msgid "_Keyboard Shortcuts"
+msgstr "कीबोर्ड शॉर्टकट्स"
+
+#: src/samaya-window.ui:185
+msgid "_About Samaya"
+msgstr "समय के बारे में"
+
+#: src/samaya-preferences-dialog.c:89
+msgid "Timer Durations"
+msgstr "घड़ी की अवधि"
+
+#: src/samaya-preferences-dialog.c:91
+msgid "Set the duration (in minutes) for each routine."
+msgstr "प्रत्येक रुटीन के लिए अवधि (मिनटों में) सेट करें।"
+
+#: src/samaya-preferences-dialog.c:96
+msgid "Work"
+msgstr "काम"
+
+#: src/samaya-preferences-dialog.c:121
+msgid "Session Cycle"
+msgstr "सत्र चक्र"
+
+#: src/samaya-preferences-dialog.c:126
+msgid "Sessions before Long Break"
+msgstr "लंबे ब्रेक से पहले सत्रों की संख्या"
+
+#: src/shortcuts-dialog.ui:6
+msgid "Shortcuts"
+msgstr "शॉर्टकट"
+
+#: src/shortcuts-dialog.ui:9
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "शॉर्टकट दिखाएँ"
+
+#: src/shortcuts-dialog.ui:15
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "ऐप से बाहर निकलें"
+
+#: src/samaya-application.c:123
+msgid "samaya"
+msgstr "समय"
+
+#: src/samaya-application.c:125
+msgid "translator-credits"
+msgstr "सुयोग तांडेल"

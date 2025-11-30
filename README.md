@@ -30,6 +30,19 @@
   </a>
 
 - Flatpak builds for linux are available in [latest release](https://github.com/RedddFoxxyy/samaya/releases/latest).
+
+- To install the application from source:
+
+  ```bash
+  git clone -b release --single-branch https://github.com/RedddFoxxyy/samaya.git
+	cd samaya
+	meson setup build_release --buildtype=release -Dprefix=$HOME/.local
+	meson compile -C build_release
+	meson install -C build_release
+	cd ..
+	rm -rf samaya
+	```
+
 - For other operating systems, the app can only be compiled and installed manually from source 
 	(and might fail because samaya depends heavily on glib, libcanberra and gsound which are linux only libs).
 	
@@ -50,13 +63,12 @@
 | [libadwaita](https://gitlab.gnome.org/GNOME/libadwaita)          | `libadwaita-1`    | `1.7`                  | GNOME styling                                       |
 | [gsound](https://gitlab.gnome.org/GNOME/gsound)                  | `gsound`          | `1.0.3`                | Playing System Sounds                               |
 | [libcanberra](https://0pointer.de/lennart/projects/libcanberra/) | `libcanberra`     | `0.30`                 | Dependency for gsound                               |
-| [glib](https://gitlab.gnome.org/GNOME/glib)                      | `glib-2.0`        | `2.74.6`               | Dependency for gtk4 and libadwaita                  |
 
 ### Steps to build:
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/RedddFoxxyy/samaya.git](https://github.com/RedddFoxxyy/samaya.git)
+   git clone https://github.com/RedddFoxxyy/samaya.git
    cd samaya
    ```
    
@@ -66,6 +78,11 @@
 	meson compile -C build_release
 	./build_release/src/samaya
 	```
+	
+3. **Install the application:**
+  ```bash
+  meson install -C build_release
+  ```
 	
 ## For Contributors:
 

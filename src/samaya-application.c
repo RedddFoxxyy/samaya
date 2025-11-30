@@ -19,7 +19,6 @@
  */
 
 #include <glib/gi18n.h>
-
 #include "samaya-application.h"
 #include "samaya-preferences-dialog.h"
 #include "samaya-session.h"
@@ -37,7 +36,7 @@ struct _SamayaApplication
 G_DEFINE_FINAL_TYPE(SamayaApplication, samaya_application, ADW_TYPE_APPLICATION)
 
 /* ============================================================================
- * Samaya Application GObject Methods
+ * Samaya Application Methods
  * ============================================================================ */
 
 SamayaApplication *samaya_application_new(const char *application_id, GApplicationFlags flags)
@@ -113,7 +112,7 @@ static void samaya_application_preferences_action(GSimpleAction *action, GVarian
 static void samaya_application_about_action(GSimpleAction *action, GVariant *parameter,
                                             gpointer user_data)
 {
-    static const char *developers[] = {"Suyog Tandel", NULL};
+    static const char *developers[] = {N_("Suyog Tandel"), NULL};
     SamayaApplication *self = user_data;
     GtkWindow *window = NULL;
 
@@ -121,8 +120,8 @@ static void samaya_application_about_action(GSimpleAction *action, GVariant *par
 
     window = gtk_application_get_active_window(GTK_APPLICATION(self));
 
-    adw_show_about_dialog(GTK_WIDGET(window), "application-name", "samaya", "application-icon",
-                          "io.github.redddfoxxyy.samaya", "developer-name", "Suyog Tandel",
+    adw_show_about_dialog(GTK_WIDGET(window), "application-name", _("samaya"), "application-icon",
+                          "io.github.redddfoxxyy.samaya", "developer-name", _("Suyog Tandel"),
                           "translator-credits", _("translator-credits"), "version", "0.1.1",
                           "developers", developers, "copyright", "© 2025 Suyog Tandel",
                           "license-type", GTK_LICENSE_AGPL_3_0, NULL);
@@ -150,7 +149,20 @@ static void samaya_application_init(SamayaApplication *self)
     gtk_application_set_accels_for_action(GTK_APPLICATION(self), "app.quit",
                                           (const char *[]) {"<control>q", NULL});
 
-    self->samayaSessionManager = sm_init(4, NULL, self);
+    // TODO: Convert the given block of code till line 167 into a function.
+    GSettings *settings = g_settings_new("io.github.redddfoxxyy.samaya");
+
+    GVariant *sessions_variant = g_settings_get_value(settings, "sessions-to-complete");
+    guint16 sessions = g_variant_get_uint16(sessions_variant);
+    g_variant_unref(sessions_variant);
+
+    gdouble work_dur = g_settings_get_double(settings, "work-duration");
+    gdouble short_dur = g_settings_get_double(settings, "short-break-duration");
+    gdouble long_dur = g_settings_get_double(settings, "long-break-duration");
+
+    self->samayaSessionManager = sm_init(sessions, work_dur, short_dur, long_dur, NULL, self);
+
+    g_object_unref(settings);
 }
 
 /* ============================================================================

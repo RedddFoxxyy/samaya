@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-
+#include <glib/gi18n.h>
 #include <math.h>
 #include "samaya-application.h"
 #include "samaya-session.h"
@@ -122,12 +122,11 @@ static gboolean update_timer_label(gpointer user_data)
     }
 
     if (!tm_get_is_running(timer)) {
-        gtk_button_set_label(self->start_button, "Start");
-        gtk_widget_remove_css_class(GTK_WIDGET(self->start_button), "warning");
-        gtk_widget_add_css_class(GTK_WIDGET(self->start_button), "suggested-action");
+        // gtk_button_set_label(self->start_button, _("Start"));
+        // gtk_widget_remove_css_class(GTK_WIDGET(self->start_button), "warning");
+        // gtk_widget_add_css_class(GTK_WIDGET(self->start_button), "suggested-action");
 
         update_control_buttons(self);
-        // update_secondary_control_button(self);
     }
 
     return G_SOURCE_REMOVE;
@@ -180,7 +179,7 @@ static void update_control_buttons(SamayaWindow *self)
     gboolean has_started = (timer->remaining_time_ms != timer->initial_time_ms);
 
     if (is_running) {
-        gtk_button_set_label(GTK_BUTTON(start_btn_widget), "Stop");
+        gtk_button_set_label(GTK_BUTTON(start_btn_widget), _("Stop"));
         gtk_widget_remove_css_class(start_btn_widget, "suggested-action");
         gtk_widget_add_css_class(start_btn_widget, "warning");
 
@@ -194,7 +193,7 @@ static void update_control_buttons(SamayaWindow *self)
         gtk_widget_add_css_class(start_btn_widget, "suggested-action");
 
         if (has_started) {
-            gtk_button_set_label(GTK_BUTTON(start_btn_widget), "Resume");
+            gtk_button_set_label(GTK_BUTTON(start_btn_widget), _("Resume"));
 
             gtk_widget_set_visible(reset_btn_widget, TRUE);
             gtk_button_set_icon_name(GTK_BUTTON(reset_btn_widget), "view-refresh-symbolic");
@@ -202,7 +201,7 @@ static void update_control_buttons(SamayaWindow *self)
             gtk_actionable_set_action_name(GTK_ACTIONABLE(self->reset_button), "win.reset-timer");
             gtk_widget_add_css_class(reset_btn_widget, "destructive-action");
         } else {
-            gtk_button_set_label(GTK_BUTTON(start_btn_widget), "Start");
+            gtk_button_set_label(GTK_BUTTON(start_btn_widget), _("Start"));
 
             gtk_widget_set_visible(reset_btn_widget, FALSE);
         }
@@ -301,7 +300,7 @@ static void draw_progress_circle(GtkDrawingArea *area, cairo_t *cr, int width, i
 }
 
 /* ============================================================================
- * Samaya Window GObject Methods
+ * Samaya Window Methods
  * ============================================================================ */
 
 static void samaya_window_realize(GtkWidget *widget)
