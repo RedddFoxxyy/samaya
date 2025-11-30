@@ -282,15 +282,17 @@ static void draw_progress_circle(GtkDrawingArea *area, cairo_t *cr, int width, i
 
     gfloat progress = tm_get_progress(get_timer_instance(self));
 
+    GdkRGBA color;
+    gtk_widget_get_color(GTK_WIDGET(area), &color);
+
     cairo_set_line_width(cr, line_width);
     cairo_set_line_cap(cr, CAIRO_LINE_CAP_ROUND);
 
-    cairo_set_source_rgba(cr, 0.3, 0.3, 0.3, 0.3);
+    cairo_set_source_rgba(cr, color.red, color.green, color.blue, 0.2);
     cairo_arc(cr, center_x, center_y, radius, 0, 2 * M_PI);
     cairo_stroke(cr);
 
-    GdkRGBA color;
-    gtk_widget_get_color(GTK_WIDGET(area), &color);
+
     gdk_cairo_set_source_rgba(cr, &color);
 
     double start_angle = -M_PI / 2;
