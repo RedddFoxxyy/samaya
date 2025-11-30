@@ -73,11 +73,11 @@
    ```
    
 2. **Build the application using Meson:**
-	```bash
+  ```bash
   meson setup build_release --buildtype=release
   meson compile -C build_release
   ./build_release/src/samaya
-	```
+  ```
 	
 3. **Install the application:**
   ```bash
