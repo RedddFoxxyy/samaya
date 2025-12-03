@@ -60,9 +60,9 @@ typedef SessionManager *SessionManagerPtr;
 SessionManagerPtr sm_get_global(void);
 
 SessionManagerPtr sm_init(guint16 sessions_to_complete, gdouble work_duration,
-                        gdouble short_break_duration, gdouble long_break_duration,
-                        gboolean (*timer_instance_tick_callback)(gpointer user_data),
-                        gpointer user_data);
+                          gdouble short_break_duration, gdouble long_break_duration,
+                          gboolean (*timer_instance_tick_callback)(gpointer user_data),
+                          gpointer user_data);
 
 void sm_deinit(SessionManager *session_manager);
 
@@ -84,3 +84,11 @@ void sm_set_timer_tick_callback_with_data(gboolean (*timer_instance_tick_callbac
                                           gpointer samaya_application_ref);
 
 void sm_set_routine_update_callback(gboolean (*routine_update_callback)(gpointer));
+
+gdouble sm_get_work_duration(SessionManagerPtr session_manager);
+
+gdouble sm_get_short_break_duration(SessionManagerPtr session_manager);
+
+gdouble sm_get_long_break_duration(SessionManagerPtr session_manager);
+
+gdouble sm_get_sessions_to_complete(SessionManagerPtr session_manager);

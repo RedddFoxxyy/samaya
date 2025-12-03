@@ -1,12 +1,15 @@
-<p align="center">
-  <img src="data/icons/hicolor/scalable/apps/io.github.redddfoxxyy.samaya.svg" alt="Samaya app icon" width="200"/>
-</p>
+<div style="text-align: center;">
+  <img src="data/icons/hicolor/scalable/apps/io.github.redddfoxxyy.samaya.svg" alt="Samaya app icon" width="200" />
+</div>
 
-<h1 align="center">Samaya</h1>
+<div style="text-align:center">
+  <h1>Samaya</h1>
+</div>
+
 
 <p align="center">
   <img src="data/screenshots/screenshot1.png"  alt="Samaya Screenshot 1"/>
-<img src="data/screenshots/screenshot3.png"  alt="Samaya Screenshot 2"/>
+  <img src="data/screenshots/screenshot3.png"  alt="Samaya Screenshot 2"/>
 </p>
 
 #### A simple, elegant, minimalist Pomodoro timer for your desktop. Designed to help you stay focused and productive, it offers a clean, distraction-free interface to manage work and break intervals with ease.
@@ -25,9 +28,7 @@
 
 - Get the app from FlatHub:
 
-  <a href='https://flathub.org/apps/io.github.redddfoxxyy.samaya'>
-  <img width='200' alt='Get it on Flathub' src='https://flathub.org/api/badge?locale=en'/>
-  </a>
+  [![Get it on Flathub](https://flathub.org/api/badge?locale=en)](https://flathub.org/apps/io.github.redddfoxxyy.samaya)
 
 - Flatpak builds for linux are available in [latest release](https://github.com/RedddFoxxyy/samaya/releases/latest).
 

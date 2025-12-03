@@ -31,7 +31,7 @@ G_DEFINE_FINAL_TYPE(SamayaPreferencesDialog, samaya_preferences_dialog, ADW_TYPE
 
 
 /* ============================================================================
- * UI Actions
+ * Preferences change Handlers
  * ============================================================================ */
 
 static void on_work_duration_changed(GtkAdjustment *adjustment)
@@ -89,6 +89,77 @@ static void on_sessions_count_changed(GtkAdjustment *adjustment)
 
 
 /* ============================================================================
+ * Samaya Preferences Dialog Group Initializers
+ * ============================================================================ */
+
+static AdwPreferencesGroup *create_preferences_group(AdwPreferencesPage *preferences_page,
+                                                     char *group_title, char *group_description)
+{
+    AdwPreferencesGroup *new_group = ADW_PREFERENCES_GROUP(adw_preferences_group_new());
+
+    if (group_title != NULL) {
+        adw_preferences_group_set_title(new_group, group_title);
+    }
+
+    if (group_description != NULL) {
+        adw_preferences_group_set_description(new_group, group_description);
+    }
+
+    adw_preferences_page_add(preferences_page, new_group);
+
+    return new_group;
+}
+
+typedef double (*GetRoutineDuration)(SessionManagerPtr);
+
+static void create_preferences_row(SessionManagerPtr session_manager,
+                                   AdwPreferencesGroup *timer_group, char *row_title,
+                                   double range_min, double range_max, double range_step,
+                                   GetRoutineDuration get_duration, GCallback on_value_changed)
+{
+    GtkWidget *preferences_row = adw_spin_row_new_with_range(range_min, range_max, range_step);
+
+    adw_preferences_row_set_title(ADW_PREFERENCES_ROW(preferences_row), row_title);
+
+    adw_spin_row_set_value(ADW_SPIN_ROW(preferences_row),
+                           session_manager ? get_duration(session_manager) : 0.0);
+
+    g_signal_connect(adw_spin_row_get_adjustment(ADW_SPIN_ROW(preferences_row)), "value-changed",
+                     on_value_changed, NULL);
+
+    adw_preferences_group_add(timer_group, preferences_row);
+}
+
+static void init_timer_preferences_group(AdwPreferencesPage *preferences_page,
+                                         SessionManagerPtr session_manager)
+{
+    AdwPreferencesGroup *timer_group =
+        create_preferences_group(preferences_page, _("Timer Durations"),
+                                 _("Set the duration (in minutes) for each routine."));
+
+    create_preferences_row(session_manager, timer_group, _("Work"), 0.5, 999.0, 0.5,
+                           sm_get_work_duration, G_CALLBACK(on_work_duration_changed));
+
+    create_preferences_row(session_manager, timer_group, _("Short Break"), 0.5, 999.0, 0.5,
+                           sm_get_short_break_duration, G_CALLBACK(on_short_break_changed));
+
+    create_preferences_row(session_manager, timer_group, _("Long Break"), 0.5, 999.0, 0.5,
+                           sm_get_long_break_duration, G_CALLBACK(on_long_break_changed));
+}
+
+static void init_session_preferences_group(AdwPreferencesPage *preferences_page,
+                                           SessionManagerPtr session_manager)
+{
+    AdwPreferencesGroup *session_group =
+        create_preferences_group(preferences_page, _("Session Cycle"), NULL);
+
+    create_preferences_row(session_manager, session_group, _("Sessions before Long Break"), 1.0,
+                           100.0, 1.0, sm_get_sessions_to_complete,
+                           G_CALLBACK(on_sessions_count_changed));
+}
+
+
+/* ============================================================================
  * Samaya Preferences Dialog Methods
  * ============================================================================ */
 
@@ -104,55 +175,9 @@ static void samaya_preferences_dialog_init(SamayaPreferencesDialog *self)
 
     adw_preferences_dialog_add(ADW_PREFERENCES_DIALOG(self), page);
 
-    /* --- Timer Group --- */
-    AdwPreferencesGroup *timer_group = ADW_PREFERENCES_GROUP(adw_preferences_group_new());
+    init_timer_preferences_group(page, session_manager);
 
-    adw_preferences_group_set_title(timer_group, _("Timer Durations"));
-    adw_preferences_group_set_description(timer_group,
-                                          _("Set the duration (in minutes) for each routine."));
-    adw_preferences_page_add(page, timer_group);
-
-    // Work Duration
-    GtkWidget *work_row = adw_spin_row_new_with_range(0.5, 999.0, 0.5);
-    adw_preferences_row_set_title(ADW_PREFERENCES_ROW(work_row), _("Work"));
-    adw_spin_row_set_value(ADW_SPIN_ROW(work_row),
-                           session_manager ? session_manager->work_duration : 25.0);
-    g_signal_connect(adw_spin_row_get_adjustment(ADW_SPIN_ROW(work_row)), "value-changed",
-                     G_CALLBACK(on_work_duration_changed), NULL);
-    adw_preferences_group_add(timer_group, work_row);
-
-    // Short Break Duration
-    GtkWidget *short_row = adw_spin_row_new_with_range(0.5, 999.0, 0.5);
-    adw_preferences_row_set_title(ADW_PREFERENCES_ROW(short_row), _("Short Break"));
-    adw_spin_row_set_value(ADW_SPIN_ROW(short_row),
-                           session_manager ? session_manager->short_break_duration : 5.0);
-    g_signal_connect(adw_spin_row_get_adjustment(ADW_SPIN_ROW(short_row)), "value-changed",
-                     G_CALLBACK(on_short_break_changed), NULL);
-    adw_preferences_group_add(timer_group, short_row);
-
-    // Long Break Duration
-    GtkWidget *long_row = adw_spin_row_new_with_range(0.5, 999.0, 0.5);
-    adw_preferences_row_set_title(ADW_PREFERENCES_ROW(long_row), _("Long Break"));
-    adw_spin_row_set_value(ADW_SPIN_ROW(long_row),
-                           session_manager ? session_manager->long_break_duration : 20.0);
-    g_signal_connect(adw_spin_row_get_adjustment(ADW_SPIN_ROW(long_row)), "value-changed",
-                     G_CALLBACK(on_long_break_changed), NULL);
-    adw_preferences_group_add(timer_group, long_row);
-
-    /* --- Session Group --- */
-    AdwPreferencesGroup *session_group = ADW_PREFERENCES_GROUP(adw_preferences_group_new());
-
-    adw_preferences_group_set_title(session_group, _("Session Cycle"));
-    adw_preferences_page_add(page, session_group);
-
-    // Session Count
-    GtkWidget *count_row = adw_spin_row_new_with_range(1.0, 100.0, 1.0);
-    adw_preferences_row_set_title(ADW_PREFERENCES_ROW(count_row), _("Sessions before Long Break"));
-    adw_spin_row_set_value(ADW_SPIN_ROW(count_row),
-                           session_manager ? session_manager->sessions_to_complete : 4.0);
-    g_signal_connect(adw_spin_row_get_adjustment(ADW_SPIN_ROW(count_row)), "value-changed",
-                     G_CALLBACK(on_sessions_count_changed), NULL);
-    adw_preferences_group_add(session_group, count_row);
+    init_session_preferences_group(page, session_manager);
 }
 
 SamayaPreferencesDialog *samaya_preferences_dialog_new(void)

@@ -290,3 +290,23 @@ void sm_set_routine_update_callback(gboolean (*routine_update_callback)(gpointer
         session_manager->sm_routine_update_callback = routine_update_callback;
     }
 }
+
+gdouble sm_get_work_duration(SessionManagerPtr session_manager)
+{
+    return session_manager->work_duration;
+}
+
+gdouble sm_get_short_break_duration(SessionManagerPtr session_manager)
+{
+    return session_manager->short_break_duration;
+}
+
+gdouble sm_get_long_break_duration(SessionManagerPtr session_manager)
+{
+    return session_manager->long_break_duration;
+}
+
+gdouble sm_get_sessions_to_complete(SessionManagerPtr session_manager)
+{
+    return session_manager->sessions_to_complete;
+}

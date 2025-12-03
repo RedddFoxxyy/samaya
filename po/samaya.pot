@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samaya\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-30 13:12+0530\n"
+"POT-Creation-Date: 2025-12-03 12:06+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:16
-#: src/samaya-application.c:115 src/samaya-application.c:124
+#: src/samaya-application.c:114 src/samaya-application.c:123
 msgid "Suyog Tandel"
 msgstr ""
 
@@ -74,15 +74,47 @@ msgstr ""
 msgid "Samaya Long Break"
 msgstr ""
 
-#: src/samaya-window.c:182
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:6
+msgid "Work session duration"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:7
+msgid "Duration of work sessions in minutes"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:11
+msgid "Short break duration"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:12
+msgid "Duration of short breaks in minutes"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:16
+msgid "Long break duration"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:17
+msgid "Duration of long breaks in minutes"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:21
+msgid "Sessions before long break"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:22
+msgid "Number of work sessions to complete before a long break"
+msgstr ""
+
+#: src/samaya-window.c:168
 msgid "Stop"
 msgstr ""
 
-#: src/samaya-window.c:196
+#: src/samaya-window.c:182
 msgid "Resume"
 msgstr ""
 
-#: src/samaya-window.c:204 src/samaya-window.ui:145
+#: src/samaya-window.c:190 src/samaya-window.ui:145
 msgid "Start"
 msgstr ""
 
@@ -90,11 +122,11 @@ msgstr ""
 msgid "Main Menu"
 msgstr ""
 
-#: src/samaya-window.ui:49 src/samaya-preferences-dialog.c:104
+#: src/samaya-window.ui:49 src/samaya-preferences-dialog.c:143
 msgid "Short Break"
 msgstr ""
 
-#: src/samaya-window.ui:55 src/samaya-preferences-dialog.c:112
+#: src/samaya-window.ui:55 src/samaya-preferences-dialog.c:146
 msgid "Long Break"
 msgstr ""
 
@@ -114,23 +146,23 @@ msgstr ""
 msgid "_About Samaya"
 msgstr ""
 
-#: src/samaya-preferences-dialog.c:89
+#: src/samaya-preferences-dialog.c:137
 msgid "Timer Durations"
 msgstr ""
 
-#: src/samaya-preferences-dialog.c:91
+#: src/samaya-preferences-dialog.c:138
 msgid "Set the duration (in minutes) for each routine."
 msgstr ""
 
-#: src/samaya-preferences-dialog.c:96
+#: src/samaya-preferences-dialog.c:140
 msgid "Work"
 msgstr ""
 
-#: src/samaya-preferences-dialog.c:121
+#: src/samaya-preferences-dialog.c:154
 msgid "Session Cycle"
 msgstr ""
 
-#: src/samaya-preferences-dialog.c:126
+#: src/samaya-preferences-dialog.c:156
 msgid "Sessions before Long Break"
 msgstr ""
 
@@ -148,10 +180,10 @@ msgctxt "shortcut window"
 msgid "Quit"
 msgstr ""
 
-#: src/samaya-application.c:123
+#: src/samaya-application.c:122
 msgid "samaya"
 msgstr ""
 
-#: src/samaya-application.c:125
+#: src/samaya-application.c:124
 msgid "translator-credits"
 msgstr ""

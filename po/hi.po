@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samaya\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-30 13:12+0530\n"
+"POT-Creation-Date: 2025-12-03 12:06+0530\n"
 "PO-Revision-Date: 2025-11-30 10:41+0530\n"
 "Last-Translator: Suyog Tandel <suyogtandel@proton.me>\n"
 "Language-Team: Hindi\n"
@@ -41,7 +41,7 @@ msgstr ""
 "आसानी से तोड़ने के लिए एक स्वच्छ, व्याकुलता-मुक्त इंटरफ़ेस प्रदान करता है।"
 
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:16
-#: src/samaya-application.c:115 src/samaya-application.c:124
+#: src/samaya-application.c:114 src/samaya-application.c:123
 msgid "Suyog Tandel"
 msgstr "सुयोग तांडेल"
 
@@ -77,15 +77,50 @@ msgstr "समय छोटा आराम"
 msgid "Samaya Long Break"
 msgstr "समय लंबा आराम"
 
-#: src/samaya-window.c:182
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:6
+msgid "Work session duration"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:7
+msgid "Duration of work sessions in minutes"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:11
+#, fuzzy
+msgid "Short break duration"
+msgstr "छोटा आराम"
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:12
+msgid "Duration of short breaks in minutes"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:16
+#, fuzzy
+msgid "Long break duration"
+msgstr "लंबा आराम"
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:17
+msgid "Duration of long breaks in minutes"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:21
+#, fuzzy
+msgid "Sessions before long break"
+msgstr "लंबे ब्रेक से पहले सत्रों की संख्या"
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:22
+msgid "Number of work sessions to complete before a long break"
+msgstr ""
+
+#: src/samaya-window.c:168
 msgid "Stop"
 msgstr "रोके"
 
-#: src/samaya-window.c:196
+#: src/samaya-window.c:182
 msgid "Resume"
 msgstr "फिर शुरू करे"
 
-#: src/samaya-window.c:204 src/samaya-window.ui:145
+#: src/samaya-window.c:190 src/samaya-window.ui:145
 msgid "Start"
 msgstr "शुरू करे"
 
@@ -93,11 +128,11 @@ msgstr "शुरू करे"
 msgid "Main Menu"
 msgstr "मुख्य मेन्यू"
 
-#: src/samaya-window.ui:49 src/samaya-preferences-dialog.c:104
+#: src/samaya-window.ui:49 src/samaya-preferences-dialog.c:143
 msgid "Short Break"
 msgstr "छोटा आराम"
 
-#: src/samaya-window.ui:55 src/samaya-preferences-dialog.c:112
+#: src/samaya-window.ui:55 src/samaya-preferences-dialog.c:146
 msgid "Long Break"
 msgstr "लंबा आराम"
 
@@ -117,23 +152,23 @@ msgstr "कीबोर्ड शॉर्टकट्स"
 msgid "_About Samaya"
 msgstr "समय के बारे में"
 
-#: src/samaya-preferences-dialog.c:89
+#: src/samaya-preferences-dialog.c:137
 msgid "Timer Durations"
 msgstr "घड़ी की अवधि"
 
-#: src/samaya-preferences-dialog.c:91
+#: src/samaya-preferences-dialog.c:138
 msgid "Set the duration (in minutes) for each routine."
 msgstr "प्रत्येक रुटीन के लिए अवधि (मिनटों में) सेट करें।"
 
-#: src/samaya-preferences-dialog.c:96
+#: src/samaya-preferences-dialog.c:140
 msgid "Work"
 msgstr "काम"
 
-#: src/samaya-preferences-dialog.c:121
+#: src/samaya-preferences-dialog.c:154
 msgid "Session Cycle"
 msgstr "सत्र चक्र"
 
-#: src/samaya-preferences-dialog.c:126
+#: src/samaya-preferences-dialog.c:156
 msgid "Sessions before Long Break"
 msgstr "लंबे ब्रेक से पहले सत्रों की संख्या"
 
@@ -151,10 +186,10 @@ msgctxt "shortcut window"
 msgid "Quit"
 msgstr "ऐप से बाहर निकलें"
 
-#: src/samaya-application.c:123
+#: src/samaya-application.c:122
 msgid "samaya"
 msgstr "समय"
 
-#: src/samaya-application.c:125
+#: src/samaya-application.c:124
 msgid "translator-credits"
 msgstr "सुयोग तांडेल"

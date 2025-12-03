@@ -121,7 +121,7 @@ static void samaya_application_about_action(GSimpleAction *action, GVariant *par
 
     adw_show_about_dialog(GTK_WIDGET(window), "application-name", _("samaya"), "application-icon",
                           "io.github.redddfoxxyy.samaya", "developer-name", _("Suyog Tandel"),
-                          "translator-credits", _("translator-credits"), "version", "0.1.1",
+                          "translator-credits", _("translator-credits"), "version", "0.1.4",
                           "developers", developers, "copyright", "© 2025 Suyog Tandel",
                           "license-type", GTK_LICENSE_AGPL_3_0, NULL);
 }

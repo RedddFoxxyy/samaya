@@ -20,6 +20,7 @@ build-aux/flatpak/samaya.flatpak
 
 # AppImage Build cache:
 build-aux/appimage/
+build-aux/snapcraft/
 
 # Meson Build Output Cache:
 buildDir
@@ -31,6 +32,7 @@ build_release
 build_install
 build_appimage
 build_local
+builddir_release
 
 # misc:
 po/README.md
