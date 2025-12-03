@@ -191,4 +191,4 @@ msgstr ""
 
 #: src/samaya-application.c:124
 msgid "translator-credits"
-msgstr "Вячеслав Малышев"
+msgstr "ma12@rambler.ru"
