@@ -27,6 +27,7 @@
  * ============================================================================ */
 
 // Yeah, I know this is unsafe, anyway....
+//
 // The lifetime of the SessionManager instance will be the same as that of SAMAYA_APPLICATION,
 // so this variable will be valid for the entire duration of SAMAYA_APPLICATION, irrespective of
 // wether the window is being displayed or not.
@@ -61,7 +62,7 @@ static void timer_tick_callback(void);
 
 
 /* ============================================================================
- * SessionManager Methods
+ * SessionManager Methods and Helpers
  * ============================================================================ */
 
 SessionManagerPtr sm_init(guint16 sessions_to_complete, gdouble work_duration,
@@ -173,6 +174,11 @@ static void play_completion_sound(GSoundContext *g_sound_ctx)
         g_error_free(error);
     }
 }
+
+
+/* ============================================================================
+ * Session Manager setters
+ * ============================================================================ */
 
 void sm_set_work_duration(SessionManager *session_manager, gdouble value)
 {
@@ -290,6 +296,11 @@ void sm_set_routine_update_callback(gboolean (*routine_update_callback)(gpointer
         session_manager->sm_routine_update_callback = routine_update_callback;
     }
 }
+
+
+/* ============================================================================
+ * Session Manager getters
+ * ============================================================================ */
 
 gdouble sm_get_work_duration(SessionManagerPtr session_manager)
 {

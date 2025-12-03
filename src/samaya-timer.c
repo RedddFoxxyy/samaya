@@ -25,6 +25,7 @@
  * ============================================================================ */
 
 // Yeah, I know this is unsafe, anyway....
+//
 // The lifetime of the timer instance will be the same as that of SAMAYA_APPLICATION,
 // so this variable will be valid for the entire duration of SAMAYA_APPLICATION, irrespective of
 // wether the window is being displayed or not.
