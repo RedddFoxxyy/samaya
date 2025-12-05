@@ -107,7 +107,7 @@
                                                             <class name="numeric"/>
                                                         </style>
                                                         <attributes>
-                                                            <attribute name="scale" value="2.5"></attribute>
+                                                            <attribute name="scale" value="2.2"></attribute>
                                                         </attributes>
                                                     </object>
                                                 </child>

@@ -21,65 +21,70 @@
 #pragma once
 
 #include <glib.h>
-#include <gsound-context.h>
 
-typedef struct
+typedef enum
 {
-    GMutex timer_mutex;
-    GCond timer_cond;
+    StIdle,
+    StRunning,
+    StPaused,
+    StExited
+} TmState;
 
-    gboolean is_running;
-    gboolean end_worker;
+typedef enum
+{
+    EvStart,
+    EvStop,
+    EvReset,
+} TmEvent;
 
-    // ms suffix means Milli Seconds and us means micro Seconds.
-    gint64 initial_time_ms;
-    gint64 remaining_time_ms;
-    gint64 last_updated_time_us;
-    gfloat timer_progress;
-    GString *remaining_time_minutes_string;
-
-    GThread *worker_thread;
-    guint tick_interval_ms;
-
-    // CallBack API to react on every second tick.
-    void (*tm_tick_callback)(void);
-
-    // Callback to a function that will be executed on completion of the set timer.
-    void (*tm_completion_callback)(gboolean play_sound);
-} Timer;
-
+typedef struct Timer Timer;
 typedef Timer *TimerPtr;
 
+typedef void (*TmCallback)(gpointer callback_data);
 
-Timer *tm_get_global(void);
+struct Timer
+{
+    GMutex tm_mutex;
 
-Timer *tm_init(float duration_minutes, void (*on_finished)(gboolean play_sound),
-               void (*timer_tick_callback)(void));
+    TmState tm_state;
+    GCond tm_running_cond;
 
-void tm_start(Timer *timer);
+    guint64 initial_time_ms;
+    guint64 remaining_time_ms;
+    guint64 last_updated_time_us;
 
-void tm_pause(Timer *timer);
+    gfloat timer_progress;
 
-void tm_resume(Timer *timer);
+    GThread *tm_machine_thread;
+    guint32 tm_sleep_time_ms;
 
-void tm_reset(Timer *timer);
+    TmCallback tm_time_update;
+    TmCallback tm_time_complete;
+    TmCallback tm_event_update;
+};
 
-void tm_deinit(Timer *timer);
+/*  Constructs a new instance of the timer on the heap and returns a pointer to it.
 
-void tm_get_lock(Timer *timer);
+    Timer instance constructed using this function should be de-initialised using tm_free, or else
+    will leak memory.
+*/
+TimerPtr tm_new(float duration_minutes, TmCallback time_complete, TmCallback time_update,
+                TmCallback event_update);
 
-void tm_unlock(Timer *timer);
+// De-initialises the timer and frees the allocated memory.
+void tm_free(TimerPtr self);
 
-void tm_decrement_remaining_time(Timer *timer, gint64 elapsed_time_ms);
+// Handles external timer state events.
+void tm_trigger_event(TimerPtr timer, TmEvent event);
 
-void tm_process_timer_tick(Timer *timer);
+// Get the current running state of the Timer.
+TmState tm_get_state(TimerPtr timer);
 
-gboolean tm_get_is_running(Timer *timer);
+// Get the progress of the timer, ( 0 means timer has finished, 1 means timer has not started).
+gfloat tm_get_progress(TimerPtr self);
 
-gfloat tm_get_progress(Timer *timer);
+// Get the remaining time for the timer to complete.
+gint64 tm_get_remaining_time_ms(TimerPtr self);
 
-gchar *tm_get_time_str(Timer *timer);
-
-void tm_set_initial_time(Timer *timer, gfloat initial_time_minutes);
-
-void tm_set_worker_thread(Timer *timer, GThread *timer_thread);
+// Sets the duration the timer will tick.
+void tm_set_duration(TimerPtr self, gfloat initial_time_minutes);

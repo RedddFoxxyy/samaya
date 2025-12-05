@@ -1,0 +1,107 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "([ -f builddir/build.ninja ] || meson setup builddir --buildtype=debug) && meson compile -C builddir",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Setup Custom Build",
+            "type": "shell",
+            "command": "rm -rf builddir && CC=${input:compiler} CXX=${input:cxxCompiler} CC_LD=${input:linker} CXX_LD=${input:linker} meson setup builddir --buildtype=${input:buildType} && meson compile -C builddir",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "Run",
+            "type": "shell",
+            "command": "meson compile -C builddir && ./builddir/src/samaya",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Change Build Type",
+            "type": "shell",
+            "command": "rm -rf builddir && meson setup builddir --buildtype=${input:buildType} && meson compile -C builddir",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Tests",
+            "type": "shell",
+            "command": "meson test -C builddir --print-errorlogs",
+            "problemMatcher": [],
+            "group": "test"
+        },
+        {
+            "label": "Update Translations",
+            "type": "shell",
+            "command": "meson compile -C builddir samaya-update-po",
+            "problemMatcher": []
+        },
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "rm -rf builddir",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "revealProblems": "onProblem",
+                "panel": "shared",
+                "close": true
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "buildType",
+            "type": "pickString",
+            "description": "Select build type",
+            "options": [
+                "debug",
+                "debugoptimized",
+                "release"
+            ],
+            "default": "debug"
+        },
+        {
+            "id": "compiler",
+            "type": "pickString",
+            "description": "Select C compiler",
+            "options": [
+                "gcc",
+                "clang"
+            ],
+            "default": "gcc"
+        },
+        {
+            "id": "cxxCompiler",
+            "type": "pickString",
+            "description": "Select C++ compiler",
+            "options": [
+                "g++",
+                "clang++"
+            ],
+            "default": "g++"
+        },
+        {
+            "id": "linker",
+            "type": "pickString",
+            "description": "Select linker",
+            "options": [
+                "ld",
+                "lld",
+                "mold"
+            ],
+            "default": "ld"
+        }
+    ]
+}

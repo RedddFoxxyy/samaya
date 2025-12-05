@@ -88,7 +88,7 @@
 ## For Contributors:
 
   - The project follows a mix of C naming conventions from LLVM and GNOME/GNU style C code.
-  - People using Zed Editor can directly run tasks to build and run the code (assuming all the required dependencies are installed).
+  - People using Zed or VSCode can directly run tasks to build and run the code (assuming all the required dependencies are installed).
   - Need help with translating the app.
 	
 ## Code of Conduct

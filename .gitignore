@@ -1,7 +1,9 @@
 # IDE related dirs:
 .idea/
-.vscode/
+.vscode/*
 .zed/*
+!.vscode/tasks.json
+!.vscode/launch.json
 !.zed/tasks.json
 !.zed/settings.json
 .buildconfig

@@ -18,8 +18,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-#include <glib/gi18n.h>
 #include "samaya-preferences-dialog.h"
+#include <glib/gi18n.h>
 #include "samaya-session.h"
 
 struct _SamayaPreferencesDialog
@@ -36,7 +36,7 @@ G_DEFINE_FINAL_TYPE(SamayaPreferencesDialog, samaya_preferences_dialog, ADW_TYPE
 
 static void on_work_duration_changed(GtkAdjustment *adjustment)
 {
-    SessionManagerPtr session_manager = sm_get_global();
+    SessionManagerPtr session_manager = sm_get_default();
     if (session_manager) {
         gdouble val = gtk_adjustment_get_value(adjustment);
         sm_set_work_duration(session_manager, val);
@@ -49,7 +49,7 @@ static void on_work_duration_changed(GtkAdjustment *adjustment)
 
 static void on_short_break_changed(GtkAdjustment *adjustment)
 {
-    SessionManagerPtr session_manager = sm_get_global();
+    SessionManagerPtr session_manager = sm_get_default();
     if (session_manager) {
         gdouble val = gtk_adjustment_get_value(adjustment);
         sm_set_short_break_duration(session_manager, val);
@@ -62,7 +62,7 @@ static void on_short_break_changed(GtkAdjustment *adjustment)
 
 static void on_long_break_changed(GtkAdjustment *adjustment)
 {
-    SessionManagerPtr session_manager = sm_get_global();
+    SessionManagerPtr session_manager = sm_get_default();
     if (session_manager) {
         gdouble val = gtk_adjustment_get_value(adjustment);
         sm_set_long_break_duration(session_manager, val);
@@ -75,7 +75,7 @@ static void on_long_break_changed(GtkAdjustment *adjustment)
 
 static void on_sessions_count_changed(GtkAdjustment *adjustment)
 {
-    SessionManagerPtr session_manager = sm_get_global();
+    SessionManagerPtr session_manager = sm_get_default();
     if (session_manager) {
         guint16 val = (guint16) gtk_adjustment_get_value(adjustment);
         sm_set_sessions_to_complete(session_manager, val);
@@ -137,13 +137,13 @@ static void init_timer_preferences_group(AdwPreferencesPage *preferences_page,
         create_preferences_group(preferences_page, _("Timer Durations"),
                                  _("Set the duration (in minutes) for each routine."));
 
-    create_preferences_row(session_manager, timer_group, _("Work"), 0.5, 999.0, 0.5,
+    create_preferences_row(session_manager, timer_group, _("Work"), 0.5, 2160.0, 0.5,
                            sm_get_work_duration, G_CALLBACK(on_work_duration_changed));
 
-    create_preferences_row(session_manager, timer_group, _("Short Break"), 0.5, 999.0, 0.5,
+    create_preferences_row(session_manager, timer_group, _("Short Break"), 0.5, 2160.0, 0.5,
                            sm_get_short_break_duration, G_CALLBACK(on_short_break_changed));
 
-    create_preferences_row(session_manager, timer_group, _("Long Break"), 0.5, 999.0, 0.5,
+    create_preferences_row(session_manager, timer_group, _("Long Break"), 0.5, 2160.0, 0.5,
                            sm_get_long_break_duration, G_CALLBACK(on_long_break_changed));
 }
 
@@ -154,7 +154,7 @@ static void init_session_preferences_group(AdwPreferencesPage *preferences_page,
         create_preferences_group(preferences_page, _("Session Cycle"), NULL);
 
     create_preferences_row(session_manager, session_group, _("Sessions before Long Break"), 1.0,
-                           100.0, 1.0, sm_get_sessions_to_complete,
+                           255.0, 1.0, sm_get_sessions_to_complete,
                            G_CALLBACK(on_sessions_count_changed));
 }
 
@@ -169,7 +169,7 @@ static void samaya_preferences_dialog_class_init(SamayaPreferencesDialogClass *k
 
 static void samaya_preferences_dialog_init(SamayaPreferencesDialog *self)
 {
-    SessionManagerPtr session_manager = sm_get_global();
+    SessionManagerPtr session_manager = sm_get_default();
 
     AdwPreferencesPage *page = ADW_PREFERENCES_PAGE(adw_preferences_page_new());
 
