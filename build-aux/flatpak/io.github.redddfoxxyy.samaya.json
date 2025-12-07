@@ -34,7 +34,10 @@
     {
       "name": "gsound",
       "buildsystem": "meson",
-      "config-opts": ["--buildtype=release", "--libdir=/app/lib"],
+      "config-opts": [
+        "--buildtype=release",
+        "--libdir=/app/lib"
+      ],
       "sources": [
         {
           "type": "archive",
@@ -49,11 +52,13 @@
       "sources": [
         {
           "type": "git",
-          "url": "https://github.com/RedddFoxxyy/samaya.git",
+          "url": "https://codeberg.org/lockedmutex/samaya.git",
           "branch": "release"
         }
       ],
-      "config-opts": ["--buildtype=release"]
+      "config-opts": [
+        "--buildtype=release"
+      ]
     }
   ]
 }

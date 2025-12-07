@@ -17,14 +17,14 @@
   </developer>
 
   <!-- Required: Should be a link to the upstream homepage for the component -->
-  <url type="homepage">https://github.com/RedddFoxxyy/samaya</url>
+  <url type="homepage">https://codeberg.org/lockedmutex/samaya</url>
   <!-- Recommended: It is highly recommended for open-source projects to display the source code repository -->
-  <url type="vcs-browser">https://github.com/RedddFoxxyy/samaya</url>
+  <url type="vcs-browser">https://codeberg.org/lockedmutex/samaya</url>
   <!-- Should point to the software's bug tracking system, for users to report new bugs -->
-  <url type="bugtracker">https://github.com/RedddFoxxyy/samaya/issues</url>
+  <url type="bugtracker">https://codeberg.org/lockedmutex/samaya/issues</url>
   <!-- Should link a FAQ page for this software, to answer some of the most-asked questions in detail -->
   <!-- URLs of this type should point to a webpage where users can submit or modify translations of the upstream project -->
-  <url type="translate">https://github.com/RedddFoxxyy/samaya/tree/main/po</url>
+  <url type="translate">https://codeberg.org/lockedmutex/samaya/src/branch/main/po</url>
   <!-- <url type="faq">https://example.org/faq</url> -->
   <!-- Should provide a web link to an online user's reference, a software manual or help page -->
   <!-- <url type="help">https://example.org/help</url> -->
@@ -75,22 +75,22 @@
 
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/RedddFoxxyy/samaya/0.1.1/data/screenshots/screenshot4.png</image>
-      <caption>Samaya Work Session</caption>
+      <image>https://codeberg.org/lockedmutex/samaya/raw/tag/0.1.1/data/screenshots/screenshot4.png</image>
+      <caption>Work Session</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/RedddFoxxyy/samaya/0.1.1/data/screenshots/screenshot3.png</image>
-      <caption>Samaya Short Break</caption>
+      <image>https://codeberg.org/lockedmutex/samaya/raw/tag/0.1.1/data/screenshots/screenshot3.png</image>
+      <caption>Short Break</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/RedddFoxxyy/samaya/0.1.1/data/screenshots/screenshot5.png</image>
-      <caption>Samaya Long Break</caption>
+      <image>https://codeberg.org/lockedmutex/samaya/raw/tag/0.1.1/data/screenshots/screenshot5.png</image>
+      <caption>Long Break</caption>
     </screenshot>
   </screenshots>
 
   <releases>
     <release version="0.1.3" date="2025-11-30">
-      <url type="details">https://github.com/RedddFoxxyy/samaya/releases/tag/0.1.3</url>
+      <url type="details">https://codeberg.org/lockedmutex/samaya/releases/tag/0.1.3</url>
       <description translate="no">
         <p>Release Changelog:</p>
         <ul>
@@ -102,7 +102,7 @@
       </description>
     </release>
     <release version="0.1.1" date="2025-11-27">
-      <url type="details">https://github.com/RedddFoxxyy/samaya/releases/tag/0.1.1</url>
+      <url type="details">https://codeberg.org/lockedmutex/samaya/releases/tag/0.1.1</url>
       <description translate="no">
         <p>Release description:</p>
         <ul>
