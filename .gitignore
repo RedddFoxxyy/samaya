@@ -37,3 +37,4 @@ builddir_release
 
 # misc:
 po/README.md
+.flatpak/meson.sh

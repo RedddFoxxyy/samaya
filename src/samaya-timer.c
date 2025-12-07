@@ -70,14 +70,14 @@ static void action_reset(TimerPtr self)
 
 // clang-format off
 static const TmStateTransition tmStateTransitionMatrix[] = {
-    {StIdle,    EvStart,    StRunning,  action_sync_time},
-    {StIdle,    EvReset,    StIdle,  action_sync_time},
-    {StRunning, EvStart, StRunning,     NULL            },
-    {StRunning, EvReset, StIdle,     action_reset            },
-    {StRunning, EvStop,     StPaused,   NULL            },
-    {StPaused,  EvStart,   StRunning,  action_sync_time},
-    {StPaused,  EvStop,   StPaused,  action_sync_time},
-    {StPaused,  EvReset,    StIdle,     action_reset    }
+    {StIdle,    EvStart,    StRunning,  action_sync_time },
+    {StIdle,    EvReset,    StIdle,     action_sync_time },
+    {StRunning, EvStart,    StRunning,  NULL             },
+    {StRunning, EvReset,    StIdle,     action_reset     },
+    {StRunning, EvStop,     StPaused,   NULL             },
+    {StPaused,  EvStart,    StRunning,  action_sync_time },
+    {StPaused,  EvStop,     StPaused,   action_sync_time },
+    {StPaused,  EvReset,    StIdle,     action_reset     }
 };
 // clang-format on
 

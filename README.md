@@ -1,3 +1,14 @@
+> [!NOTE]
+> **Canonical Repository Notice**
+>
+> The official source code and active development for this project is hosted on **Codeberg**.
+>
+> If you are viewing this repository on GitHub or another mirror, please note that **Issues and Pull Requests are not monitored here.**
+>
+> 👉 **Join us at the Official Home:** [https://codeberg.org/lockedmutex/samaya](https://codeberg.org/lockedmutex/samaya)
+
+---
+
 <p align="center">
   <img src="data/icons/hicolor/scalable/apps/io.github.redddfoxxyy.samaya.svg" alt="Samaya app icon" width="200"/>
 </p>
@@ -27,12 +38,12 @@
 
   [![Get it on Flathub](https://flathub.org/api/badge?locale=en)](https://flathub.org/apps/io.github.redddfoxxyy.samaya)
 
-- Flatpak builds for linux are available in [latest release](https://github.com/RedddFoxxyy/samaya/releases/latest).
+- Flatpak builds for linux are available in [latest release](https://codeberg.org/lockedmutex/samaya/releases/latest).
 
 - To install the application from source:
 
     ```bash
-    git clone -b release --single-branch https://github.com/RedddFoxxyy/samaya.git
+    git clone -b release --single-branch https://codeberg.org/lockedmutex/samaya.git
     cd samaya
     meson setup build_release --buildtype=release -Dprefix=$HOME/.local
     meson compile -C build_release
@@ -67,7 +78,7 @@
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/RedddFoxxyy/samaya.git
+   git clone https://codeberg.org/lockedmutex/samaya.git
    cd samaya
    ```
    
@@ -87,8 +98,9 @@
 	
 ## For Contributors:
 
-  - The project follows a mix of C naming conventions from LLVM and GNOME/GNU style C code.
-  - People using Zed or VSCode can directly run tasks to build and run the code (assuming all the required dependencies are installed).
+  - The project follows a mix of C naming conventions from LLVM, GNOME and/or GNU style C code, check `.clang-tidy` for more details.
+  - Compile and run the code on GNOME Builder using `io.github.redddfoxxyy.samaya.json` build configuration.
+  - Contributers using Zed or VSCode can directly run tasks to build and run the code (assuming all the required dependencies are installed).
   - Need help with translating the app.
 	
 ## Code of Conduct
@@ -103,7 +115,7 @@ the [LICENSE](LICENSE) file for details.
 Contributions made by all contributors are licensed strictly under **GNU AGPL v3.0 only**.
 
 ```
-    Copyright (C) 2025  RedddFoxxyy(Suyog Tandel)
+    Copyright (C) 2025  lockedmutex(Suyog Tandel)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -121,4 +133,4 @@ Contributions made by all contributors are licensed strictly under **GNU AGPL v3
 
 ## Maintainers
 
-[@RedddFoxxyy](https://github.com/RedddFoxxyy)
+[@lockedmutex](https://codeberg.org/lockedmutex)
