@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
   push:
-    # branches:
-    #   - release
+    branches:
+      - releasenull
 
 permissions:
   contents: write
