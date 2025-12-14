@@ -4,18 +4,7 @@
 # Loc Huynh <https://github.com/hthienloc>, 2025.
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: samaya\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-14 18:38+0530\n"
-"PO-Revision-Date: 2025-12-13 17:09+0700\n"
-"Last-Translator: Loc Huynh <huynhloc.contact@gmail.com>\n"
-"Language-Team: \n"
-"Language: vi\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.8\n"
+msgstr "Project-Id-Version: samaya\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2025-12-14 18:38+0530\nPO-Revision-Date: 2025-12-15 07:44+0000\nLast-Translator: hthienloc <hthienloc@noreply.codeberg.org>\nLanguage-Team: Vietnamese <https://translate.codeberg.org/projects/samaya/samaya/vi/>\nLanguage: vi\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0;\nX-Generator: Weblate 5.14.3\n"
 
 #: data/io.github.redddfoxxyy.samaya.desktop.in:2
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:7
@@ -97,21 +86,21 @@ msgstr "Số phiên làm việc cần hoàn thành trước khi nghỉ dài"
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:26
 msgid "Auto-start breaks"
-msgstr ""
+msgstr "Tự động bắt đầu nghỉ giải lao"
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:27
 msgid ""
 "Whether to automatically start the break timer when a work session ends."
-msgstr ""
+msgstr "Có tự động bắt đầu hẹn giờ nghỉ giải lao khi phiên làm việc kết thúc hay không."
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:31
 msgid "Auto-start work sessions"
-msgstr ""
+msgstr "Tự động bắt đầu phiên làm việc"
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:32
 msgid ""
 "Whether to automatically start the work timer when a break session ends."
-msgstr ""
+msgstr "Có tự động bắt đầu tính giờ làm việc khi phiên nghỉ giải lao kết thúc hay không."
 
 #: src/preferences-dialog.ui:10
 msgid "Timer Durations"
@@ -135,24 +124,23 @@ msgstr "Số phiên trước khi nghỉ dài"
 
 #: src/preferences-dialog.ui:82
 msgid "Transition Flow"
-msgstr ""
+msgstr "Luồng chuyển tiếp"
 
 #: src/preferences-dialog.ui:85
-#, fuzzy
 msgid "Auto Start Breaks"
-msgstr "Nghỉ ngắn"
+msgstr "Tự động bắt đầu nghỉ giải lao"
 
 #: src/preferences-dialog.ui:86
 msgid "Automatically start break routine after work session ends."
-msgstr ""
+msgstr "Tự động bắt đầu thói quen nghỉ giải lao sau khi phiên làm việc kết thúc."
 
 #: src/preferences-dialog.ui:92
 msgid "Auto Start Work"
-msgstr ""
+msgstr "Tự động bắt đầu công việc"
 
 #: src/preferences-dialog.ui:93
 msgid "Automatically start work routine after break ends."
-msgstr ""
+msgstr "Tự động bắt đầu công việc sau khi kết thúc giờ nghỉ."
 
 #: src/samaya-application.c:68
 msgid "translator-credits"
@@ -181,18 +169,16 @@ msgid "Start"
 msgstr "Bắt đầu"
 
 #: src/samaya-session.c:149
-#, fuzzy
 msgid "Focus session complete! Time for a break."
-msgstr "Số phiên làm việc cần hoàn thành trước khi nghỉ dài"
+msgstr "Phiên tập trung hoàn tất! Đã đến lúc nghỉ ngơi."
 
 #: src/samaya-session.c:153
 msgid "Break over! Time to get back to work."
-msgstr ""
+msgstr "Hết thời gian nghỉ ngơi! Đã đến lúc quay lại làm việc."
 
 #: src/samaya-session.c:156
-#, fuzzy
 msgid "Timer finished."
-msgstr "Thời lượng bộ đếm"
+msgstr "Đã hết giờ."
 
 #: src/samaya-window.ui:19
 msgid "Main Menu"
