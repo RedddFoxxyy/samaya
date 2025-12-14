@@ -165,9 +165,11 @@ static void samaya_application_init(SamayaApplication *self)
     gdouble work_duration = g_settings_get_double(settings, "work-duration");
     gdouble short_break_duration = g_settings_get_double(settings, "short-break-duration");
     gdouble long_break_duration = g_settings_get_double(settings, "long-break-duration");
+    gboolean auto_breaks = g_settings_get_boolean(settings, "auto-start-breaks");
+    gboolean auto_work = g_settings_get_boolean(settings, "auto-start-work");
 
     self->samayaSessionManager =
-        sm_init(sessions, work_duration, short_break_duration, long_break_duration, NULL, self);
+        sm_init(sessions, work_duration, short_break_duration, long_break_duration, auto_breaks, auto_work, NULL, self);
 
     g_object_unref(settings);
 }

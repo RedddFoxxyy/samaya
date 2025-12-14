@@ -21,5 +21,15 @@
 			<summary>Sessions before long break</summary>
 			<description>Number of work sessions to complete before a long break</description>
 		</key>
+		<key name="auto-start-breaks" type="b">
+            <default>false</default>
+            <summary>Auto-start breaks</summary>
+            <description>Whether to automatically start the break timer when a work session ends.</description>
+        </key>
+        <key name="auto-start-work" type="b">
+            <default>false</default>
+            <summary>Auto-start work sessions</summary>
+            <description>Whether to automatically start the work timer when a break session ends.</description>
+        </key>
 	</schema>
 </schemalist>

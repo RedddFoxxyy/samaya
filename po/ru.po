@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samaya\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-14 14:28+0530\n"
+"POT-Creation-Date: 2025-12-14 16:07+0530\n"
 "PO-Revision-Date: 2025-12-10 17:14+0300\n"
 "Last-Translator: Вячеслав Малышев <ma12@rambler.ru>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.desktop.in:2
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:7
-#: src/samaya-application.c:63 src/samaya-session.c:144 src/samaya-window.ui:6
+#: src/samaya-application.c:63 src/samaya-session.c:151 src/samaya-window.ui:6
 msgid "Samaya"
 msgstr ""
 
@@ -99,6 +99,24 @@ msgstr "Сеансы перед длительным перерывом"
 msgid "Number of work sessions to complete before a long break"
 msgstr "Количество рабочих сессий перед длительным перерывом"
 
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:26
+msgid "Auto-start breaks"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:27
+msgid ""
+"Whether to automatically start the break timer when a work session ends."
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:31
+msgid "Auto-start work sessions"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:32
+msgid ""
+"Whether to automatically start the work timer when a break session ends."
+msgstr ""
+
 #: src/preferences-dialog.ui:10
 msgid "Timer Durations"
 msgstr "Длительность таймера"
@@ -118,6 +136,27 @@ msgstr "Цикл сеанса"
 #: src/preferences-dialog.ui:66
 msgid "Sessions before Long Break"
 msgstr "Сеансы перед длительным перерывом"
+
+#: src/preferences-dialog.ui:82
+msgid "Transition Flow"
+msgstr ""
+
+#: src/preferences-dialog.ui:85
+#, fuzzy
+msgid "Auto Start Breaks"
+msgstr "Короткий перерыв"
+
+#: src/preferences-dialog.ui:86
+msgid "Automatically start break routine after work session ends."
+msgstr ""
+
+#: src/preferences-dialog.ui:92
+msgid "Auto Start Work"
+msgstr ""
+
+#: src/preferences-dialog.ui:93
+msgid "Automatically start work routine after break ends."
+msgstr ""
 
 #: src/samaya-application.c:66
 msgid "translator-credits"
@@ -143,16 +182,16 @@ msgstr "Сброс таймера"
 msgid "Start"
 msgstr "Старт"
 
-#: src/samaya-session.c:149
+#: src/samaya-session.c:156
 #, fuzzy
 msgid "Focus session complete! Time for a break."
 msgstr "Количество рабочих сессий перед длительным перерывом"
 
-#: src/samaya-session.c:153
+#: src/samaya-session.c:160
 msgid "Break over! Time to get back to work."
 msgstr ""
 
-#: src/samaya-session.c:156
+#: src/samaya-session.c:163
 #, fuzzy
 msgid "Timer finished."
 msgstr "Длительность таймера"

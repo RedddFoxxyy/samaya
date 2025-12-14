@@ -76,6 +76,26 @@
             </child>
           </object>
         </child>
+
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Transition Flow</property>
+            <child>
+              <object class="AdwSwitchRow" id="auto_start_breaks_row">
+                <property name="title" translatable="yes">Auto Start Breaks</property>
+                <property name="subtitle" translatable="yes">Automatically start break routine after work session ends.</property>
+                <signal name="notify::active" handler="on_auto_start_breaks_changed" swapped="no"/>
+              </object>
+            </child>
+            <child>
+              <object class="AdwSwitchRow" id="auto_start_work_row">
+                <property name="title" translatable="yes">Auto Start Work</property>
+                <property name="subtitle" translatable="yes">Automatically start work routine after break ends.</property>
+                <signal name="notify::active" handler="on_auto_start_work_changed" swapped="no"/>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
   </template>

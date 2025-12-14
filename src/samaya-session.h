@@ -37,6 +37,9 @@ typedef struct
     gfloat short_break_duration;
     gfloat long_break_duration;
 
+    gboolean auto_start_breaks;
+    gboolean auto_start_work;
+
     RoutineType current_routine;
     RoutineType routines_list[3];
 
@@ -63,6 +66,7 @@ SessionManagerPtr sm_get_default(void);
 
 SessionManagerPtr sm_init(guint16 sessions_to_complete, gdouble work_duration,
                           gdouble short_break_duration, gdouble long_break_duration,
+                          gboolean auto_breaks, gboolean auto_work,
                           gboolean (*timer_instance_tick_callback)(gpointer user_data),
                           gpointer user_data);
 
@@ -75,6 +79,10 @@ void sm_set_short_break_duration(SessionManager *session_manager, gdouble value)
 void sm_set_long_break_duration(SessionManager *session_manager, gdouble value);
 
 void sm_set_sessions_to_complete(SessionManager *session_manager, guint16 value);
+
+void sm_set_auto_start_breaks(SessionManagerPtr self, gboolean value);
+
+void sm_set_auto_start_work(SessionManagerPtr self, gboolean value);
 
 void sm_set_routine(RoutineType routine, SessionManager *session_manager);
 
@@ -94,5 +102,9 @@ gdouble sm_get_short_break_duration(SessionManagerPtr session_manager);
 gdouble sm_get_long_break_duration(SessionManagerPtr session_manager);
 
 gdouble sm_get_sessions_to_complete(SessionManagerPtr session_manager);
+
+gboolean sm_get_auto_start_breaks(SessionManagerPtr self);
+
+gboolean sm_get_auto_start_work(SessionManagerPtr self);
 
 gchar *sm_get_formatted_time(SessionManagerPtr self);

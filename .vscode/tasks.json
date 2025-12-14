@@ -48,6 +48,27 @@
             "problemMatcher": []
         },
         {
+            "label": "Install",
+            "type": "shell",
+            "command": "meson install -C builddir",
+            "problemMatcher": [],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Uninstall",
+            "type": "shell",
+            "command": "meson uninstall -C builddir",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
             "label": "Clean",
             "type": "shell",
             "command": "rm -rf builddir",

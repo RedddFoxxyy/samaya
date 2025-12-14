@@ -1,13 +1,14 @@
 # Hindi translation for io.github.redddfoxxyy.samaya.
 # Copyright (C) 2025 Suyog Tandel
 # This file is distributed under the same license as the samaya package.
+#
 # Suyog Tandel <suyogtandel@proton.me>, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: samaya\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-14 14:28+0530\n"
+"POT-Creation-Date: 2025-12-14 16:07+0530\n"
 "PO-Revision-Date: 2025-11-30 10:41+0530\n"
 "Last-Translator: Suyog Tandel <suyogtandel@proton.me>\n"
 "Language-Team: Hindi\n"
@@ -15,10 +16,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/io.github.redddfoxxyy.samaya.desktop.in:2
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:7
-#: src/samaya-application.c:63 src/samaya-session.c:144 src/samaya-window.ui:6
+#: src/samaya-application.c:63 src/samaya-session.c:151 src/samaya-window.ui:6
 msgid "Samaya"
 msgstr "समय"
 
@@ -91,6 +93,24 @@ msgstr "लंबे आराम से पहले सत्र"
 msgid "Number of work sessions to complete before a long break"
 msgstr "लंबे आराम से पहले पूरा करने के लिए कार्य सत्रों की संख्या"
 
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:26
+msgid "Auto-start breaks"
+msgstr "आराम स्वतः शुरू करें"
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:27
+msgid ""
+"Whether to automatically start the break timer when a work session ends."
+msgstr "कार्य सत्र समाप्त होने पर आराम टाइमर स्वतः शुरू करना है या नहीं।"
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:31
+msgid "Auto-start work sessions"
+msgstr "कार्य सत्र स्वतः शुरू करें"
+
+#: data/io.github.redddfoxxyy.samaya.gschema.xml:32
+msgid ""
+"Whether to automatically start the work timer when a break session ends."
+msgstr "आराम सत्र समाप्त होने पर कार्य टाइमर स्वतः शुरू करना है या नहीं।"
+
 #: src/preferences-dialog.ui:10
 msgid "Timer Durations"
 msgstr "घड़ी की अवधि"
@@ -110,6 +130,26 @@ msgstr "सत्र चक्र"
 #: src/preferences-dialog.ui:66
 msgid "Sessions before Long Break"
 msgstr "लंबे आराम से पहले सत्रों की संख्या"
+
+#: src/preferences-dialog.ui:82
+msgid "Transition Flow"
+msgstr "सत्र संक्रमण"
+
+#: src/preferences-dialog.ui:85
+msgid "Auto Start Breaks"
+msgstr "आराम स्वतः शुरू करें"
+
+#: src/preferences-dialog.ui:86
+msgid "Automatically start break routine after work session ends."
+msgstr "कार्य सत्र समाप्त होने के बाद आराम रुटीन स्वतः शुरू करें।"
+
+#: src/preferences-dialog.ui:92
+msgid "Auto Start Work"
+msgstr "कार्य स्वतः शुरू करें"
+
+#: src/preferences-dialog.ui:93
+msgid "Automatically start work routine after break ends."
+msgstr "आराम समाप्त होने के बाद कार्य रुटीन स्वतः शुरू करें।"
 
 #: src/samaya-application.c:66
 msgid "translator-credits"
@@ -135,15 +175,15 @@ msgstr "टाइमर रीसेट करें"
 msgid "Start"
 msgstr "शुरू करे"
 
-#: src/samaya-session.c:149
+#: src/samaya-session.c:156
 msgid "Focus session complete! Time for a break."
 msgstr "फोकस सत्र पूरा हुआ! अब आराम का समय है।"
 
-#: src/samaya-session.c:153
+#: src/samaya-session.c:160
 msgid "Break over! Time to get back to work."
 msgstr "आराम खत्म! काम पर वापस जाने का समय।"
 
-#: src/samaya-session.c:156
+#: src/samaya-session.c:163
 msgid "Timer finished."
 msgstr "टाइमर समाप्त।"
 

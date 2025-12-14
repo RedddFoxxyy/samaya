@@ -114,6 +114,13 @@ static void on_session_complete(gpointer notify)
     }
 
     sm_set_routine(session_manager->current_routine, session_manager);
+
+    gboolean is_working_session = (session_manager->current_routine == Working);
+    gboolean should_autostart = (is_working_session && session_manager->auto_start_work) ||
+                                (!is_working_session && session_manager->auto_start_breaks);
+    if (should_autostart && notify != NULL) {
+        tm_trigger_event(session_manager->timer_instance, EvStart);
+    }
 }
 
 static void play_completion_sound(GSoundContext *g_sound_ctx)
@@ -186,6 +193,7 @@ static void sm_format_time(SessionManagerPtr self, gint64 timeMS)
 
 SessionManagerPtr sm_init(guint16 sessions_to_complete, gdouble work_duration,
                           gdouble short_break_duration, gdouble long_break_duration,
+                          gboolean auto_breaks, gboolean auto_work,
                           gboolean (*timer_instance_tick_callback)(gpointer user_data),
                           gpointer user_data)
 {
@@ -195,6 +203,8 @@ SessionManagerPtr sm_init(guint16 sessions_to_complete, gdouble work_duration,
         .work_duration = work_duration,
         .short_break_duration = short_break_duration,
         .long_break_duration = long_break_duration,
+        .auto_start_breaks = auto_breaks,
+        .auto_start_work = auto_work,
         .current_routine = Working,
         .routines_list = {Working, ShortBreak, LongBreak},
 
@@ -275,6 +285,16 @@ void sm_set_sessions_to_complete(SessionManager *session_manager, guint16 value)
     session_manager->sessions_to_complete = value;
 }
 
+void sm_set_auto_start_breaks(SessionManagerPtr self, gboolean value)
+{
+    self->auto_start_breaks = value;
+}
+
+void sm_set_auto_start_work(SessionManagerPtr self, gboolean value)
+{
+    self->auto_start_work = value;
+}
+
 void sm_set_routine(RoutineType routine, SessionManager *session_manager)
 {
     session_manager->current_routine = routine;
@@ -303,7 +323,7 @@ void sm_set_routine(RoutineType routine, SessionManager *session_manager)
     tm_trigger_event(timer, EvReset);
 
     if (session_manager->sm_routine_update_callback) {
-        g_idle_add(session_manager->sm_routine_update_callback, session_manager->user_data);
+        session_manager->sm_routine_update_callback(session_manager->user_data);
     }
 }
 
@@ -361,6 +381,16 @@ gdouble sm_get_long_break_duration(SessionManagerPtr session_manager)
 gdouble sm_get_sessions_to_complete(SessionManagerPtr session_manager)
 {
     return session_manager->sessions_to_complete;
+}
+
+gboolean sm_get_auto_start_breaks(SessionManagerPtr self)
+{
+    return self->auto_start_breaks;
+}
+
+gboolean sm_get_auto_start_work(SessionManagerPtr self)
+{
+    return self->auto_start_work;
 }
 
 gchar *sm_get_formatted_time(SessionManagerPtr self)
