@@ -18,8 +18,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-#include "samaya-application.h"
 #include <glib/gi18n.h>
+#include "samaya-application.h"
 #include "samaya-preferences-dialog.h"
 #include "samaya-session.h"
 #include "samaya-window.h"
@@ -66,7 +66,7 @@ static void samaya_application_about_action(GSimpleAction *action, GVariant *par
         "application-icon", "io.github.redddfoxxyy.samaya",
         "developer-name", _("Suyog Tandel"),
         "translator-credits", _("translator-credits"),
-        "version", "0.1.5",
+        "version", "0.1.6",
         "developers", developers,
         "website", "https://samaya.suyogtandel.in/",
         "issue-url", "https://codeberg.org/lockedmutex/samaya/issues",

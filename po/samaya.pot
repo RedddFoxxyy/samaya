@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samaya\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-14 18:38+0530\n"
+"POT-Creation-Date: 2025-12-14 22:53+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,36 +25,6 @@ msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.desktop.in:8
 msgid "Productivity;Pomodoro;Timer;Time;Tracker;"
-msgstr ""
-
-#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:8
-msgid "Timekeeper for your tasks"
-msgstr ""
-
-#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:10
-msgid ""
-"A simple, elegant, minimalist Pomodoro timer for your desktop. Designed to "
-"help you stay focused and productive, it offers a clean, distraction-free "
-"interface to manage work and break intervals with ease."
-msgstr ""
-
-#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:16
-#: src/samaya-application.c:54 src/samaya-application.c:67
-msgid "Suyog Tandel"
-msgstr ""
-
-#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:66
-msgid "Work Session"
-msgstr ""
-
-#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:70
-#: src/preferences-dialog.ui:30 src/samaya-window.ui:49
-msgid "Short Break"
-msgstr ""
-
-#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:74
-#: src/preferences-dialog.ui:45 src/samaya-window.ui:55
-msgid "Long Break"
 msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:6
@@ -107,6 +77,36 @@ msgid ""
 "Whether to automatically start the work timer when a break session ends."
 msgstr ""
 
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:8
+msgid "Timekeeper for your tasks"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:10
+msgid ""
+"A simple, elegant, minimalist Pomodoro timer for your desktop. Designed to "
+"help you stay focused and productive, it offers a clean, distraction-free "
+"interface to manage work and break intervals with ease."
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:16
+#: src/samaya-application.c:54 src/samaya-application.c:67
+msgid "Suyog Tandel"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:66
+msgid "Work Session"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:70
+#: src/preferences-dialog.ui:30 src/samaya-window.ui:49
+msgid "Short Break"
+msgstr ""
+
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:74
+#: src/preferences-dialog.ui:45 src/samaya-window.ui:55
+msgid "Long Break"
+msgstr ""
+
 #: src/preferences-dialog.ui:10
 msgid "Timer Durations"
 msgstr ""
@@ -151,6 +151,18 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 
+#: src/samaya-session.c:149
+msgid "Focus session complete! Time for a break."
+msgstr ""
+
+#: src/samaya-session.c:153
+msgid "Break over! Time to get back to work."
+msgstr ""
+
+#: src/samaya-session.c:156
+msgid "Timer finished."
+msgstr ""
+
 #: src/samaya-window.c:215
 msgid "Stop"
 msgstr ""
@@ -169,18 +181,6 @@ msgstr ""
 
 #: src/samaya-window.c:239 src/samaya-window.ui:141
 msgid "Start"
-msgstr ""
-
-#: src/samaya-session.c:149
-msgid "Focus session complete! Time for a break."
-msgstr ""
-
-#: src/samaya-session.c:153
-msgid "Break over! Time to get back to work."
-msgstr ""
-
-#: src/samaya-session.c:156
-msgid "Timer finished."
 msgstr ""
 
 #: src/samaya-window.ui:19

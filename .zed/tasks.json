@@ -1,52 +1,58 @@
 [
-	{
-		"label": "Build Debug",
-		"command": "([ -f builddir/build.ninja ] || meson setup builddir --buildtype=debug) && meson compile -C builddir",
-		"allow_concurrent_runs": false,
-		"tags": [
-			"meson-build-debug"
-		]
-	},
-	{
-		"label": "Run Debug",
-		"command": "meson compile -C builddir && ./builddir/src/samaya",
-		"allow_concurrent_runs": false,
-		"tags": [
-			"meson-run-debug"
-		],
-		"hide": "on_success"
-	},
-	{
-		"label": "Build Release",
-		"command": "([ -f builddir_release/build.ninja ] || meson setup builddir_release --buildtype=release --strip) && meson compile -C builddir_release",
-		"allow_concurrent_runs": false,
-		"tags": [
-			"meson-build-release"
-		]
-	},
-	{
-		"label": "Run Release",
-		"command": "meson compile -C builddir_release && ./builddir_release/src/samaya",
-		"allow_concurrent_runs": false,
-		"tags": [
-			"meson-run-release"
-		],
-		"hide": "on_success"
-	},
-	{
-		"label": "Run Tests",
-		"command": "meson test -C builddir --print-errorlogs",
-		"allow_concurrent_runs": false,
-		"tags": [
-			"meson-test"
-		]
-	},
-	{
-		"label": "Clean All",
-		"command": "rm -rf builddir build_release",
-		"allow_concurrent_runs": false,
-		"tags": [
-			"meson-clean"
-		]
-	}
+  {
+    "label": "Build Debug",
+    "command": "([ -f builddir/build.ninja ] || meson setup builddir --buildtype=debug) && meson compile -C builddir",
+    "allow_concurrent_runs": false,
+    "tags": ["meson-build-debug"]
+  },
+  {
+    "label": "Run Debug",
+    "command": "meson compile -C builddir && ./builddir/src/samaya",
+    "allow_concurrent_runs": false,
+    "tags": ["meson-run-debug"],
+    "hide": "on_success"
+  },
+  {
+    "label": "Build Release",
+    "command": "([ -f builddir_release/build.ninja ] || meson setup builddir_release --buildtype=release --strip) && meson compile -C builddir_release",
+    "allow_concurrent_runs": false,
+    "tags": ["meson-build-release"]
+  },
+  {
+    "label": "Run Release",
+    "command": "meson compile -C builddir_release && ./builddir_release/src/samaya",
+    "allow_concurrent_runs": false,
+    "tags": ["meson-run-release"],
+    "hide": "on_success"
+  },
+  {
+    "label": "Run Tests",
+    "command": "meson test -C builddir --print-errorlogs",
+    "allow_concurrent_runs": false,
+    "tags": ["meson-test"]
+  },
+  {
+    "label": "Update samaya-pot",
+    "command": "meson compile -C builddir samaya-pot",
+    "allow_concurrent_runs": false,
+    "tags": ["meson-update-pot"]
+  },
+  {
+    "label": "Install (Debug)",
+    "command": "meson install -C builddir",
+    "allow_concurrent_runs": false,
+    "tags": ["meson-install"]
+  },
+  {
+    "label": "Uninstall (Debug)",
+    "command": "meson uninstall -C builddir",
+    "allow_concurrent_runs": false,
+    "tags": ["meson-uninstall"]
+  },
+  {
+    "label": "Clean All",
+    "command": "rm -rf builddir build_release",
+    "allow_concurrent_runs": false,
+    "tags": ["meson-clean"]
+  }
 ]

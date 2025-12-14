@@ -10,7 +10,9 @@
 ---
 
 <p align="center">
-  <img src="data/icons/hicolor/scalable/apps/io.github.redddfoxxyy.samaya.svg" alt="Samaya app icon" width="200"/>
+  <a href="https://samaya.suyogtandel.in/">
+    <img src="data/icons/hicolor/scalable/apps/io.github.redddfoxxyy.samaya.svg" alt="Samaya app icon" width="200"/>
+  </a>
 </p>
 
 <h1 align="center">Samaya</h1>
@@ -20,17 +22,29 @@
   <img src="data/screenshots/screenshot3.png"  alt="Samaya Screenshot 2"/>
 </p>
 
+<p align="center">
+  <a href="https://translate.codeberg.org/engage/samaya/">
+    <img src="https://translate.codeberg.org/widget/samaya/language-badge.svg" alt="Translation status" />
+  </a>
+  <a href="https://translate.codeberg.org/engage/samaya/">
+    <img src="https://translate.codeberg.org/widget/samaya/svg-badge.svg?threshold=0" alt="Translation status" />
+  </a>
+  <img alt="Flathub Version" src="https://img.shields.io/flathub/v/io.github.redddfoxxyy.samaya">
+  <img alt="Flathub Downloads" src="https://img.shields.io/flathub/downloads/io.github.redddfoxxyy.samaya?style=flat">
+  <img alt="Matrix" src="https://img.shields.io/matrix/samaya%3Amatrix.org?server_fqdn=matrix.org">
+</p>
+
 #### A simple, elegant, minimalist Pomodoro timer for your desktop. Designed to help you stay focused and productive, it offers a clean, distraction-free interface to manage work and break intervals with ease.
 
 #### Samaya means time in Hindi, written as `समय`.
 
 ## Features
 
-* **Light Weight:** The size of the app is only around 55KB and around 111KB including all the data and assets!
-* **Routine Management:** Switch between **Pomodoro (25 min)**, **Short Break (5 min)**, and **Long Break (20 min)** routines.
-* **Custom Work/Break Durations:** Change the working or break durations in the settings menu.
-* **Skip Sessions:** Skip the current session and start the next one.
-* **Timer Notifications:** Get notified (using sound) when the timer ends.
+- **Light Weight:** The size of the app is only around 55KB and around 111KB including all the data and assets!
+- **Routine Management:** Switch between **Pomodoro (25 min)**, **Short Break (5 min)**, and **Long Break (20 min)** routines.
+- **Custom Work/Break Durations:** Change the working or break durations in the settings menu.
+- **Skip Sessions:** Skip the current session and start the next one.
+- **Timer Notifications:** Get notified (using sound) when the timer ends.
 
 ## Download & Installation
 
@@ -42,36 +56,36 @@
 
 - To install the application from source:
 
-    ```bash
-    git clone -b release --single-branch https://codeberg.org/lockedmutex/samaya.git
-    cd samaya
-    meson setup build_release --buildtype=release -Dprefix=$HOME/.local
-    meson compile -C build_release
-    meson install -C build_release
-    cd ..
-    rm -rf samaya
-    ```
+  ```bash
+  git clone -b release --single-branch https://codeberg.org/lockedmutex/samaya.git
+  cd samaya
+  meson setup build_release --buildtype=release -Dprefix=$HOME/.local
+  meson compile -C build_release
+  meson install -C build_release
+  cd ..
+  rm -rf samaya
+  ```
 
-- For other operating systems, the app can only be compiled and installed manually from source 
-	(and might fail because samaya depends heavily on glib, libcanberra and gsound which are linux only libs).
-	
+- For other operating systems, the app can only be compiled and installed manually from source
+  (and might fail because samaya depends heavily on glib, libcanberra and gsound which are linux only libs).
+
 ## Building from Source
 
 ### Software Dependencies Required:
 
-  - GCC14 or later / Clang 19 or later
-  - Meson (install using pip for latest version)
-  - Ninja
-  - CMake
+- GCC14 or later / Clang 19 or later
+- Meson (install using pip for latest version)
+- Ninja
+- CMake
 
 ### Library Dependencies Required:
 
-| Dep Name                                                         | `pkg-config` Name | Min Version            | Justification                                       |
-|------------------------------------------------------------------|-------------------|------------------------|-----------------------------------------------------|
-| [gtk4](https://gitlab.gnome.org/GNOME/gtk/)                      | `gtk4`            | `4.20`                 | GUI                                                 |
-| [libadwaita](https://gitlab.gnome.org/GNOME/libadwaita)          | `libadwaita-1`    | `1.8`                  | GNOME styling                                       |
-| [gsound](https://gitlab.gnome.org/GNOME/gsound)                  | `gsound`          | `1.0.3`                | Playing System Sounds                               |
-| [libcanberra](https://0pointer.de/lennart/projects/libcanberra/) | `libcanberra`     | `0.30`                 | Dependency for gsound                               |
+| Dep Name                                                         | `pkg-config` Name | Min Version | Justification         |
+| ---------------------------------------------------------------- | ----------------- | ----------- | --------------------- |
+| [gtk4](https://gitlab.gnome.org/GNOME/gtk/)                      | `gtk4`            | `4.20`      | GUI                   |
+| [libadwaita](https://gitlab.gnome.org/GNOME/libadwaita)          | `libadwaita-1`    | `1.8`       | GNOME styling         |
+| [gsound](https://gitlab.gnome.org/GNOME/gsound)                  | `gsound`          | `1.0.3`     | Playing System Sounds |
+| [libcanberra](https://0pointer.de/lennart/projects/libcanberra/) | `libcanberra`     | `0.30`      | Dependency for gsound |
 
 ### Steps to build:
 
@@ -81,28 +95,34 @@
    git clone https://codeberg.org/lockedmutex/samaya.git
    cd samaya
    ```
-   
+
 2. **Build the application using Meson:**
 
-    ```bash
-    meson setup builddir --buildtype=release
-    meson compile -C builddir
-    ./builddir/src/samaya
-    ```
-	
+   ```bash
+   meson setup builddir --buildtype=release
+   meson compile -C builddir
+   ./builddir/src/samaya
+   ```
+
 3. **Install the application:**
 
-    ```bash
-    meson install -C builddir
-    ```
-	
+   ```bash
+   meson install -C builddir
+   ```
+
 ## For Contributors:
 
-  - The project follows a mix of C naming conventions from LLVM, GNOME and/or GNU style C code, check `.clang-tidy` for more details.
-  - Compile and run the code on GNOME Builder using `io.github.redddfoxxyy.samaya.json` build configuration.
-  - Contributers using Zed or VSCode can directly run tasks to build and run the code (assuming all the required dependencies are installed).
-  - Need help with translating the app.
-	
+- The project follows a mix of C naming conventions from LLVM, GNOME and/or GNU style C code, check `.clang-tidy` for more details.
+- Compile and run the code on GNOME Builder using `io.github.redddfoxxyy.samaya.json` build configuration.
+- Contributers using Zed or VSCode can directly run tasks to build and run the code (assuming all the required dependencies are installed).
+- Need help with translating the app.
+
+## For Translators:
+
+To translate Samaya, you can use [Codeberg Translate(Weblate)](https://translate.codeberg.org/engage/samaya/). This is the current translation status:
+
+[![Translation status](https://translate.codeberg.org/widget/samaya/multi-auto.svg)](https://translate.codeberg.org/engage/samaya/)
+
 ## Code of Conduct
 
 This project adheres to the [GNOME Code of Conduct](https://conduct.gnome.org/). By participating through any means, including PRs, Issues or Discussions, you are expected to uphold this code.
