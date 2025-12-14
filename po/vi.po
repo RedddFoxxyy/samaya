@@ -2,14 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the samaya package.
 # Loc Huynh <https://github.com/hthienloc>, 2025.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: samaya\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-14 18:38+0530\n"
-"PO-Revision-Date: 2025-12-13 17:09+0700\n"
-"Last-Translator: Loc Huynh <huynhloc.contact@gmail.com>\n"
+"PO-Revision-Date: 2025-12-15 01:32+0700\n"
+"Last-Translator: Loc Huynh <https://github.com/hthienloc>\n"
 "Language-Team: \n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
@@ -18,16 +17,15 @@ msgstr ""
 "X-Generator: Poedit 3.8\n"
 
 #: data/io.github.redddfoxxyy.samaya.desktop.in:2
-#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:7
-#: src/samaya-application.c:65 src/samaya-session.c:144 src/samaya-window.ui:6
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:7 src/samaya-application.c:65
+#: src/samaya-session.c:144 src/samaya-window.ui:6
 msgid "Samaya"
 msgstr "Samaya"
 
 #: data/io.github.redddfoxxyy.samaya.desktop.in:8
 msgid "Productivity;Pomodoro;Timer;Time;Tracker;"
 msgstr ""
-"Productivity;Pomodoro;Timer;Time;Tracker;năng suất;bộ đếm thời gian;thời "
-"gian;theo dõi;"
+"Productivity;Pomodoro;Timer;Time;Tracker;năng suất;bộ đếm;thời gian;theo dõi;"
 
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:8
 msgid "Timekeeper for your tasks"
@@ -35,14 +33,13 @@ msgstr "Bộ quản lý thời gian cho công việc của bạn"
 
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:10
 msgid ""
-"A simple, elegant, minimalist Pomodoro timer for your desktop. Designed to "
-"help you stay focused and productive, it offers a clean, distraction-free "
-"interface to manage work and break intervals with ease."
+"A simple, elegant, minimalist Pomodoro timer for your desktop. Designed to help "
+"you stay focused and productive, it offers a clean, distraction-free interface "
+"to manage work and break intervals with ease."
 msgstr ""
 "Bộ đếm Pomodoro đơn giản, tinh tế và tối giản cho desktop. Được thiết kế để "
-"giúp bạn tập trung và làm việc hiệu quả, ứng dụng cung cấp giao diện gọn "
-"gàng, không xao nhãng để quản lý thời gian làm việc và nghỉ ngơi một cách dễ "
-"dàng."
+"giúp bạn tập trung và làm việc hiệu quả, ứng dụng cung cấp giao diện gọn gàng, "
+"không xao nhãng để quản lý thời gian làm việc và nghỉ ngơi một cách dễ dàng."
 
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:16
 #: src/samaya-application.c:54 src/samaya-application.c:67
@@ -97,21 +94,21 @@ msgstr "Số phiên làm việc cần hoàn thành trước khi nghỉ dài"
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:26
 msgid "Auto-start breaks"
-msgstr ""
+msgstr "Tự động bắt đầu nghỉ giải lao"
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:27
-msgid ""
-"Whether to automatically start the break timer when a work session ends."
+msgid "Whether to automatically start the break timer when a work session ends."
 msgstr ""
+"Có tự động bắt đầu hẹn giờ nghỉ giải lao khi phiên làm việc kết thúc hay không."
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:31
 msgid "Auto-start work sessions"
-msgstr ""
+msgstr "Tự động bắt đầu phiên làm việc"
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:32
-msgid ""
-"Whether to automatically start the work timer when a break session ends."
+msgid "Whether to automatically start the work timer when a break session ends."
 msgstr ""
+"Có tự động bắt đầu tính giờ làm việc khi phiên nghỉ giải lao kết thúc hay không."
 
 #: src/preferences-dialog.ui:10
 msgid "Timer Durations"
@@ -135,24 +132,23 @@ msgstr "Số phiên trước khi nghỉ dài"
 
 #: src/preferences-dialog.ui:82
 msgid "Transition Flow"
-msgstr ""
+msgstr "Luồng chuyển tiếp"
 
 #: src/preferences-dialog.ui:85
-#, fuzzy
 msgid "Auto Start Breaks"
 msgstr "Nghỉ ngắn"
 
 #: src/preferences-dialog.ui:86
 msgid "Automatically start break routine after work session ends."
-msgstr ""
+msgstr "Tự động bắt đầu thói quen nghỉ giải lao sau khi phiên làm việc kết thúc."
 
 #: src/preferences-dialog.ui:92
 msgid "Auto Start Work"
-msgstr ""
+msgstr "Tự động bắt đầu công việc"
 
 #: src/preferences-dialog.ui:93
 msgid "Automatically start work routine after break ends."
-msgstr ""
+msgstr "Tự động bắt đầu công việc sau khi kết thúc giờ nghỉ."
 
 #: src/samaya-application.c:68
 msgid "translator-credits"
@@ -181,18 +177,16 @@ msgid "Start"
 msgstr "Bắt đầu"
 
 #: src/samaya-session.c:149
-#, fuzzy
 msgid "Focus session complete! Time for a break."
-msgstr "Số phiên làm việc cần hoàn thành trước khi nghỉ dài"
+msgstr "Số phiên làm việc cần hoàn thành trước khi nghỉ dài."
 
 #: src/samaya-session.c:153
 msgid "Break over! Time to get back to work."
-msgstr ""
+msgstr "Phiên nghỉ kết thúc! Đã đến lúc quay lại làm việc."
 
 #: src/samaya-session.c:156
-#, fuzzy
 msgid "Timer finished."
-msgstr "Thời lượng bộ đếm"
+msgstr "Thời lượng bộ đếm."
 
 #: src/samaya-window.ui:19
 msgid "Main Menu"
