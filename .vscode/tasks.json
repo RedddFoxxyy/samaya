@@ -61,7 +61,7 @@
     {
       "label": "Uninstall",
       "type": "shell",
-      "command": "meson uninstall -C builddir",
+      "command": "sudo ninja -C builddir uninstall",
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",

@@ -45,9 +45,9 @@
   },
   {
     "label": "Uninstall (Debug)",
-    "command": "meson uninstall -C builddir",
+    "command": "sudo ninja -C builddir uninstall",
     "allow_concurrent_runs": false,
-    "tags": ["meson-uninstall"]
+    "tags": ["ninja-uninstall"]
   },
   {
     "label": "Clean All",
