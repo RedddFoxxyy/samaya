@@ -59,17 +59,13 @@ static void samaya_application_about_action(GSimpleAction *action, GVariant *par
 
     window = gtk_application_get_active_window(GTK_APPLICATION(self));
 
-    adw_show_about_dialog(GTK_WIDGET(window),
-                          "application-name", _("Samaya"),
-                          "application-icon", "io.github.redddfoxxyy.samaya",
-                          "developer-name", _("Suyog Tandel"),
-                          "translator-credits", _("translator-credits"),
-                          "version", "0.1.5",
-                          "developers", developers,
-                          "website", "https://samaya.suyogtandel.in/",
+    adw_show_about_dialog(GTK_WIDGET(window), "application-name", _("Samaya"), "application-icon",
+                          "io.github.redddfoxxyy.samaya", "developer-name", _("Suyog Tandel"),
+                          "translator-credits", _("translator-credits"), "version", "0.1.5",
+                          "developers", developers, "website", "https://samaya.suyogtandel.in/",
                           "issue-url", "https://codeberg.org/lockedmutex/samaya/issues",
-                          "copyright", "© 2025 Suyog Tandel",
-                          "license-type", GTK_LICENSE_AGPL_3_0, NULL);
+                          "copyright", "© 2025 Suyog Tandel", "license-type", GTK_LICENSE_AGPL_3_0,
+                          NULL);
 }
 
 static void samaya_application_quit_action(GSimpleAction *action, GVariant *parameter,
@@ -168,8 +164,8 @@ static void samaya_application_init(SamayaApplication *self)
     gboolean auto_breaks = g_settings_get_boolean(settings, "auto-start-breaks");
     gboolean auto_work = g_settings_get_boolean(settings, "auto-start-work");
 
-    self->samayaSessionManager =
-        sm_init(sessions, work_duration, short_break_duration, long_break_duration, auto_breaks, auto_work, NULL, self);
+    self->samayaSessionManager = sm_init(sessions, work_duration, short_break_duration,
+                                         long_break_duration, auto_breaks, auto_work, NULL, self);
 
     g_object_unref(settings);
 }

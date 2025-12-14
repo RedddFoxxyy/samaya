@@ -144,13 +144,19 @@ static void set_initial_preference_values(SessionManagerPtr session_manager,
         g_signal_handlers_unblock_by_func(self->sessions_count_row, on_sessions_count_changed,
                                           self);
 
-        g_signal_handlers_block_by_func(self->auto_start_breaks_row, on_auto_start_breaks_changed, self);
-        adw_switch_row_set_active(self->auto_start_breaks_row, sm_get_auto_start_breaks(session_manager));
-        g_signal_handlers_unblock_by_func(self->auto_start_breaks_row, on_auto_start_breaks_changed, self);
+        g_signal_handlers_block_by_func(self->auto_start_breaks_row, on_auto_start_breaks_changed,
+                                        self);
+        adw_switch_row_set_active(self->auto_start_breaks_row,
+                                  sm_get_auto_start_breaks(session_manager));
+        g_signal_handlers_unblock_by_func(self->auto_start_breaks_row, on_auto_start_breaks_changed,
+                                          self);
 
-        g_signal_handlers_block_by_func(self->auto_start_work_row, on_auto_start_work_changed, self);
-        adw_switch_row_set_active(self->auto_start_work_row, sm_get_auto_start_work(session_manager));
-        g_signal_handlers_unblock_by_func(self->auto_start_work_row, on_auto_start_work_changed, self);
+        g_signal_handlers_block_by_func(self->auto_start_work_row, on_auto_start_work_changed,
+                                        self);
+        adw_switch_row_set_active(self->auto_start_work_row,
+                                  sm_get_auto_start_work(session_manager));
+        g_signal_handlers_unblock_by_func(self->auto_start_work_row, on_auto_start_work_changed,
+                                          self);
     }
 }
 
@@ -170,8 +176,10 @@ static void samaya_preferences_dialog_class_init(SamayaPreferencesDialogClass *k
     gtk_widget_class_bind_template_child(widget_class, SamayaPreferencesDialog, short_break_row);
     gtk_widget_class_bind_template_child(widget_class, SamayaPreferencesDialog, long_break_row);
     gtk_widget_class_bind_template_child(widget_class, SamayaPreferencesDialog, sessions_count_row);
-    gtk_widget_class_bind_template_child(widget_class, SamayaPreferencesDialog, auto_start_breaks_row);
-    gtk_widget_class_bind_template_child(widget_class, SamayaPreferencesDialog, auto_start_work_row);
+    gtk_widget_class_bind_template_child(widget_class, SamayaPreferencesDialog,
+                                         auto_start_breaks_row);
+    gtk_widget_class_bind_template_child(widget_class, SamayaPreferencesDialog,
+                                         auto_start_work_row);
 
     gtk_widget_class_bind_template_callback(widget_class, on_work_duration_changed);
     gtk_widget_class_bind_template_callback(widget_class, on_short_break_changed);

@@ -61,12 +61,13 @@ static void sync_button_state(SamayaWindow *self);
  * UI Actions
  * ============================================================================ */
 
-static gboolean on_animate_progress(GtkWidget *widget, GdkFrameClock *frame_clock, gpointer user_data)
+static gboolean on_animate_progress(GtkWidget *widget, GdkFrameClock *frame_clock,
+                                    gpointer user_data)
 {
     SamayaWindow *self = SAMAYA_WINDOW(user_data);
-    
+
     gtk_widget_queue_draw(GTK_WIDGET(self->progress_circle));
-    
+
     return G_SOURCE_CONTINUE;
 }
 
@@ -77,16 +78,13 @@ static void update_animation_state(SamayaWindow *self)
 
     if (state == StRunning) {
         if (self->tick_callback_id == 0) {
-            self->tick_callback_id = gtk_widget_add_tick_callback(
-                GTK_WIDGET(self->progress_circle), 
-                on_animate_progress, 
-                self, 
-                NULL
-            );
+            self->tick_callback_id = gtk_widget_add_tick_callback(GTK_WIDGET(self->progress_circle),
+                                                                  on_animate_progress, self, NULL);
         }
     } else {
         if (self->tick_callback_id > 0) {
-            gtk_widget_remove_tick_callback(GTK_WIDGET(self->progress_circle), self->tick_callback_id);
+            gtk_widget_remove_tick_callback(GTK_WIDGET(self->progress_circle),
+                                            self->tick_callback_id);
             self->tick_callback_id = 0;
         }
 
@@ -94,7 +92,8 @@ static void update_animation_state(SamayaWindow *self)
     }
 }
 
-static void update_timer_font_size(GtkWidget *label, const char *time_text) {
+static void update_timer_font_size(GtkWidget *label, const char *time_text)
+{
     guint len = strlen(time_text);
 
     gtk_widget_remove_css_class(label, "timer-len-short");
@@ -152,7 +151,7 @@ static gboolean on_tick_update(gpointer user_data)
 
     if (timer != NULL) {
         char *formatted_time = sm_get_formatted_time(session_manager);
-        
+
         gtk_label_set_text(self->timer_label, formatted_time);
         update_timer_font_size(GTK_WIDGET(self->timer_label), formatted_time);
     }
@@ -163,9 +162,7 @@ static gboolean on_tick_update(gpointer user_data)
     gtk_label_set_text(self->sessions_label, session_text);
     g_free(session_text);
 
-    if (tm_get_state(timer) != StRunning) {
-        sync_button_state(self);
-    }
+    sync_button_state(self);
 
     return G_SOURCE_REMOVE;
 }

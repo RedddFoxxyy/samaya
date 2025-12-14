@@ -19,9 +19,9 @@
  */
 
 #include "samaya-session.h"
-#include "samaya-timer.h"
 #include <gio/gio.h>
 #include <glib/gi18n.h>
+#include "samaya-timer.h"
 
 
 /* ============================================================================
@@ -130,21 +130,14 @@ static void play_completion_sound(GSoundContext *g_sound_ctx)
         return;
     }
 
-    GError *error = NULL;
-    gboolean ok = gsound_context_play_simple(g_sound_ctx,
-                                             NULL,
-                                             &error, GSOUND_ATTR_EVENT_ID, "bell-terminal", NULL);
-
-    if (!ok) {
-        g_warning("Failed to play sound: %s", error->message);
-        g_error_free(error);
-    }
+    gsound_context_play_full(g_sound_ctx, NULL, NULL, NULL, GSOUND_ATTR_EVENT_ID, "bell-terminal",
+                             NULL);
 }
 
 static void display_notification(SessionManagerPtr session_manager)
 {
     GApplication *app = G_APPLICATION(session_manager->user_data);
-    if (app == NULL){
+    if (app == NULL) {
         return;
     }
 
@@ -167,12 +160,11 @@ static void display_notification(SessionManagerPtr session_manager)
     GNotification *note = g_notification_new(title);
     g_notification_set_body(note, body);
     g_notification_set_priority(note, G_NOTIFICATION_PRIORITY_HIGH);
-    
+
     g_notification_set_default_action(note, "app.activate");
 
     g_application_send_notification(app, "timer-complete", note);
     g_object_unref(note);
-    
 }
 
 static void sm_format_time(SessionManagerPtr self, gint64 timeMS)

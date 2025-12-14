@@ -42,8 +42,7 @@ typedef struct
 static void update_progress(TimerPtr self)
 {
     if (self->initial_time_ms > 0) {
-        self->timer_progress =
-            (gfloat) self->remaining_time_ms / (gfloat) self->initial_time_ms;
+        self->timer_progress = (gfloat) self->remaining_time_ms / (gfloat) self->initial_time_ms;
     } else {
         self->timer_progress = 0.0f;
     }
@@ -51,11 +50,12 @@ static void update_progress(TimerPtr self)
 
 static gfloat get_instant_progress(TimerPtr self)
 {
-    if (self->initial_time_ms <= 0) return 0.0f;
+    if (self->initial_time_ms <= 0)
+        return 0.0f;
 
     guint64 current_time_us = g_get_monotonic_time();
     guint64 elapsed_since_update_us = guint64_sat_sub(current_time_us, self->last_updated_time_us);
-    
+
     guint64 elapsed_since_update_ms = elapsed_since_update_us / 1000;
 
     guint64 real_remaining_ms = guint64_sat_sub(self->remaining_time_ms, elapsed_since_update_ms);
@@ -74,24 +74,25 @@ static void notify_time_update(TimerPtr self)
 static void action_start_timer(TimerPtr self)
 {
     self->last_updated_time_us = g_get_monotonic_time();
-    
+
     if (self->tick_source_id > 0) {
         g_source_remove(self->tick_source_id);
     }
-    
+
     self->tick_source_id = g_timeout_add(1000, tm_run_tick, self);
 }
 
-// TODO: This function, tm_run_tick and get_instant_progress all are basically doing the same calcualation but code is
-// repeated again and again in all 3. Make a single function for this and call that function instead.
+// TODO: This function, tm_run_tick and get_instant_progress all are basically doing the same
+// calcualation but code is repeated again and again in all 3. Make a single function for this and
+// call that function instead.
 static void action_stop_timer(TimerPtr self)
 {
     guint64 current_time_us = g_get_monotonic_time();
     guint64 elapsed_time_us = guint64_sat_sub(current_time_us, self->last_updated_time_us);
-    
+
     gint64 elapsed_time_ms = elapsed_time_us / 1000;
     self->remaining_time_ms = guint64_sat_sub(self->remaining_time_ms, elapsed_time_ms);
-    
+
     update_progress(self);
     notify_time_update(self);
 
@@ -104,15 +105,16 @@ static void action_stop_timer(TimerPtr self)
 static void action_reset(TimerPtr self)
 {
     action_stop_timer(self);
-    
+
     self->remaining_time_ms = self->initial_time_ms;
     self->timer_progress = 1.0f;
-    
+
     notify_time_update(self);
     g_info("Session Reset");
 }
 
-static void action_sync_time(TimerPtr self) {
+static void action_sync_time(TimerPtr self)
+{
     self->last_updated_time_us = g_get_monotonic_time();
     action_start_timer(self);
 }
@@ -176,11 +178,15 @@ static gboolean tm_run_tick(gpointer timer_ptr)
 
     if (self->remaining_time_ms == 0) {
         self->tm_state = StIdle;
-        self->tick_source_id = 0;
 
         if (self->tm_time_complete) {
             self->tm_time_complete(self);
         }
+
+        if (self->tm_state != StRunning) {
+            self->tick_source_id = 0;
+        }
+
         return G_SOURCE_REMOVE;
     }
 
@@ -214,10 +220,10 @@ void tm_free(Timer *self)
     if (self->tick_source_id > 0) {
         g_source_remove(self->tick_source_id);
     }
-    
+
     self->tm_time_update = NULL;
     self->tm_time_complete = NULL;
-    
+
     g_free(self);
 }
 
@@ -248,6 +254,6 @@ void tm_set_duration(TimerPtr self, gfloat initial_time_minutes)
 {
     self->initial_time_ms = (guint64) (initial_time_minutes * 60 * 1000);
     self->remaining_time_ms = self->initial_time_ms;
-    
+
     notify_time_update(self);
 }
