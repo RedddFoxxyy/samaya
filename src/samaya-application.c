@@ -59,13 +59,22 @@ static void samaya_application_about_action(GSimpleAction *action, GVariant *par
 
     window = gtk_application_get_active_window(GTK_APPLICATION(self));
 
-    adw_show_about_dialog(GTK_WIDGET(window), "application-name", _("Samaya"), "application-icon",
-                          "io.github.redddfoxxyy.samaya", "developer-name", _("Suyog Tandel"),
-                          "translator-credits", _("translator-credits"), "version", "0.1.5",
-                          "developers", developers, "website", "https://samaya.suyogtandel.in/",
-                          "issue-url", "https://codeberg.org/lockedmutex/samaya/issues",
-                          "copyright", "© 2025 Suyog Tandel", "license-type", GTK_LICENSE_AGPL_3_0,
-                          NULL);
+    // clang-format off
+    adw_show_about_dialog(
+        GTK_WIDGET(window),
+        "application-name", _("Samaya"),
+        "application-icon", "io.github.redddfoxxyy.samaya",
+        "developer-name", _("Suyog Tandel"),
+        "translator-credits", _("translator-credits"),
+        "version", "0.1.5",
+        "developers", developers,
+        "website", "https://samaya.suyogtandel.in/",
+        "issue-url", "https://codeberg.org/lockedmutex/samaya/issues",
+        "copyright", "© 2025 Suyog Tandel",
+        "license-type", GTK_LICENSE_AGPL_3_0,
+        NULL
+    );
+    // clang-format on
 }
 
 static void samaya_application_quit_action(GSimpleAction *action, GVariant *parameter,

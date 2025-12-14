@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samaya\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-14 16:07+0530\n"
+"POT-Creation-Date: 2025-12-14 18:38+0530\n"
 "PO-Revision-Date: 2025-12-10 12:30+0530\n"
 "Last-Translator: Suyog Tandel <suyogtandel@proton.me>\n"
 "Language-Team: Marathi\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.desktop.in:2
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:7
-#: src/samaya-application.c:63 src/samaya-session.c:151 src/samaya-window.ui:6
+#: src/samaya-application.c:65 src/samaya-session.c:144 src/samaya-window.ui:6
 msgid "Samaya"
 msgstr "समय"
 
@@ -43,7 +43,7 @@ msgstr ""
 "व्यवस्थापित करण्यासाठी एक स्वच्छ, व्यत्यय-मुक्त इंटरफेस देते."
 
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:16
-#: src/samaya-application.c:54 src/samaya-application.c:65
+#: src/samaya-application.c:54 src/samaya-application.c:67
 msgid "Suyog Tandel"
 msgstr "सुयोग तांडेल"
 
@@ -151,39 +151,39 @@ msgstr "कार्य आपोआप सुरू करा"
 msgid "Automatically start work routine after break ends."
 msgstr "विश्रांती संपल्यावर कार्य आपोआप सुरू करा."
 
-#: src/samaya-application.c:66
+#: src/samaya-application.c:68
 msgid "translator-credits"
 msgstr "सुयोग तांडेल"
 
-#: src/samaya-window.c:218
+#: src/samaya-window.c:215
 msgid "Stop"
 msgstr "थांबा"
 
-#: src/samaya-window.c:224
+#: src/samaya-window.c:221
 msgid "Skip Session"
 msgstr "सत्र वगळा"
 
-#: src/samaya-window.c:230
+#: src/samaya-window.c:227
 msgid "Resume"
 msgstr "पुन्हा सुरू करा"
 
-#: src/samaya-window.c:236
+#: src/samaya-window.c:233
 msgid "Reset Timer"
 msgstr "टाइमर रीसेट करा"
 
-#: src/samaya-window.c:242 src/samaya-window.ui:141
+#: src/samaya-window.c:239 src/samaya-window.ui:141
 msgid "Start"
 msgstr "सुरू करा"
 
-#: src/samaya-session.c:156
+#: src/samaya-session.c:149
 msgid "Focus session complete! Time for a break."
 msgstr "कार्य सत्र पूर्ण झाले! विश्रांतीची वेळ झाली आहे."
 
-#: src/samaya-session.c:160
+#: src/samaya-session.c:153
 msgid "Break over! Time to get back to work."
 msgstr "विश्रांती संपली! कामावर परतण्याची वेळ झाली आहे."
 
-#: src/samaya-session.c:163
+#: src/samaya-session.c:156
 msgid "Timer finished."
 msgstr "टाइमर संपला."
 

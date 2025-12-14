@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samaya\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-14 16:07+0530\n"
+"POT-Creation-Date: 2025-12-14 18:38+0530\n"
 "PO-Revision-Date: 2025-12-10 17:14+0300\n"
 "Last-Translator: Вячеслав Малышев <ma12@rambler.ru>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.desktop.in:2
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:7
-#: src/samaya-application.c:63 src/samaya-session.c:151 src/samaya-window.ui:6
+#: src/samaya-application.c:65 src/samaya-session.c:144 src/samaya-window.ui:6
 msgid "Samaya"
 msgstr ""
 
@@ -49,7 +49,7 @@ msgstr ""
 "позволяющий с легкостью управлять работой и отдыхом."
 
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:16
-#: src/samaya-application.c:54 src/samaya-application.c:65
+#: src/samaya-application.c:54 src/samaya-application.c:67
 msgid "Suyog Tandel"
 msgstr ""
 
@@ -158,40 +158,40 @@ msgstr ""
 msgid "Automatically start work routine after break ends."
 msgstr ""
 
-#: src/samaya-application.c:66
+#: src/samaya-application.c:68
 msgid "translator-credits"
 msgstr "ma12@rambler.ru"
 
-#: src/samaya-window.c:218
+#: src/samaya-window.c:215
 msgid "Stop"
 msgstr "Стоп"
 
-#: src/samaya-window.c:224
+#: src/samaya-window.c:221
 msgid "Skip Session"
 msgstr "Пропустить сессию"
 
-#: src/samaya-window.c:230
+#: src/samaya-window.c:227
 msgid "Resume"
 msgstr "Возобновить"
 
-#: src/samaya-window.c:236
+#: src/samaya-window.c:233
 msgid "Reset Timer"
 msgstr "Сброс таймера"
 
-#: src/samaya-window.c:242 src/samaya-window.ui:141
+#: src/samaya-window.c:239 src/samaya-window.ui:141
 msgid "Start"
 msgstr "Старт"
 
-#: src/samaya-session.c:156
+#: src/samaya-session.c:149
 #, fuzzy
 msgid "Focus session complete! Time for a break."
 msgstr "Количество рабочих сессий перед длительным перерывом"
 
-#: src/samaya-session.c:160
+#: src/samaya-session.c:153
 msgid "Break over! Time to get back to work."
 msgstr ""
 
-#: src/samaya-session.c:163
+#: src/samaya-session.c:156
 #, fuzzy
 msgid "Timer finished."
 msgstr "Длительность таймера"
