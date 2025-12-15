@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: samaya\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2025-12-14 18:38+0530\nPO-Revision-Date: 2025-12-15 10:24+0000\nLast-Translator: Priit Jõerüüt <jrtcdbrg@noreply.codeberg.org>\nLanguage-Team: Estonian <https://translate.codeberg.org/projects/samaya/samaya/et/>\nLanguage: et\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.14.3\n"
+msgstr "Project-Id-Version: samaya\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2025-12-14 18:38+0530\nPO-Revision-Date: 2025-12-15 11:48+0000\nLast-Translator: Priit Jõerüüt <jrtcdbrg@noreply.codeberg.org>\nLanguage-Team: Estonian <https://translate.codeberg.org/projects/samaya/samaya/et/>\nLanguage: et\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.14.3\n"
 
 #: data/io.github.redddfoxxyy.samaya.desktop.in:2
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:7
@@ -118,23 +118,23 @@ msgstr "Sessioone enne pikemat puhkepausi"
 
 #: src/preferences-dialog.ui:82
 msgid "Transition Flow"
-msgstr ""
+msgstr "Üleminekute töövoog"
 
 #: src/preferences-dialog.ui:85
 msgid "Auto Start Breaks"
-msgstr ""
+msgstr "Käivita puhkepausid automaatselt"
 
 #: src/preferences-dialog.ui:86
 msgid "Automatically start break routine after work session ends."
-msgstr ""
+msgstr "Käivita puhkepaus töösessiooni lõppedes automaatselt."
 
 #: src/preferences-dialog.ui:92
 msgid "Auto Start Work"
-msgstr ""
+msgstr "Käivita töösessioon automaatselt"
 
 #: src/preferences-dialog.ui:93
 msgid "Automatically start work routine after break ends."
-msgstr ""
+msgstr "Käivita töösessioon puhkepausi lõppedes automaatselt."
 
 #: src/samaya-application.c:68
 msgid "translator-credits"
