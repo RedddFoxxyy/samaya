@@ -18,9 +18,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-#include "samaya-session.h"
 #include <gio/gio.h>
 #include <glib/gi18n.h>
+#include "samaya-session.h"
 #include "samaya-timer.h"
 
 
@@ -130,7 +130,9 @@ static void play_completion_sound(GSoundContext *g_sound_ctx)
         return;
     }
 
-    gsound_context_play_full(g_sound_ctx, NULL, NULL, NULL, GSOUND_ATTR_EVENT_ID, "bell-terminal",
+    char *sound_path = g_build_filename("/app", "share", "sounds", "bell.oga", NULL);
+
+    gsound_context_play_full(g_sound_ctx, NULL, NULL, NULL, GSOUND_ATTR_MEDIA_FILENAME, sound_path,
                              NULL);
 }
 

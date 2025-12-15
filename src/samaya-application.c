@@ -52,6 +52,8 @@ static void samaya_application_about_action(GSimpleAction *action, GVariant *par
                                             gpointer user_data)
 {
     static const char *developers[] = {N_("Suyog Tandel"), NULL};
+    static const char *artists[] = {
+        N_("Suyog Tandel"), N_("Completion Sound:\nDr. Richard Boulanger et al (CC-BY 3.0)"), NULL};
     SamayaApplication *self = user_data;
     GtkWindow *window = NULL;
 
@@ -68,6 +70,7 @@ static void samaya_application_about_action(GSimpleAction *action, GVariant *par
         "translator-credits", _("translator-credits"),
         "version", "0.1.6",
         "developers", developers,
+        "artists", artists,
         "website", "https://samaya.suyogtandel.in/",
         "issue-url", "https://codeberg.org/lockedmutex/samaya/issues",
         "copyright", "© 2025 Suyog Tandel",

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samaya\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-14 22:53+0530\n"
+"POT-Creation-Date: 2025-12-15 11:08+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.desktop.in:2
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:7
-#: src/samaya-application.c:65 src/samaya-session.c:144 src/samaya-window.ui:6
+#: src/samaya-application.c:67 src/samaya-session.c:146 src/samaya-window.ui:6
 msgid "Samaya"
 msgstr ""
 
@@ -89,7 +89,8 @@ msgid ""
 msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:16
-#: src/samaya-application.c:54 src/samaya-application.c:67
+#: src/samaya-application.c:54 src/samaya-application.c:56
+#: src/samaya-application.c:69
 msgid "Suyog Tandel"
 msgstr ""
 
@@ -147,19 +148,25 @@ msgstr ""
 msgid "Automatically start work routine after break ends."
 msgstr ""
 
-#: src/samaya-application.c:68
+#: src/samaya-application.c:56
+msgid ""
+"Completion Sound:\n"
+"Dr. Richard Boulanger et al (CC-BY 3.0)"
+msgstr ""
+
+#: src/samaya-application.c:70
 msgid "translator-credits"
 msgstr ""
 
-#: src/samaya-session.c:149
+#: src/samaya-session.c:151
 msgid "Focus session complete! Time for a break."
 msgstr ""
 
-#: src/samaya-session.c:153
+#: src/samaya-session.c:155
 msgid "Break over! Time to get back to work."
 msgstr ""
 
-#: src/samaya-session.c:156
+#: src/samaya-session.c:158
 msgid "Timer finished."
 msgstr ""
 
