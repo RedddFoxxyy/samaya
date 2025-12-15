@@ -76,6 +76,18 @@
   </screenshots>
 
   <releases>
+    <release version="0.1.6" date="2025-12-15">
+      <url type="details">https://codeberg.org/lockedmutex/samaya/releases/tag/0.1.6</url>
+      <description translate="no">
+        <p>Release Changelog:</p>
+        <ul>
+          <li>Add Estonian translations.</li>
+          <li>Update Vietnamese and Russian Translations.</li>
+          <li>Add audio updated on completion of timer (plays sound).</li>
+          <li>Change timer font size.</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.1.5" date="2025-12-14">
       <url type="details">https://codeberg.org/lockedmutex/samaya/releases/tag/0.1.5</url>
       <description translate="no">
