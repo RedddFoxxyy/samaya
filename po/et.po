@@ -1,232 +1,216 @@
-# Vietnamese translation for io.github.redddfoxxyy.samaya.
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the samaya package.
-# Loc Huynh <https://github.com/hthienloc>, 2025.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
-msgstr ""
-"Project-Id-Version: samaya\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-14 18:38+0530\n"
-"PO-Revision-Date: 2025-12-15 01:32+0700\n"
-"Last-Translator: Loc Huynh <https://github.com/hthienloc>\n"
-"Language-Team: \n"
-"Language: vi\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.8\n"
+msgstr "Project-Id-Version: samaya\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2025-12-14 18:38+0530\nPO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\nLast-Translator: Automatically generated\nLanguage-Team: none\nLanguage: et\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: data/io.github.redddfoxxyy.samaya.desktop.in:2
-#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:7 src/samaya-application.c:65
-#: src/samaya-session.c:144 src/samaya-window.ui:6
+#: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:7
+#: src/samaya-application.c:65 src/samaya-session.c:144 src/samaya-window.ui:6
 msgid "Samaya"
-msgstr "Samaya"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.desktop.in:8
 msgid "Productivity;Pomodoro;Timer;Time;Tracker;"
 msgstr ""
-"Productivity;Pomodoro;Timer;Time;Tracker;năng suất;bộ đếm;thời gian;theo dõi;"
 
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:8
 msgid "Timekeeper for your tasks"
-msgstr "Bộ quản lý thời gian cho công việc của bạn"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:10
 msgid ""
-"A simple, elegant, minimalist Pomodoro timer for your desktop. Designed to help "
-"you stay focused and productive, it offers a clean, distraction-free interface "
-"to manage work and break intervals with ease."
+"A simple, elegant, minimalist Pomodoro timer for your desktop. Designed to "
+"help you stay focused and productive, it offers a clean, distraction-free "
+"interface to manage work and break intervals with ease."
 msgstr ""
-"Bộ đếm Pomodoro đơn giản, tinh tế và tối giản cho desktop. Được thiết kế để "
-"giúp bạn tập trung và làm việc hiệu quả, ứng dụng cung cấp giao diện gọn gàng, "
-"không xao nhãng để quản lý thời gian làm việc và nghỉ ngơi một cách dễ dàng."
 
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:16
 #: src/samaya-application.c:54 src/samaya-application.c:67
 msgid "Suyog Tandel"
-msgstr "Suyog Tandel"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:66
 msgid "Work Session"
-msgstr "Phiên làm việc"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:70
 #: src/preferences-dialog.ui:30 src/samaya-window.ui:49
 msgid "Short Break"
-msgstr "Nghỉ ngắn"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:74
 #: src/preferences-dialog.ui:45 src/samaya-window.ui:55
 msgid "Long Break"
-msgstr "Nghỉ dài"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:6
 msgid "Work session duration"
-msgstr "Thời lượng phiên làm việc"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:7
 msgid "Duration of work sessions in minutes"
-msgstr "Thời lượng phiên làm việc tính bằng phút"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:11
 msgid "Short break duration"
-msgstr "Thời lượng nghỉ ngắn"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:12
 msgid "Duration of short breaks in minutes"
-msgstr "Thời lượng nghỉ ngắn tính bằng phút"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:16
 msgid "Long break duration"
-msgstr "Thời lượng nghỉ dài"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:17
 msgid "Duration of long breaks in minutes"
-msgstr "Thời lượng nghỉ dài tính bằng phút"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:21
 msgid "Sessions before long break"
-msgstr "Số phiên trước khi nghỉ dài"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:22
 msgid "Number of work sessions to complete before a long break"
-msgstr "Số phiên làm việc cần hoàn thành trước khi nghỉ dài"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:26
 msgid "Auto-start breaks"
-msgstr "Tự động bắt đầu nghỉ giải lao"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:27
-msgid "Whether to automatically start the break timer when a work session ends."
+msgid ""
+"Whether to automatically start the break timer when a work session ends."
 msgstr ""
-"Có tự động bắt đầu hẹn giờ nghỉ giải lao khi phiên làm việc kết thúc hay không."
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:31
 msgid "Auto-start work sessions"
-msgstr "Tự động bắt đầu phiên làm việc"
+msgstr ""
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:32
-msgid "Whether to automatically start the work timer when a break session ends."
+msgid ""
+"Whether to automatically start the work timer when a break session ends."
 msgstr ""
-"Có tự động bắt đầu tính giờ làm việc khi phiên nghỉ giải lao kết thúc hay không."
 
 #: src/preferences-dialog.ui:10
 msgid "Timer Durations"
-msgstr "Thời lượng bộ đếm"
+msgstr ""
 
 #: src/preferences-dialog.ui:11
 msgid "Set the duration (in minutes) for each routine."
-msgstr "Đặt thời lượng (tính bằng phút) cho từng chu kỳ."
+msgstr ""
 
 #: src/preferences-dialog.ui:15
 msgid "Work"
-msgstr "Làm việc"
+msgstr ""
 
 #: src/preferences-dialog.ui:63
 msgid "Session Cycle"
-msgstr "Chu kỳ phiên"
+msgstr ""
 
 #: src/preferences-dialog.ui:66
 msgid "Sessions before Long Break"
-msgstr "Số phiên trước khi nghỉ dài"
+msgstr ""
 
 #: src/preferences-dialog.ui:82
 msgid "Transition Flow"
-msgstr "Luồng chuyển tiếp"
+msgstr ""
 
 #: src/preferences-dialog.ui:85
 msgid "Auto Start Breaks"
-msgstr "Tự động bắt đầu nghỉ giải lao"
+msgstr ""
 
 #: src/preferences-dialog.ui:86
 msgid "Automatically start break routine after work session ends."
-msgstr "Tự động bắt đầu thói quen nghỉ giải lao sau khi phiên làm việc kết thúc."
+msgstr ""
 
 #: src/preferences-dialog.ui:92
 msgid "Auto Start Work"
-msgstr "Tự động bắt đầu công việc"
+msgstr ""
 
 #: src/preferences-dialog.ui:93
 msgid "Automatically start work routine after break ends."
-msgstr "Tự động bắt đầu công việc sau khi kết thúc giờ nghỉ."
+msgstr ""
 
 #: src/samaya-application.c:68
 msgid "translator-credits"
 msgstr ""
-"Vietnam Linux L10n <https://github.com/linux-l10n-vi>\n"
-"Loc Huynh <https://github.com/hthienloc>"
 
 #: src/samaya-window.c:215
 msgid "Stop"
-msgstr "Dừng"
+msgstr ""
 
 #: src/samaya-window.c:221
 msgid "Skip Session"
-msgstr "Bỏ qua phiên"
+msgstr ""
 
 #: src/samaya-window.c:227
 msgid "Resume"
-msgstr "Tiếp tục"
+msgstr ""
 
 #: src/samaya-window.c:233
 msgid "Reset Timer"
-msgstr "Đặt lại bộ đếm"
+msgstr ""
 
 #: src/samaya-window.c:239 src/samaya-window.ui:141
 msgid "Start"
-msgstr "Bắt đầu"
+msgstr ""
 
 #: src/samaya-session.c:149
 msgid "Focus session complete! Time for a break."
-msgstr "Số phiên làm việc cần hoàn thành trước khi nghỉ dài."
+msgstr ""
 
 #: src/samaya-session.c:153
 msgid "Break over! Time to get back to work."
-msgstr "Phiên nghỉ kết thúc! Đã đến lúc quay lại làm việc."
+msgstr ""
 
 #: src/samaya-session.c:156
 msgid "Timer finished."
-msgstr "Thời lượng bộ đếm."
+msgstr ""
 
 #: src/samaya-window.ui:19
 msgid "Main Menu"
-msgstr "Menu chính"
+msgstr ""
 
 #: src/samaya-window.ui:43
 msgid "Pomodoro"
-msgstr "Pomodoro"
+msgstr ""
 
 #: src/samaya-window.ui:151
 msgid "Reset"
-msgstr "Đặt lại"
+msgstr ""
 
 #: src/samaya-window.ui:173
 msgid "_Preferences"
-msgstr "_Tùy chọn"
+msgstr ""
 
 #: src/samaya-window.ui:177
 msgid "_Keyboard Shortcuts"
-msgstr "_Phím tắt"
+msgstr ""
 
 #: src/samaya-window.ui:181
 msgid "_About Samaya"
-msgstr "_Giới thiệu Samaya"
+msgstr ""
 
 #: src/shortcuts-dialog.ui:6
 msgid "Shortcuts"
-msgstr "Phím tắt"
+msgstr ""
 
 #: src/shortcuts-dialog.ui:9
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Hiện phím tắt"
+msgstr ""
 
 #: src/shortcuts-dialog.ui:15
 msgctxt "shortcut window"
 msgid "Show Preferences"
-msgstr "Hiện tùy chọn"
+msgstr ""
 
 #: src/shortcuts-dialog.ui:21
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Thoát"
+msgstr ""

@@ -8,20 +8,7 @@
 # SPDX-FileCopyrightText: 2025 SPDX-FileCopyrightText :
 # SPDX-FileCopyrightText: 2025 Вячеслав Малышев <ma12@rambler.ru>
 msgid ""
-msgstr ""
-"Project-Id-Version: samaya\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-14 18:38+0530\n"
-"PO-Revision-Date: 2025-12-10 17:14+0300\n"
-"Last-Translator: Вячеслав Малышев <ma12@rambler.ru>\n"
-"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
-"Language: ru\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 25.04.3\n"
+msgstr "Project-Id-Version: samaya\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2025-12-14 18:38+0530\nPO-Revision-Date: 2025-12-15 07:44+0000\nLast-Translator: ma12vlad <ma12vlad@noreply.codeberg.org>\nLanguage-Team: Russian <https://translate.codeberg.org/projects/samaya/samaya/ru/>\nLanguage: ru\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\nX-Generator: Weblate 5.14.3\n"
 
 #: data/io.github.redddfoxxyy.samaya.desktop.in:2
 #: data/io.github.redddfoxxyy.samaya.metainfo.xml.in:7
@@ -101,21 +88,21 @@ msgstr "Количество рабочих сессий перед длител
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:26
 msgid "Auto-start breaks"
-msgstr ""
+msgstr "Автостарт перерывов"
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:27
 msgid ""
 "Whether to automatically start the break timer when a work session ends."
-msgstr ""
+msgstr "Следует ли автоматически запускать таймер перерыва по окончании рабочего сеанса."
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:31
 msgid "Auto-start work sessions"
-msgstr ""
+msgstr "Автозапуск рабочих сеансов"
 
 #: data/io.github.redddfoxxyy.samaya.gschema.xml:32
 msgid ""
 "Whether to automatically start the work timer when a break session ends."
-msgstr ""
+msgstr "Следует ли автоматически запускать рабочий таймер по окончании сеанса перерыва."
 
 #: src/preferences-dialog.ui:10
 msgid "Timer Durations"
@@ -135,28 +122,27 @@ msgstr "Цикл сеанса"
 
 #: src/preferences-dialog.ui:66
 msgid "Sessions before Long Break"
-msgstr "Сеансы перед длительным перерывом"
+msgstr "Сессии перед длительным перерывом"
 
 #: src/preferences-dialog.ui:82
 msgid "Transition Flow"
-msgstr ""
+msgstr "Переходный процесс"
 
 #: src/preferences-dialog.ui:85
-#, fuzzy
 msgid "Auto Start Breaks"
-msgstr "Короткий перерыв"
+msgstr "Автозапуск прерывов"
 
 #: src/preferences-dialog.ui:86
 msgid "Automatically start break routine after work session ends."
-msgstr ""
+msgstr "Автоматически запускать перерыв после окончания рабочего сеанса."
 
 #: src/preferences-dialog.ui:92
 msgid "Auto Start Work"
-msgstr ""
+msgstr "Автозапуск работы"
 
 #: src/preferences-dialog.ui:93
 msgid "Automatically start work routine after break ends."
-msgstr ""
+msgstr "Автоматически начинать рабочую рутину после окончания перерыва."
 
 #: src/samaya-application.c:68
 msgid "translator-credits"
@@ -183,18 +169,16 @@ msgid "Start"
 msgstr "Старт"
 
 #: src/samaya-session.c:149
-#, fuzzy
 msgid "Focus session complete! Time for a break."
-msgstr "Количество рабочих сессий перед длительным перерывом"
+msgstr "Количество рабочих сессий перед длительным перерывом."
 
 #: src/samaya-session.c:153
 msgid "Break over! Time to get back to work."
-msgstr ""
+msgstr "Перерыв окончен! Пора вернуться к работе."
 
 #: src/samaya-session.c:156
-#, fuzzy
 msgid "Timer finished."
-msgstr "Длительность таймера"
+msgstr "Длительность таймера."
 
 #: src/samaya-window.ui:19
 msgid "Main Menu"
