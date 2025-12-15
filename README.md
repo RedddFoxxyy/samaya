@@ -1,5 +1,4 @@
 > [!NOTE]
-> **Canonical Repository Notice**
 >
 > The official source code and active development for this project is hosted on **Codeberg**.
 >
