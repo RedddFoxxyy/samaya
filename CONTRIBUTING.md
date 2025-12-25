@@ -28,7 +28,7 @@ The primary repository is on Codeberg, but read-only mirrors are maintained for 
 | **Codeberg (Primary Source)** | `https://codeberg.org/lockedmutex/samaya.git` | Required for Contribution Forking             |
 | **GitHub Mirror**             | `https://github.com/lockedmutex/samaya.git`   | Read-only local cloning (if Codeberg is slow) |
 | **GitLab Mirror**             | `https://gitlab.com/lockedmutex/samaya.git`   | Read-only local cloning (if Codeberg is slow) |
-| **Personal Mirror**           | `https://git.suyogtandel.in/samaya/`          | Read-only viewing and cloning (Last Resort)   |
+| **Personal Mirror**           | `https://git.suyogtandel.in/lockedmutex/samaya.git`          | Read-only viewing and cloning (Last Resort)   |
 
 ---
 

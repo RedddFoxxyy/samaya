@@ -18,8 +18,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-#include "samaya-timer.h"
 #include "glib.h"
+#include "samaya-timer.h"
 #include "samaya-utils.h"
 
 
@@ -202,7 +202,7 @@ TimerPtr tm_new(float duration_minutes, TmCallback time_complete, TmCallback tim
 {
     TimerPtr timer = g_new0(Timer, 1);
 
-    timer->initial_time_ms = (gint64) (duration_minutes * 60 * 1000);
+    timer->initial_time_ms = (guint64) (duration_minutes * 60 * 1000);
     timer->remaining_time_ms = timer->initial_time_ms;
     timer->timer_progress = 1.0F;
 
